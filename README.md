@@ -1,2 +1,5 @@
 # FTC-Android-Robotcore
-Declarations and Sources to make the SDK compile
+
+After the "release" of the FTC Java SDK, we couldn't get it to compile, or even find the code for the core functionality of the SDK. The goal of this repository is to provide ourselves and other teams with the tools they need to access the source code for the FTC Java SDK, and to develop their own code for their robot(s). This repository contains parts of source code from the FTC Java SDK, but only the parts that will actually be used to control a robot. This SDK relies on the SDK for the Android platform, which will *not* be included here, so don't expect any sources to be compilable. The full source files are included for reference only.
+
+There will also be a form of the FTC SDK that will contain only class and method declarations, but no actual content. This will allow ourselves and other teams to successfully compile the SDK and start to develop code for it. It should work in any IDE.
