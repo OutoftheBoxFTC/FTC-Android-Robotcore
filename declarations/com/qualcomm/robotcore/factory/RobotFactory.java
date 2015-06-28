@@ -30,22 +30,13 @@
 
 package com.qualcomm.robotcore.factory;
 
-import com.qualcomm.robotcore.eventloop.EventLoopManager;
 import com.qualcomm.robotcore.exception.RobotCoreException;
-import com.qualcomm.robotcore.robocol.RobocolDatagramSocket;
 import com.qualcomm.robotcore.robot.Robot;
 
 public class RobotFactory {
 
-  public static Robot createRobot() throws RobotCoreException {
+	public static Robot createRobot() throws RobotCoreException {
+		return null;
+	}
 
-    RobocolDatagramSocket socket = new RobocolDatagramSocket();
-    EventLoopManager eventProcessor = new EventLoopManager(socket);
-
-    Robot robot = new Robot();
-    robot.eventLoopManager = eventProcessor;
-    robot.socket = socket;
-
-    return robot;
-  }
 }

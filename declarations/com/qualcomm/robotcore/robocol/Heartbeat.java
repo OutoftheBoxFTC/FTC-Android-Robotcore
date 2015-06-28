@@ -31,133 +31,55 @@
 package com.qualcomm.robotcore.robocol;
 
 import com.qualcomm.robotcore.exception.RobotCoreException;
-import com.qualcomm.robotcore.util.RobotLog;
 
-import java.nio.BufferOverflowException;
-import java.nio.ByteBuffer;
-
-/**
- * Heartbeat message
- * <p>
- * Used to know if the connection between the client/server is still alive
- */
-@SuppressWarnings("unused")
 public class Heartbeat implements RobocolParsable {
 
-  public enum Token { EMPTY }
+	public enum Token {
+		EMPTY
+	}
 
-  public static final short PAYLOAD_SIZE = 10;
-  public static final short BUFFER_SIZE = PAYLOAD_SIZE + RobocolParsable.HEADER_LENGTH;
-  public static final short MAX_SEQUENCE_NUMBER = 10000;
+	public static final short PAYLOAD_SIZE = 10;
+	public static final short BUFFER_SIZE = PAYLOAD_SIZE + RobocolParsable.HEADER_LENGTH;
+	public static final short MAX_SEQUENCE_NUMBER = 10000;
 
-  private static final double SECOND_IN_NANO = 1000000000;
+	public Heartbeat() {
 
-  // this variable needs to be protected by a lock
-  private static short sequenceNumberGen = 0;
+	}
 
-  private long timestamp;
-  private short sequenceNumber;
+	public Heartbeat(Heartbeat.Token token) {
 
-  /**
-   * Constructor
-   */
-  public Heartbeat() {
-    sequenceNumber = genNextSequenceNumber();
-    timestamp = System.nanoTime();
-  }
+	}
 
-  public Heartbeat(Heartbeat.Token token) {
-    switch (token) {
-      case EMPTY:
-        // do not generate new values
-        sequenceNumber = 0;
-        timestamp = 0;
-        break;
-    }
-  }
+	public long getTimestamp() {
+		return 0;
+	}
 
-  /**
-   * Timestamp this Heartbeat was created at
-   * <p>
-   * Device dependent, cannot compare across devices
-   * @return timestamp
-   */
-  public long getTimestamp() {
-    return timestamp;
-  }
+	public double getElapsedTime() {
+		return 0.0;
+	}
 
-  /**
-   * Number of seconds since Heartbeat was created
-   * <p>
-   * Device dependent, cannot compare across devices
-   * @return elapsed time
-   */
-  public double getElapsedTime() {
-    return (System.nanoTime() - timestamp) / SECOND_IN_NANO;
-  }
+	public short getSequenceNumber() {
+		return 0;
+	}
 
-  /**
-   * Sequence number of this Heartbeat. Sequence numbers wrap at MAX_SEQUENCE_NUMBER.
-   * @return sequence number
-   */
-  public short getSequenceNumber() {
-    return sequenceNumber;
-  }
+	@Override
+	public MsgType getRobocolMsgType() {
+		return null;
+	}
 
-  /**
-   * Get Robocol message type
-   * @return RobocolParsable.MsgType.HEARTBEAT
-   */
-  @Override
-  public MsgType getRobocolMsgType() {
-    return RobocolParsable.MsgType.HEARTBEAT;
-  }
+	@Override
+	public byte[] toByteArray() throws RobotCoreException {
+		return null;
+	}
 
-  /**
-   * Convert this Heartbeat into a byte array
-   */
-  @Override
-  public byte[] toByteArray() throws RobotCoreException {
-    ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
-    try {
-      buffer.put(getRobocolMsgType().asByte());
-      buffer.putShort(PAYLOAD_SIZE);
+	@Override
+	public void fromByteArray(byte[] byteArray) throws RobotCoreException {
 
-      buffer.putShort(sequenceNumber);
-      buffer.putLong(timestamp);
-    } catch (BufferOverflowException e) {
-      RobotLog.logStacktrace(e);
-    }
-    return buffer.array();
-  }
+	}
 
-  /**
-   * Populate this Heartbeat from a byte array
-   */
-  @Override
-  public void fromByteArray(byte[] byteArray) throws RobotCoreException {
-    if (byteArray.length < BUFFER_SIZE) {
-      throw new RobotCoreException("Expected buffer of at least " + BUFFER_SIZE + " bytes, received " + byteArray.length);
-    }
+	@Override
+	public String toString() {
+		return null;
+	}
 
-    ByteBuffer byteBuffer = ByteBuffer.wrap(byteArray, HEADER_LENGTH, PAYLOAD_SIZE);
-    sequenceNumber = byteBuffer.getShort();
-    timestamp = byteBuffer.getLong();
-  }
-
-  /**
-   * String containing sequence number and timestamp
-   * @return String
-   */
-  @Override
-  public String toString() {
-    return String.format("Heartbeat - seq: %4d, time: %d", sequenceNumber, timestamp);
-  }
-
-  private synchronized static short genNextSequenceNumber() {
-    short next = sequenceNumberGen;
-    sequenceNumberGen += 1;
-    if (sequenceNumberGen > MAX_SEQUENCE_NUMBER) sequenceNumberGen = 0;
-    return next;
-  }
 }

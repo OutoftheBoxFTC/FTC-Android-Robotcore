@@ -35,31 +35,23 @@ import com.qualcomm.robotcore.hardware.LightSensor;
 
 public class MockNxtLightSensor extends LightSensor {
 
-  private final MockUsbLegacyModule legacyModule;
-  private final int physicalPort;
+	MockNxtLightSensor(MockUsbLegacyModule legacyModule, int physicalPort) {
 
+	}
 
-  MockNxtLightSensor(MockUsbLegacyModule legacyModule, int physicalPort) {
+	@Override
+	public double getLightLevel() {
+		return 0.0;
+	}
 
-    this.legacyModule = legacyModule;
-    this.physicalPort = physicalPort;
-  }
+	@Override
+	public void enableLed(boolean enable) {
 
-  @Override
-  public double getLightLevel() {
+	}
 
-    return 20.0;
-  }
-
-  @Override
-  public void enableLed(boolean enable) {
-
-  }
-
-
-  @Override
-  public String status() {
-    return String.format("NXT Light Sensor, connected via device %s, port %d",
-        legacyModule.getSerialNumber().toString(), physicalPort);
-  }
+	@Override
+	public String status() {
+		return null;
+	}
+	
 }

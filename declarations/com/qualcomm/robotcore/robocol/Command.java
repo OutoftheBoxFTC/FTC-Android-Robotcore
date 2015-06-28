@@ -30,14 +30,9 @@
 
 package com.qualcomm.robotcore.robocol;
 
-import com.qualcomm.robotcore.exception.RobotCoreException;
-import com.qualcomm.robotcore.util.RobotLog;
-import com.qualcomm.robotcore.util.TypeConversion;
-
-import java.nio.BufferOverflowException;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.util.Comparator;
+
+import com.qualcomm.robotcore.exception.RobotCoreException;
 
 /**
  * Class used to send and receive commands
@@ -48,201 +43,93 @@ import java.util.Comparator;
  */
 public class Command implements RobocolParsable, Comparable<Command>, Comparator<Command> {
 
-  public static final int MAX_COMMAND_LENGTH = 256;
+	public static final int MAX_COMMAND_LENGTH = 256;
 
-  private static final short BASE_PAYLOAD_SIZE = 11;
+	String mName;
+	String mExtra;
+	byte[] mNameBytes;
+	byte[] mExtraBytes;
+	long mTimestamp;
+	boolean mAcknowledged = false;
+	byte mAttempts = 0;
 
-  private static final Charset CHARSET = Charset.forName("UTF-8");
+	public Command(String name) {
 
-  String mName;
-  String mExtra;
-  byte[] mNameBytes;
-  byte[] mExtraBytes;
-  long mTimestamp;
-  boolean mAcknowledged = false;
-  byte mAttempts = 0;
+	}
 
-  /**
-   * Constructor
-   * @param name name as string
-   */
-  public Command(String name) {
-    this(name, "");
-  }
+	public Command(String name, String extra) {
 
-  /**
-   * Constructor
-   * @param name name as string
-   * @param extra extra data as string
-   */
-  public Command(String name, String extra) {
-    mName = name;
-    mExtra = extra;
-    mNameBytes = TypeConversion.stringToUtf8(mName);
-    mExtraBytes = TypeConversion.stringToUtf8(mExtra);
-    mTimestamp = generateTimestamp();
+	}
 
-    if (mNameBytes.length > MAX_COMMAND_LENGTH) {
-      throw new IllegalArgumentException(String.format("command name length is too long (MAX: %d)", MAX_COMMAND_LENGTH));
-    }
+	public Command(byte[] byteArray) throws RobotCoreException {
 
-    if (mExtraBytes.length > MAX_COMMAND_LENGTH) {
-      throw new IllegalArgumentException(String.format("command extra data length is too long (MAX: %d)", MAX_COMMAND_LENGTH));
-    }
-  }
+	}
 
-  public Command(byte[] byteArray) throws RobotCoreException {
-    fromByteArray(byteArray);
-  }
+	public void acknowledge() {
 
-  /**
-   * The receiver should call this method before sending this command back to the sender
-   */
-  public void acknowledge() {
-    mAcknowledged = true;
-  }
+	}
 
-  /**
-   * Check if this command has been acknowledged
-   * @return true if acknowledged, otherwise false
-   */
-  public boolean isAcknowledged() {
-    return mAcknowledged;
-  }
+	public boolean isAcknowledged() {
+		return false;
+	}
 
-  /**
-   * Get the command name as a string
-   * @return command name
-   */
-  public String getName() {
-    return mName;
-  }
+	public String getName() {
+		return null;
+	}
 
-  /**
-   * Get the extra data as a string
-   * @return extra string
-   */
-  public String getExtra() { return mExtra; }
+	public String getExtra() {
+		return mExtra;
+	}
 
-  /**
-   * Number of times this command was packaged into a byte array
-   * <p>
-   * After Byte.MAX_VALUE is reached, this will stop counting and remain at Byte.MAX_VALUE.
-   *
-   * @return number of times this command was packaged into a byte array
-   */
-  public byte getAttempts() {
-    return mAttempts;
-  }
+	public byte getAttempts() {
+		return 0;
+	}
 
-  /**
-   * Get the timestamp that this command was created
-   * @return timestamp
-   */
-  public long getTimestamp() {
-    return mTimestamp;
-  }
+	public long getTimestamp() {
+		return 0L;
+	}
 
-  /*
-   * (non-Javadoc)
-   * @see com.qualcomm.robotcore.robocol.RobocolParsable#getRobocolMsgType()
-   */
-  @Override
-  public MsgType getRobocolMsgType() {
-    return RobocolParsable.MsgType.COMMAND;
-  }
+	@Override
+	public MsgType getRobocolMsgType() {
+		return null;
+	}
 
-  /*
-   * (non-Javadoc)
-   * @see com.qualcomm.robotcore.robocol.RobocolParsable#toByteArray()
-   */
-  @Override
-  public byte[] toByteArray() throws RobotCoreException {
+	@Override
+	public byte[] toByteArray() throws RobotCoreException {
+		return null;
+	}
 
-    if (mAttempts != Byte.MAX_VALUE) mAttempts += 1;
+	@Override
+	public void fromByteArray(byte[] byteArray) throws RobotCoreException {
+	}
 
-    short payloadSize = (short) (BASE_PAYLOAD_SIZE + mNameBytes.length + mExtraBytes.length);
+	@Override
+	public String toString() {
+		return null;
+	}
 
-    ByteBuffer buffer = ByteBuffer.allocate(RobocolParsable.HEADER_LENGTH + payloadSize);
-    try {
-      buffer.put(getRobocolMsgType().asByte());
-      buffer.putShort(payloadSize);
+	@Override
+	public boolean equals(Object o) {
+		return false;
+	}
 
-      buffer.putLong(mTimestamp);
+	@Override
+	public int hashCode() {
+		return 0;
+	}
 
-      buffer.put((byte) (mAcknowledged ? 1 : 0));
+	@Override
+	public int compareTo(Command another) {
+		return 0;
+	}
 
-      buffer.put((byte) mNameBytes.length);
-      buffer.put(mNameBytes);
-      buffer.put((byte) mExtraBytes.length);
-      buffer.put(mExtraBytes);
-    } catch (BufferOverflowException e) {
-      RobotLog.logStacktrace(e);
-    }
-    return buffer.array();
-  }
+	@Override
+	public int compare(Command c1, Command c2) {
+		return 0;
+	}
 
-  /*
-   * (non-Javadoc)
-   * @see com.qualcomm.robotcore.robocol.RobocolParsable#fromByteArray(byte[])
-   */
-  @Override
-  public void fromByteArray(byte[] byteArray) throws RobotCoreException {
-    ByteBuffer buffer = ByteBuffer.wrap(byteArray, RobocolParsable.HEADER_LENGTH, byteArray.length - RobocolParsable.HEADER_LENGTH);
+	public static long generateTimestamp() {
+		return 0L;
+	}
 
-    mTimestamp = buffer.getLong();
-
-    mAcknowledged = (buffer.get() == 1);
-
-    int length = TypeConversion.unsignedByteToInt(buffer.get());
-    mNameBytes = new byte[length];
-    buffer.get(mNameBytes);
-    mName = TypeConversion.utf8ToString(mNameBytes);
-
-    length = TypeConversion.unsignedByteToInt(buffer.get());
-    mExtraBytes = new byte[length];
-    buffer.get(mExtraBytes);
-    mExtra = TypeConversion.utf8ToString(mExtraBytes);
-  }
-
-  @Override
-  public String toString() {
-    return String.format("command: %20d %5s %s", mTimestamp, mAcknowledged, mName);
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (o instanceof Command) {
-      Command c = (Command) o;
-      if (this.mName.equals(c.mName) && this.mTimestamp == c.mTimestamp) return true;
-    }
-
-    return false;
-  }
-
-  @Override
-  public int hashCode() {
-    return (int) (mName.hashCode() & mTimestamp);
-  }
-
-  @Override
-  public int compareTo(Command another) {
-    int diff = mName.compareTo(another.mName);
-
-    if (diff != 0) return diff;
-
-    if (mTimestamp < another.mTimestamp) return -1;
-    if (mTimestamp > another.mTimestamp) return  1;
-
-    return 0;
-  }
-
-  @Override
-  public int compare(Command c1, Command c2) {
-    return c1.compareTo(c2);
-  }
-
-  public static long generateTimestamp() {
-    return System.nanoTime();
-  }
 }

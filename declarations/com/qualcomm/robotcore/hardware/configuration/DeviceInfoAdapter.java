@@ -31,67 +31,30 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.robotcore.hardware.configuration;
 
-import android.app.Activity;
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
-import android.widget.TextView;
-
 import com.qualcomm.robotcore.util.SerialNumber;
 
-import java.util.HashMap;
 import java.util.Map;
 
+public class DeviceInfoAdapter {
 
-public class DeviceInfoAdapter extends BaseAdapter implements ListAdapter {
+	public DeviceInfoAdapter(Object context, int list_id, int text_id, Map<SerialNumber, ControllerConfiguration> deviceControllers) {
 
-  private Map<SerialNumber, ControllerConfiguration> deviceControllers = new HashMap<SerialNumber, ControllerConfiguration>();
-  private SerialNumber[] serialNums;
-  private Context context;
-  private int list_id;
-  private int text_id;
+	}
 
-  public DeviceInfoAdapter(Activity context, int list_id, int text_id, Map<SerialNumber, ControllerConfiguration> deviceControllers) {
-    super();
-    this.context = context;
-    this.deviceControllers = deviceControllers;
-    this.serialNums = deviceControllers.keySet().toArray(new SerialNumber[deviceControllers.size()]);
-    this.list_id = list_id;
-    this.text_id = text_id;
-  }
+	public int getCount() {
+		return 0;
+	}
 
-  @Override
-  public int getCount() {
-    return deviceControllers.size();
-  }
+	public Object getItem(int arg0) {
+		return null;
+	}
 
-  @Override
-  public Object getItem(int arg0) {
-    return deviceControllers.get(serialNums[arg0]);
-  }
+	public long getItemId(int arg0) {
+		return 0L;
+	}
 
-  @Override
-  public long getItemId(int arg0) {
-    // TODO Auto-generated method stub
-    return 0;
-  }
-
-  @Override
-  public View getView(int pos, View convertView, ViewGroup parent){
-    View row = convertView;
-    if (row == null){
-      LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-      row = inflater.inflate(list_id, parent, false);
-    }
-
-    String name = deviceControllers.get(serialNums[pos]).getName();
-    TextView text = (TextView)row.findViewById(text_id);
-    text.setText(name);
-    return row;
-
-  }
+	public Object getView(int pos, Object convertView, Object parent){
+		return null;
+	}
 
 }

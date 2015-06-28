@@ -31,15 +31,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.robotcore.hardware;
 
-/**
- * Voltage Sensor
- */
 public interface VoltageSensor {
 
-  /**
-   * Get the current voltage
-   * @return voltage
-   */
-  public double getVoltage();
+	public double getVoltage();
 
 }

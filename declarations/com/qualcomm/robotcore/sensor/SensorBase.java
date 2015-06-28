@@ -33,49 +33,23 @@ package com.qualcomm.robotcore.sensor;
 import java.util.List;
 
 abstract public class SensorBase<T> {
-  protected List<SensorListener<T>> mListeners;
 
-  public SensorBase(List<SensorListener<T>> listeners) {
-    mListeners = listeners;
-  }
+	protected List<SensorListener<T>> mListeners;
 
-  // -------------------------------------------------------------------------\-
-  ///Performs Sensor initialization.
-  /// @return true on success, false on failure
-  // -------------------------------------------------------------------------\-
-  abstract public boolean initialize();
+	public SensorBase(List<SensorListener<T>> listeners) {
 
-  // -------------------------------------------------------------------------\-
-  /// Performs Sensor termination and cleanup.
-  /// @return true on success, false on failure
-  // -------------------------------------------------------------------------\-
-  abstract public boolean shutdown();
+	}
 
-  // -------------------------------------------------------------------------\-
-  /// Resume Sensor operation.
-  /// @return true on success, false on failure
-  // -------------------------------------------------------------------------\-
-  abstract public boolean resume();
+	abstract public boolean initialize();
 
-  // -------------------------------------------------------------------------\-
-  /// Pause Sensor.
-  /// @return true on success, false on failure
-  // -------------------------------------------------------------------------\-
-  abstract public boolean pause();
+	abstract public boolean shutdown();
 
-  // -------------------------------------------------------------------------\-
-  /// Update SensorListeners with new sensor data.
-  /// @return none
-  // -------------------------------------------------------------------------\-
-  final public void update(T data) {
-    synchronized (mListeners) {
-      if (mListeners == null) {
-        return;
-      }
+	abstract public boolean resume();
 
-      for (SensorListener<T> l : mListeners) {
-        l.onUpdate(data);
-      }
-    }
-  }
+	abstract public boolean pause();
+
+	final public void update(T data) {
+
+	}
+
 }

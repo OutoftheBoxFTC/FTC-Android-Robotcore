@@ -31,72 +31,35 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.robotcore.util;
 
-
-/**
- * Measure elapsed time
- * <p>
- * Does not measure deep sleep. Nanosecond accuracy.
- */
 public class ElapsedTime {
 
-  private static final double SECOND_IN_NANO = 1000000000;
+	public ElapsedTime() {
+		reset();
+	}
 
-  private long startTime = 0;
+	public ElapsedTime(long startTime) {
 
-  /**
-   * Constructor
-   * <p>
-   * Starts the timer
-   */
-  public ElapsedTime() {
-    reset();
-  }
+	}
 
-  /**
-   * Constructor
-   * <p>
-   * Starts timer with a pre-set time
-   * @param startTime pre set time
-   */
-  public ElapsedTime(long startTime) {
-    this.startTime = startTime;
-  }
+	public void reset() {
 
-  /**
-   * Reset the start time to now
-   */
-  public void reset() {
-    startTime = System.nanoTime();
-  }
+	}
 
-  /**
-   * Get the relative start time
-   * @return relative start time
-   */
-  public double startTime() {
-    return startTime / SECOND_IN_NANO;
-  }
+	public double startTime() {
+		return 0.0;
+	}
 
-  /**
-   * How many seconds since the start time. Nanosecond accuracy.
-   * @return time
-   */
-  public double time() {
-    return (System.nanoTime() - startTime) / SECOND_IN_NANO;
-  }
+	public double time() {
+		return 0.0;
+	}
 
-  /**
-   * Log a message stating how long the timer has been running
-   */
-  public void log(String label) {
-    RobotLog.v(String.format("TIMER: %20s - %1.3f", label, time()));
-  }
+	public void log(String label) {
 
-  /**
-   * Return a string stating the number of seconds that have passed
-   */
-  @Override
-  public String toString() {
-    return String.format("%1.4f seconds", time());
-  }
+	}
+
+	@Override
+	public String toString() {
+		return null;
+	}
+
 }

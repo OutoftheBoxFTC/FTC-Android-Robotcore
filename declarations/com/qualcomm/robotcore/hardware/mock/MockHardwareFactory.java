@@ -35,41 +35,23 @@ import com.qualcomm.robotcore.exception.RobotCoreException;
 import com.qualcomm.robotcore.hardware.HardwareFactory;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-/**
- * Mock Hardware Factory
- */
-@SuppressWarnings("unused")
 public class MockHardwareFactory implements HardwareFactory {
 
-    private HardwareMap hardwareMap;
+	public MockHardwareFactory(HardwareMap hardwareMap) {
 
-    /**
-     * Create a MockHardwareFactory
-     *
-     * @param hardwareMap this is the hardware map that will be returned by createHardwareMap(...)
-     */
-    public MockHardwareFactory(HardwareMap hardwareMap) {
-        this.hardwareMap = hardwareMap;
-    }
+	}
 
-    /**
-     * Set the hardware map that will be returned by createHardwareMap(...)
-     * @param hardwareMap this is the hardware map that will be returned by createHardwareMap(...)
-     */
-    public void setHardwareMap(HardwareMap hardwareMap) {
-        this.hardwareMap = hardwareMap;
-    }
+	public void setHardwareMap(HardwareMap hardwareMap) {
 
-    /**
-     * Get a copy of the hardware map that will be returned by createHardwareMap(...)
-     * @return
-     */
-    public HardwareMap getHardwareMap() {
-        return hardwareMap;
-    }
+	}
 
-    @Override
-    public HardwareMap createHardwareMap(EventLoopManager manager) throws RobotCoreException, InterruptedException {
-        return hardwareMap;
-    }
+	public HardwareMap getHardwareMap() {
+		return null;
+	}
+
+	@Override
+	public HardwareMap createHardwareMap(EventLoopManager manager) throws RobotCoreException, InterruptedException {
+		return null;
+	}
+
 }

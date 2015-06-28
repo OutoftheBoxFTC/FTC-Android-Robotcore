@@ -30,60 +30,26 @@
 
 package com.qualcomm.robotcore.hardware;
 
-/**
- * Control a single digital channel
- */
 public class DigitalChannel {
 
-  private DigitalChannelController controller = null;
-  private int channel = -1;
+	public DigitalChannel(DigitalChannelController controller, int channel) {
 
-  /**
-   * Constructor
-   *
-   * @param controller Digital channel controller this channel is attached to
-   * @param channel channel on the digital channel controller
-   */
-  public DigitalChannel(DigitalChannelController controller, int channel) {
-    this.controller = controller;
-    this.channel = channel;
-  }
+	}
 
-  /**
-   * Get the channel mode
-   *
-   * @return channel mode
-   */
-  public DigitalChannelController.Mode getMode() {
-    return controller.getDigitalChannelMode(channel);
-  }
+	public DigitalChannelController.Mode getMode() {
+		return null;
+	}
 
-  /**
-   * Set the channel mode
-   *
-   * @param mode
-   */
-  public void setMode(DigitalChannelController.Mode mode) {
-    controller.setDigitalChannelMode(channel, mode);
-  }
+	public void setMode(DigitalChannelController.Mode mode) {
 
-  /**
-   * Get the channel state
-   *
-   * @return state
-   */
-  public boolean getState() {
-    return controller.getDigitalChannelState(channel);
-  }
+	}
 
-  /**
-   * Set the channel state
-   * <p>
-   * The behavior of this method is undefined for INPUT digital channels.
-   *
-   * @param state
-   */
-  public void setState(boolean state) {
-    controller.setDigitalChannelState(channel, state);
-  }
+	public boolean getState() {
+		return false;
+	}
+
+	public void setState(boolean state) {
+
+	}
+
 }

@@ -30,42 +30,29 @@
 
 package com.qualcomm.robotcore.robot;
 
+import java.net.InetAddress;
+import java.util.concurrent.ArrayBlockingQueue;
+
 import com.qualcomm.robotcore.eventloop.EventLoop;
 import com.qualcomm.robotcore.eventloop.EventLoopManager;
 import com.qualcomm.robotcore.exception.RobotCoreException;
 import com.qualcomm.robotcore.robocol.RobocolDatagram;
 import com.qualcomm.robotcore.robocol.RobocolDatagramSocket;
-import com.qualcomm.robotcore.util.RobotLog;
 
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.util.concurrent.ArrayBlockingQueue;
 
-/**
- * Contains the base components of a robot
- * <p>
- * Create via RobotFactory()
- */
 public class Robot {
-  public EventLoopManager eventLoopManager = null;
-  public RobocolDatagramSocket socket = null;
-  public ArrayBlockingQueue<RobocolDatagram> sendQueue = null;
-  public ArrayBlockingQueue<RobocolDatagram> eventQueue = null;
 
-  public void start(InetAddress driverStationAddr, EventLoop eventLoop) throws RobotCoreException {
-    try {
-      socket.listen(driverStationAddr);
-      eventLoopManager.start(eventLoop);
-    } catch (SocketException e) {
-      RobotLog.logStacktrace(e);
-      throw new RobotCoreException("Robot start failed: " + e.toString());
-    }
-  }
+	public EventLoopManager eventLoopManager = null;
+	public RobocolDatagramSocket socket = null;
+	public ArrayBlockingQueue<RobocolDatagram> sendQueue = null;
+	public ArrayBlockingQueue<RobocolDatagram> eventQueue = null;
 
-  public void shutdown() {
-    if (eventLoopManager != null)
-      eventLoopManager.shutdown();
-    if (socket != null)
-      socket.close();
-  }
+	public void start(InetAddress driverStationAddr, EventLoop eventLoop) throws RobotCoreException {
+
+	}
+
+	public void shutdown() {
+
+	}
+
 }

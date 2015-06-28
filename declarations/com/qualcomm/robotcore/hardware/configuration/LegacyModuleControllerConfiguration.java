@@ -35,10 +35,11 @@ import com.qualcomm.robotcore.util.SerialNumber;
 
 import java.util.List;
 
+@SuppressWarnings("serial")
 public class LegacyModuleControllerConfiguration extends ControllerConfiguration {
 
-  public LegacyModuleControllerConfiguration(String name, List<DeviceConfiguration> modules, SerialNumber serialNumber) {
-    super(name, modules, serialNumber, ConfigurationType.LEGACY_MODULE_CONTROLLER);
-  }
+	public LegacyModuleControllerConfiguration(String name, List<DeviceConfiguration> modules, SerialNumber serialNumber) {
+		super(name, modules, serialNumber, ConfigurationType.LEGACY_MODULE_CONTROLLER);
+	}
 
 }

@@ -31,82 +31,36 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.robotcore.util;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
-/**
- * Calculate a rolling average from a stream of numbers. Only the last 'size' elements will be
- * considered.
- */
 public class RollingAverage {
 
-  public static final int DEFAULT_SIZE = 100;
+	public static final int DEFAULT_SIZE = 100;
 
-  private final Queue<Integer> queue = new LinkedList<Integer>();
-  private long total;
-  private int size;
+	public RollingAverage() {
 
-  /**
-   * Constructor, with default size
-   */
-  public RollingAverage() {
-    resize(DEFAULT_SIZE);
-  }
+	}
 
-  /**
-   * Constructor, with given size
-   * @param size
-   */
-  public RollingAverage(int size) {
-    resize(size);
-  }
+	public RollingAverage(int size) {
 
-  /**
-   * Get the size
-   * @return Size
-   */
-  public int size() {
-    return size;
-  }
+	}
 
-  /**
-   * Resize the rolling average
-   * <p>
-   * Side Effect: the rolling average is reset
-   * @param size
-   */
-  public void resize(int size) {
-    this.size = size;
-    queue.clear();
-  }
+	public int size() {
+		return 0;
+	}
 
-  /**
-   * Add a number to the rolling average
-   * @param number
-   */
-  public void addNumber(int number) {
-    if (queue.size() >= size) {
-      int last = queue.remove();
-      total -= last;
-    }
+	public void resize(int size) {
 
-    queue.add(number);
-    total += number;
-  }
+	}
 
-  /**
-   * Get the rolling average
-   * @return rolling average, if available; otherwise 0
-   */
-  public int getAverage() {
-    if (queue.isEmpty()) return 0;
-    return (int) (total / queue.size());
-  }
+	public void addNumber(int number) {
 
-  /**
-   * Reset the rolling average
-   */
-  public void reset() {
-    queue.clear();
-  }
+	}
+
+	public int getAverage() {
+		return 0;
+	}
+
+	public void reset() {
+
+	}
+
 }

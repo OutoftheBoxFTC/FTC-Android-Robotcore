@@ -37,22 +37,23 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("serial")
 public class MotorControllerConfiguration extends ControllerConfiguration implements Serializable{
 
-  public MotorControllerConfiguration(){
-    super("", new ArrayList<DeviceConfiguration>(), new SerialNumber(ControllerConfiguration.NO_SERIAL_NUMBER.getSerialNumber()), ConfigurationType.MOTOR_CONTROLLER);
-  }
+	public MotorControllerConfiguration() {
+		super("", new ArrayList<DeviceConfiguration>(), new SerialNumber(ControllerConfiguration.NO_SERIAL_NUMBER.getSerialNumber()), ConfigurationType.MOTOR_CONTROLLER);
+	}
 
-  public MotorControllerConfiguration(String name, List<DeviceConfiguration> motors, SerialNumber serialNumber) {
-    super(name, motors, serialNumber, ConfigurationType.MOTOR_CONTROLLER);
-  }
+	public MotorControllerConfiguration(String name, List<DeviceConfiguration> motors, SerialNumber serialNumber) {
+		super(name, motors, serialNumber, ConfigurationType.MOTOR_CONTROLLER);
+	}
 
-  public List<DeviceConfiguration> getMotors() {
-    return super.getDevices();
-  }
+	public List<DeviceConfiguration> getMotors() {
+		return null;
+	}
 
-  public void addMotors(List<DeviceConfiguration> motors){
-    super.addDevices(motors);
-  }
+	public void addMotors(List<DeviceConfiguration> motors){
+
+	}
 
 }

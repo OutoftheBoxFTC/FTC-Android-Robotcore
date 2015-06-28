@@ -36,23 +36,24 @@ import com.qualcomm.robotcore.util.SerialNumber;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("serial")
 public class ServoControllerConfiguration extends ControllerConfiguration {
 
-  public ServoControllerConfiguration(){
-    super("", new ArrayList<DeviceConfiguration>(), new SerialNumber(ControllerConfiguration.NO_SERIAL_NUMBER.getSerialNumber()), ConfigurationType.SERVO_CONTROLLER);
-  }
+	public ServoControllerConfiguration(){
+		super("", new ArrayList<DeviceConfiguration>(), new SerialNumber(ControllerConfiguration.NO_SERIAL_NUMBER.getSerialNumber()), ConfigurationType.SERVO_CONTROLLER);
+	}
 
-  public ServoControllerConfiguration(String name, List<DeviceConfiguration> servos, SerialNumber serialNumber) {
-    super(name, servos, serialNumber, ConfigurationType.SERVO_CONTROLLER);
-  }
+	public ServoControllerConfiguration(String name, List<DeviceConfiguration> servos, SerialNumber serialNumber) {
+		super(name, servos, serialNumber, ConfigurationType.SERVO_CONTROLLER);
+	}
 
-  public List<DeviceConfiguration> getServos() {
-    return super.getDevices();
-  }
+	public List<DeviceConfiguration> getServos() {
+		return null;
+	}
 
-  public void addServos(ArrayList<DeviceConfiguration> servos){
-    super.addDevices(servos);
-  }
+	public void addServos(ArrayList<DeviceConfiguration> servos){
+
+	}
 
 
 }

@@ -31,134 +31,59 @@
 package com.qualcomm.robotcore.hardware.mock;
 
 import com.qualcomm.robotcore.hardware.DeviceManager.DeviceType;
-import com.qualcomm.robotcore.util.RobotLog;
 import com.qualcomm.robotcore.util.SerialNumber;
 
-/**
- * Base class for Mock USB Devices
- */
 public abstract class MockUsbDevice {
 
-  public static final boolean DEBUG_LOGGING = false;
+	public static final boolean DEBUG_LOGGING = false;
 
-  public String serialNumber;
-  public DeviceType type;
+	public String serialNumber;
+	public DeviceType type;
 
+	protected MockUsbDevice(String serialNumber, DeviceType type) {
 
+	}
 
-  /**
-   * Constructor - this class in extended by the actual device type
-   * <p>
-   * Some hardware need custom read/write loops, this constructor allows classes to provide their
-   * own.
-   * <p>
-   * Blocks until one successful read from device
-   *
-   * @param serialNumber USB serial number
-   * @param device reference to the FT_Device object
-   * @param maxAddress max memory address used by this device
-   * @param callback callback, may be null
-   */
-  protected MockUsbDevice(
-      String serialNumber, DeviceType type) {
+	public abstract String getDeviceName();
 
-    this.serialNumber = serialNumber;
-    this.type = type;
+	public SerialNumber getSerialNumber() {
+		return null;
+	}
 
-    RobotLog.v("Starting up device " + serialNumber.toString());
-  }
+	public int getVersion() {
+		return 0;
+	}
 
-  /**
-   * Device Name
-   *
-   * @return device manufacturer
-   */
-  public abstract String getDeviceName();
+	public void close() {
 
-  /**
-   * Serial Number
-   *
-   * @return return the USB serial number of this device
-   */
-  public SerialNumber getSerialNumber() {
-    return new SerialNumber(serialNumber);
-  }
+	}
 
-  /**
-   * Version
-   *
-   * @return get the version of this device
-   */
-  public int getVersion() {
+	public void write(byte address, int data) {
 
-    return 0;
-  }
+	}
 
-  /**
-   * Close this device
-   */
-  public void close() {
-    RobotLog.v("Shutting down device " + serialNumber.toString());
-  }
+	public void write(byte address, double data) {
 
-  /**
-   * Write a single byte to the device
-   *
-   * @param address address to write
-   * @param data data to write (will be cast to a byte)
-   */
-  public void write(byte address, int data) {
+	}
 
-  }
+	public void write(byte address, byte[] data) {
 
-  /**
-   * Write a single byte to the device
-   *
-   * @param address address to write
-   * @param data data to write (will be cast to a byte)
-   */
-  public void write(byte address, double data) {
+	}
 
-  }
+	public byte read(byte address) {
+		return 0;
+	}
 
-  /**
-   * Write to device
-   *
-   * @param address address to write
-   * @param data data to write
-   * @throws IllegalArgumentException if address is out of range
-   */
-  public void write(byte address, byte[] data) {
+	public byte[] read(byte address, int size) {
+		return null;
+	}
 
-  }
+	protected void dumpBuffers() {
 
-  /**
-   * Read a single byte from device
-   *
-   * @param address address to read
-   * @throws IllegalArgumentException if address is out of range, or if read failed
-   */
-  public byte read(byte address) {
-    return (byte) 2;
-  }
+	}
 
-  /**
-   * Read from device
-   *
-   * @param address address to read
-   * @param size number of bytes to read
-   * @throws IllegalArgumentException if address is out of range, or if read failed
-   */
-  public byte[] read(byte address, int size) {
-    byte[] ret = new byte[3];
-    return ret;
-  }
+	public static boolean checkReadHeaderForSuccess(byte[] header, int expectedSize) {
+		return false;
+	}
 
-  protected void dumpBuffers() {
-
-  }
-
-  public static boolean checkReadHeaderForSuccess(byte[] header, int expectedSize) {
-	  return true;
-  }
 }

@@ -31,76 +31,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.robotcore.robocol;
 
-import com.qualcomm.robotcore.util.Network;
-import com.qualcomm.robotcore.util.RobotLog;
-
-import java.io.IOException;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.SocketOptions;
-import java.util.ArrayList;
-import java.util.Enumeration;
 
-/**
- * Configuration Data for Robocol
- */
 public class RobocolConfig {
 
-   public static final int MAX_PACKET_SIZE = SocketOptions.SO_RCVBUF;
+	public static final int MAX_PACKET_SIZE = SocketOptions.SO_RCVBUF;
+	public static final int PORT_NUMBER = 20884;
+	public static final int TTL = 3;
+	public static final int TIMEOUT = 1000;
 
-   public static final int PORT_NUMBER = 20884;
+	public static InetAddress determineBindAddress(InetAddress destAddress) {
+		return null;
+	}
 
-   public static final int TTL = 3;
-
-   public static final int TIMEOUT = 1000;
-
-   /**
-    * Find a bind address that can reach the destAddress. If no bind address
-    * can be found, return the loopback address
-    * @param destAddress destination address
-    * @return address to bind to
-    */
-   public static InetAddress determineBindAddress(InetAddress destAddress) {
-      ArrayList<InetAddress> addresses = Network.getLocalIpAddresses();
-      addresses = Network.removeLoopbackAddresses(addresses);
-      addresses = Network.removeIPv6Addresses(addresses);
-      NetworkInterface iface = null;
-
-      // if an iface has the destAddress, pick that one
-      for (InetAddress address : addresses) {
-        try {
-          iface = NetworkInterface.getByInetAddress(address);
-          Enumeration<InetAddress> ifaceAddresses = iface.getInetAddresses();
-          while (ifaceAddresses.hasMoreElements()) {
-            InetAddress ifaceAddress = ifaceAddresses.nextElement();
-            if (ifaceAddress.equals(destAddress)) {
-              return ifaceAddress; // we found a match
-            }
-          }
-        } catch (SocketException e) {
-          RobotLog.v(String.format("socket exception while trying to get network interface of %s",
-              address.getHostAddress()));
-        }
-      }
-
-      // pick the first address where the destAddress is reachable
-      for (InetAddress address : addresses) {
-        try {
-          iface = NetworkInterface.getByInetAddress(address);
-          if (address.isReachable(iface, TTL, TIMEOUT)) {
-            return address; // we found a match
-          }
-        } catch (SocketException e) {
-          RobotLog.v(String.format("socket exception while trying to get network interface of %s",
-              address.getHostAddress()));
-        } catch (IOException e) {
-          RobotLog.v(String.format("IO exception while trying to determine if %s is reachable via %s",
-              destAddress.getHostAddress(), address.getHostAddress()));
-        }
-      }
-
-      // We couldn't find a match
-      return Network.getLoopbackAddress();
-   }
 }

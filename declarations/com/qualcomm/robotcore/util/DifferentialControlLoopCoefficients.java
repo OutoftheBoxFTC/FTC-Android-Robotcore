@@ -30,40 +30,18 @@
 
 package com.qualcomm.robotcore.util;
 
-/**
- * Contains p, i, and d coefficients for control loops
- */
 public class DifferentialControlLoopCoefficients {
 
-  /**
-   * p coefficient
-   */
-  public double p = 0.0;
+	public double p = 0.0;
+	public double i = 0.0;
+	public double d = 0.0;
 
-  /**
-   * i coefficient
-   */
-  public double i = 0.0;
+	public DifferentialControlLoopCoefficients() {
 
-  /**
-   * d coefficient
-   */
-  public double d = 0.0;
+	}
 
-  /**
-   * Constructor with coefficients set to 0.0
-   */
-  public DifferentialControlLoopCoefficients() {}
+	public DifferentialControlLoopCoefficients(double p, double i, double d) {
 
-  /**
-   * Constructor with coefficients supplied
-   * @param p
-   * @param i
-   * @param d
-   */
-  public DifferentialControlLoopCoefficients(double p, double i, double d) {
-    this.p = p;
-    this.i = i;
-    this.d = d;
-  }
+	}
+
 }

@@ -33,67 +33,38 @@ package com.qualcomm.robotcore.util;
 
 import java.io.Serializable;
 
-/**
- * Manage a serial number
- */
+@SuppressWarnings("serial")
 public class SerialNumber implements Serializable {
 
-  private String serialNumber;
+	public SerialNumber() {
 
-  /**
-   * Constructor - use default serial number
-   */
-  public SerialNumber() {
-    serialNumber = "N/A";
-  }
+	}
 
-  /**
-   * Constructor - use supplied serial number
-   * @param serialNumber
-   */
-  public SerialNumber(String serialNumber) {
-    this.serialNumber = serialNumber;
-  }
+	public SerialNumber(String serialNumber) {
 
-  /**
-   * Get the serial number
-   * @return serial number
-   */
-  public String getSerialNumber() {
-    return serialNumber;
-  }
+	}
 
-  /**
-   * Set the serial number
-   * @param serialNumber
-   */
-  public void setSerialNumber(String serialNumber) {
-    this.serialNumber = serialNumber;
-  }
+	public String getSerialNumber() {
+		return null;
+	}
 
-  @Override
-  public boolean equals(Object object) {
-    if (object == null) return false;
-    if (object == this) return true;
+	public void setSerialNumber(String serialNumber) {
 
-    if (object instanceof SerialNumber) {
-      return serialNumber.equals(((SerialNumber) object).getSerialNumber());
-    }
+	}
 
-    if (object instanceof String) {
-      return serialNumber.equals(object);
-    }
+	@Override
+	public boolean equals(Object object) {
+		return false;
+	}
 
-    return false;
-  }
+	@Override
+	public int hashCode() {
+		return 0;
+	}
 
-  @Override
-  public int hashCode() {
-    return serialNumber.hashCode();
-  }
+	@Override
+	public String toString() {
+		return null;
+	}
 
-  @Override
-  public String toString() {
-    return serialNumber;
-  }
 }

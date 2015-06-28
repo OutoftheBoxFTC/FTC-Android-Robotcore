@@ -28,21 +28,16 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 package com.qualcomm.robotcore.sensor;
-
 
 public class TrackedTargetInfo {
 
-  public TrackedTargetInfo(TargetInfo targetInfo, double reProjectionError, long timeTracked){
-    mTargetInfo = targetInfo;
-    mConfidence = reProjectionError;
-    mTimeTracked = timeTracked;
-  }
+	public TrackedTargetInfo(TargetInfo targetInfo, double reProjectionError, long timeTracked){
 
-  public TargetInfo mTargetInfo;
-  public double mConfidence;
-  public long mTimeTracked;
+	}
+
+	public TargetInfo mTargetInfo;
+	public double mConfidence;
+	public long mTimeTracked;
 
 }

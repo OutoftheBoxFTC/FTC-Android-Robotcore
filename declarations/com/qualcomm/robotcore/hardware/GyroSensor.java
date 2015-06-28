@@ -31,25 +31,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.robotcore.hardware;
 
-/**
- * Gyro Sensor
- */
 public abstract class GyroSensor {
 
-  /**
-   * Get the rotation of this sensor
-   * @return rotation
-   */
-  public abstract double getRotation();
+	public abstract double getRotation();
 
-  /**
-   * Status of this sensor, in string form
-   * @return status
-   */
-  public abstract String status();
+	public abstract String status();
 
-  @Override
-  public String toString() {
-    return String.format("Gyro: %3.1f", getRotation());
-  }
+	@Override
+	public String toString() {
+		return null;
+	}
+
 }

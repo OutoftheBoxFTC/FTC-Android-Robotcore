@@ -31,32 +31,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.robotcore.hardware.configuration;
 
-
+@SuppressWarnings("serial")
 public class ServoConfiguration extends DeviceConfiguration {
 
-  protected boolean disabled = false;
+	public ServoConfiguration(int port){
+		super(ConfigurationType.SERVO);
+	}
 
-  public ServoConfiguration(int port){
-    super(ConfigurationType.SERVO);
-    super.setName(DISABLED_DEVICE_NAME);
-    this.disabled = true;
-    super.setPort(port);
-  }
+	public ServoConfiguration(String name) {
+		super(ConfigurationType.SERVO);
+	}
 
-  public ServoConfiguration(String name) {
-    super(ConfigurationType.SERVO);
-    super.setName(name);
+	public boolean isDisabled() {
+		return false;
+	}
 
-    super.setType(ConfigurationType.SERVO);
+	public void setDisabled(boolean disabled) {
 
-  }
-
-  public boolean isDisabled() {
-    return disabled;
-  }
-
-  public void setDisabled(boolean disabled) {
-    this.disabled = disabled;
-  }
+	}
 
 }

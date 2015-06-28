@@ -34,19 +34,17 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class MicrosoftGamepadXbox360 extends Gamepad {
 
-   public MicrosoftGamepadXbox360() {
-      this(null);
-   }
+	public MicrosoftGamepadXbox360() {
 
-   public MicrosoftGamepadXbox360(GamepadCallback callback) {
-      super(callback);
+	}
 
-      // calibrate the device
-      joystickDeadzone = 0.15f;
-   }
+	public MicrosoftGamepadXbox360(GamepadCallback callback) {
+		super(callback);
+	}
 
-  @Override
-  public String type() {
-    return "Xbox 360";
-  }
+	@Override
+	public String type() {
+		return null;
+	}
+
 }

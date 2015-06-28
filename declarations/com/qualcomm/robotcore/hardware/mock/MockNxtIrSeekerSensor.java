@@ -33,41 +33,40 @@ package com.qualcomm.robotcore.hardware.mock;
 
 import com.qualcomm.robotcore.hardware.IrSeekerSensor;
 
-/**
- * Mock NXT IR Seeker Sensor
- */
 public class MockNxtIrSeekerSensor extends IrSeekerSensor {
 
-  public MockNxtIrSeekerSensor(MockUsbLegacyModule legacyModule, int physicalPort) {
+	public MockNxtIrSeekerSensor(MockUsbLegacyModule legacyModule, int physicalPort) {
 
-  }
+	}
 
-  @Override
-  public void setMode(Mode mode) { }
+	@Override
+	public void setMode(Mode mode) {
 
-  @Override
-  public Mode getMode() { return Mode.MODE_1200HZ_AC; }
+	}
 
-  @Override
-  public boolean signalDetected() {
-    return true;
-  }
+	@Override
+	public Mode getMode() {
+		return null;
+	}
 
-  @Override
-  public double getAngle() {
-    return 0.0;
-  }
+	@Override
+	public boolean signalDetected() {
+		return false;
+	}
 
-  @Override
-  public double getStrength() {
-    return 0.0;
-  }
+	@Override
+	public double getAngle() {
+		return 0.0;
+	}
 
-  @Override
-  public IrSensor[] getSensors() {
-    IrSensor sensors[] = new IrSensor[5];
+	@Override
+	public double getStrength() {
+		return 0.0;
+	}
 
-    return sensors;
-  }
+	@Override
+	public IrSensor[] getSensors() {
+		return null;
+	}
 
 }

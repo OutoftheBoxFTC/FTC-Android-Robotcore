@@ -32,9 +32,6 @@ package com.qualcomm.robotcore.sensor;
 
 public interface SensorListener<T> {
 
-  // -------------------------------------------------------------------------\-
-  // / Performs Robot initialization.
-  // / @return true on success, false on failure
-  // -------------------------------------------------------------------------\-
-  void onUpdate(T data);
+	void onUpdate(T data);
+
 }

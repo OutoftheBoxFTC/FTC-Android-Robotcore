@@ -31,195 +31,66 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.robotcore.eventloop.opmode;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.LightSensor;
-import com.qualcomm.robotcore.hardware.ServoController;
-import com.qualcomm.robotcore.util.RobotLog;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
-/**
- * Manages Op Modes
- *
- * Able to switch between op modes
- */
-@SuppressWarnings("unused")
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 public class OpModeManager {
 
-  public static final String DEFAULT_OP_MODE_NAME = "Stop Robot";
-  public static final OpMode DEFAULT_OP_MODE = new DefaultOpMode();
+	public static final String DEFAULT_OP_MODE_NAME = "Stop Robot";
+	public static final OpMode DEFAULT_OP_MODE = null;
 
-  private Map<String, Class<?>> opModeClasses = new HashMap<String, Class<?>>();
-  private Map<String, OpMode> opModeObjects = new HashMap<String, OpMode>();
+	public OpModeManager(HardwareMap hardwareMap, OpModeRegister register) {
 
-  private String activeOpModeName = DEFAULT_OP_MODE_NAME;
-  private OpMode activeOpMode = DEFAULT_OP_MODE;
+	}
 
-  private HardwareMap hardwareMap = new HardwareMap();
+	public void setHardwareMap(HardwareMap hardwareMap) {
 
-  private boolean opModeSwapNeeded = false;
+	}
 
-  public OpModeManager(HardwareMap hardwareMap, OpModeRegister register) {
-    this.hardwareMap = hardwareMap;
+	public HardwareMap getHardwareMap() {
+		return null;
+	}
 
-    // register our default op mode first, that way the user can override it
-    register(DEFAULT_OP_MODE_NAME, DefaultOpMode.class);
+	public Set<String> getOpModes() {
+		return null;
+	}
 
-    // grab users op modes
-    register.register(this);
+	public String getActiveOpModeName() {
+		return  null;
+	}
 
-    // switch to the default op mode
-    switchOpModes(DEFAULT_OP_MODE_NAME);
-  }
+	public OpMode getActiveOpMode() {
+		return null;
+	}
 
-  public void setHardwareMap(HardwareMap hardwareMap) {
-    this.hardwareMap = hardwareMap;
-  }
+	public void switchOpModes(String name) {
 
-  public HardwareMap getHardwareMap() {
-    return hardwareMap;
-  }
+	}
 
-  public Set<String> getOpModes() {
-    Set<String> opModelist = new HashSet<String>();
-    opModelist.addAll(opModeClasses.keySet());
-    opModelist.addAll(opModeObjects.keySet());
-    return opModelist;
-  }
+	public void startActiveOpMode() {
 
-  public String getActiveOpModeName() { return  activeOpModeName; }
+	}
 
-  public OpMode getActiveOpMode() {
-    return activeOpMode;
-  }
+	public void stopActiveOpMode() {
 
-  public void switchOpModes(String name) {
-    activeOpModeName = name;
-    opModeSwapNeeded = true;
-  }
+	}
 
-  public void startActiveOpMode() {
-    activeOpMode.hardwareMap = hardwareMap;
-    activeOpMode.start();
-  }
+	public void runActiveOpMode(Gamepad[] gamepads) {
 
-  public void stopActiveOpMode() {
-    activeOpMode.stop();
-  }
+	}
 
-  public void runActiveOpMode(Gamepad[] gamepads) {
-    activeOpMode.time = activeOpMode.getRuntime();
-    activeOpMode.gamepad1 = gamepads[0];
-    activeOpMode.gamepad2 = gamepads[1];
+	public void logOpModes() {
 
-    // run the start method, if needed
-    if (opModeSwapNeeded) { performOpModeSwap(); }
+	}
 
-    activeOpMode.loop();
-  }
+	public void register(String name, Class<?> opMode) {
 
-  public void logOpModes() {
-    int opModeCount = opModeClasses.size() + opModeObjects.size();
-    RobotLog.i("There are " + opModeCount + " Op Modes");
-    for (Map.Entry<String, Class<?>> entry : opModeClasses.entrySet()) {
-      RobotLog.i("   Op Mode: " + entry.getKey());
-    }
-    for (Map.Entry<String, OpMode> entry : opModeObjects.entrySet()) {
-      RobotLog.i("   Op Mode: " + entry.getKey());
-    }
-  }
+	}
 
-  public void register(String name, Class opMode) {
-    if (isOpModeRegistered(name)) { throw new IllegalArgumentException("Cannot register the same op mode name twice"); }
+	public void register(String name, OpMode opMode) {
 
-    opModeClasses.put(name, opMode);
-  }
+	}
 
-  public void register(String name, OpMode opMode) {
-    if (isOpModeRegistered(name)) { throw new IllegalArgumentException("Cannot register the same op mode name twice"); }
-
-    opModeObjects.put(name, opMode);
-  }
-
-  private void performOpModeSwap() {
-    RobotLog.i("Attempting to switch to op mode " + activeOpModeName);
-
-    stopActiveOpMode();
-
-    try {
-      if (opModeObjects.containsKey(activeOpModeName)) {
-        activeOpMode = opModeObjects.get(activeOpModeName);
-      } else {
-        activeOpMode = (OpMode) opModeClasses.get(activeOpModeName).newInstance();
-      }
-    } catch (InstantiationException e) {
-      failedToSwapOpMode(e);
-    } catch (IllegalAccessException e) {
-      failedToSwapOpMode(e);
-    }
-
-    startActiveOpMode();
-
-    opModeSwapNeeded = false;
-  }
-
-  private boolean isOpModeRegistered(String name) {
-    return getOpModes().contains(name);
-  }
-
-  private void failedToSwapOpMode(Exception e) {
-    RobotLog.e("Unable to start op mode " + activeOpModeName);
-    RobotLog.logStacktrace(e);
-    activeOpModeName = DEFAULT_OP_MODE_NAME;
-    activeOpMode = DEFAULT_OP_MODE;
-  }
-
-  /*
-   * default op mode
-   */
-  private static class DefaultOpMode extends OpMode {
-
-    public DefaultOpMode() {
-      // take no action
-    }
-
-    @Override
-    public void start() {
-      // take no action
-      for (DcMotorController motorController : hardwareMap.dcMotorController){
-        motorController.setMotorControllerDeviceMode(DcMotorController.DeviceMode.WRITE_ONLY);
-      }
-    }
-
-    @Override
-    public void loop() {
-      // power down the servos
-      for (ServoController servoController : hardwareMap.servoController) {
-        servoController.pwmDisable();
-      }
-
-      // power down the motors
-      for (DcMotor dcMotor : hardwareMap.dcMotor) {
-        dcMotor.setPowerFloat();
-      }
-
-      // turn of light sensors
-      for (LightSensor light : hardwareMap.lightSensor) {
-        light.enableLed(false);
-      }
-
-      telemetry.addData("Status", "Robot is stopped");
-    }
-
-    @Override
-    public void stop() {
-      // take no action
-    }
-  }
 }

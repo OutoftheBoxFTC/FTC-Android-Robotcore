@@ -34,18 +34,9 @@ package com.qualcomm.robotcore.hardware;
 import com.qualcomm.robotcore.eventloop.EventLoopManager;
 import com.qualcomm.robotcore.exception.RobotCoreException;
 
-/**
- * Interface for a Hardware Factory
- *
- * A Hardware Factory should populate a HardwareMap, and return that map to
- * the user.
- */
 public interface HardwareFactory {
 
-  /**
-   * Create a hardware map
-   * @return HardwareMap
-   */
-  public HardwareMap createHardwareMap(EventLoopManager manager)
-      throws RobotCoreException, InterruptedException;
+	public HardwareMap createHardwareMap(EventLoopManager manager)
+			throws RobotCoreException, InterruptedException;
+
 }

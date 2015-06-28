@@ -31,27 +31,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.robotcore.hardware.configuration;
 
+@SuppressWarnings("serial")
 public class MotorConfiguration extends DeviceConfiguration {
 
-  protected boolean disabled = false;
+	protected boolean disabled = false;
 
-  public MotorConfiguration(int port){
-    super(ConfigurationType.MOTOR);
-    super.setName(DISABLED_DEVICE_NAME);
-    this.disabled = true;
-    super.setPort(port);
+	public MotorConfiguration(int port){
+		super(ConfigurationType.MOTOR);
+	}
 
-  }
+	public MotorConfiguration(String name){
+		super(ConfigurationType.MOTOR);
+	}
 
-  public MotorConfiguration(String name){
-    super(ConfigurationType.MOTOR);
+	public void setDisabled(boolean disabled){
 
-    super.setName(name);
-    super.setType(ConfigurationType.MOTOR);
-  }
-
-  public void setDisabled(boolean disabled){
-    this.disabled = disabled;
-  }
+	}
 
 }

@@ -31,117 +31,53 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.robotcore.hardware;
 
-
-/**
- * IR Seeker Sensor
- * <p>
- * Determine the location of an IR source
- */
 public abstract class IrSeekerSensor {
 
-  /**
-   * Enumeration of device modes
-   */
-  public enum Mode {
-    MODE_600HZ_DC, MODE_1200HZ_AC
-  }
+	public enum Mode {
+		MODE_600HZ_DC,
+		MODE_1200HZ_AC
+	}
 
-  /**
-   * IR Sensor attached to an IR Seeker
-   * <p>
-   * Get the angle of this sensor, along with signal strength
-   */
-  public static class IrSensor {
-    private double angle = 0;
-    private double strength = 0;
+	public static class IrSensor {
 
-    /**
-     * Constructor
-     */
-    public IrSensor() {
-      this(0, 0);
-    }
+		public IrSensor() {
+			this(0, 0);
+		}
 
-    /**
-     * Constructor
-     */
-    public IrSensor(double angle, double strength) {
-      this.angle = angle;
-      this.strength = strength;
-    }
+		public IrSensor(double angle, double strength) {
 
-    /**
-     * Get the angle at which this sensor is mounted
-     * @return sensor angle
-     */
-    public double getSensorAngle() {
-      return angle;
-    }
+		}
 
-    /**
-     * Get the strength of the IR signal detected by this sensor
-     * @return IR strength, scaled from 0 to 1
-     */
-    public double getSensorStrength() {
-      return strength;
-    }
+		public double getSensorAngle() {
+			return 0.0;
+		}
 
-    @Override
-    public String toString() {
-      return String.format("IR Sensor: %3.1f degrees at %3.1f%% power", angle, strength * 100.0);
-    }
-  }
+		public double getSensorStrength() {
+			return 0.0;
+		}
 
-  /**
-   * Set the device mode
-   * @param mode
-   */
-  public abstract void setMode(Mode mode);
+		@Override
+		public String toString() {
+			return null;
+		}
 
-  /**
-   * Get the device mode
-   * @return device mode
-   */
-  public abstract Mode getMode();
+	}
 
-  /**
-   * Returns true if an IR signal is detected
-   * @return true if signal is detected; otherwise false
-   */
-  public abstract boolean signalDetected();
+	public abstract void setMode(Mode mode);
 
-  /**
-   * Estimated angle in which the signal is coming from
-   * <p>
-   * If the signal is estimated to be directly ahead, 0 will be returned. If the signal is to the
-   * left a negative angle will be returned. If the signal is to the right a positive angle will be
-   * returned. If no signal is detected, a 0 will be returned.
-   * @return angle to IR signal
-   */
-  public abstract double getAngle();
+	public abstract Mode getMode();
 
-  /**
-   * IR Signal strength
-   * <p>
-   * Detected IR signal strength, on a scale of 0.0 to 1.0, where 0 is no signal detected and 1 is
-   * max IR signal detected.
-   * @return signal strength, scaled from 0 to 1
-   */
-  public abstract double getStrength();
+	public abstract boolean signalDetected();
 
-  /**
-   * Get a list of all IR sensors attached to this seeker. The list will include the angle at which
-   * the sensor is mounted, and the signal strength.
-   * @return array of IrSensors
-   */
-  public abstract IrSensor[] getSensors();
+	public abstract double getAngle();
 
-  @Override
-  public String toString() {
-    if (signalDetected()) {
-      return String.format("IR Seeker: %3.0f%% signal at %6.1f degrees", getStrength() * 100.0, getAngle());
-    } else {
-      return new String("IR Seeker:  --% signal at  ---.- degrees");
-    }
-  }
+	public abstract double getStrength();
+
+	public abstract IrSensor[] getSensors();
+
+	@Override
+	public String toString() {
+		return null;
+	}
+
 }

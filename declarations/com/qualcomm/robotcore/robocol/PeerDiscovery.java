@@ -32,113 +32,56 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 package com.qualcomm.robotcore.robocol;
 
 import com.qualcomm.robotcore.exception.RobotCoreException;
-import com.qualcomm.robotcore.util.RobotLog;
-
-import java.nio.BufferOverflowException;
-import java.nio.ByteBuffer;
 
 public class PeerDiscovery implements RobocolParsable {
 
-  public static final short PAYLOAD_SIZE = 10;
-  public static final short BUFFER_SIZE = PAYLOAD_SIZE + RobocolParsable.HEADER_LENGTH;
+	public static final short PAYLOAD_SIZE = 10;
+	public static final short BUFFER_SIZE = PAYLOAD_SIZE + RobocolParsable.HEADER_LENGTH;
 
-  public static final byte ROBOCOL_VERSION = 1;
+	public static final byte ROBOCOL_VERSION = 1;
 
-  /**
-   * Peer type
-   */
-  public enum PeerType {
-    /*
-     * NOTE: when adding new message types, do not change existing message
-     * type values or you will break backwards capability.
-     */
-    NOT_SET(0),
-    PEER(1),
-    GROUP_OWNER(2);
+	public enum PeerType {
 
-    private static final PeerType[] VALUES_CACHE = PeerType.values();
-    private int type;
+		NOT_SET,
+		PEER,
+		GROUP_OWNER;
 
-    /**
-     * Create a PeerType from a byte
-     * @param b
-     * @return PeerType
-     */
-    public static PeerType fromByte(byte b) {
-      PeerType p = NOT_SET;
-      try {
-        p = VALUES_CACHE[b];
-      } catch (ArrayIndexOutOfBoundsException e) {
-        RobotLog.w(String.format("Cannot convert %d to Peer: %s", b, e.toString()));
-      }
-      return p;
-    }
+		public static PeerType fromByte(byte b) {
+			return null;
+		}
 
-    private PeerType(int type) {
-      this.type = type;
-    }
+		public byte asByte() {
+			return 0;
+		}
 
-    /**
-     * Return this peer type as a byte
-     * @return peer type as byte
-     */
-    public byte asByte() {
-      return (byte)(type);
-    }
-  }
+	}
 
-  private PeerType peerType;
+	public PeerDiscovery(PeerDiscovery.PeerType peerType) {
 
-  public PeerDiscovery(PeerDiscovery.PeerType peerType) {
-    this.peerType = peerType;
-  }
+	}
 
-  /**
-   * @return the peer type
-   */
-  public PeerType getPeerType() {
-    return peerType;
-  }
+	public PeerType getPeerType() {
+		return null;
+	}
 
-  @Override
-  public MsgType getRobocolMsgType() {
-    return RobocolParsable.MsgType.PEER_DISCOVERY;
-  }
+	@Override
+	public MsgType getRobocolMsgType() {
+		return null;
+	}
 
-  @Override
-  public byte[] toByteArray() throws RobotCoreException {
-    ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
-    try {
-      buffer.put(getRobocolMsgType().asByte());
-      buffer.putShort(PAYLOAD_SIZE);
+	@Override
+	public byte[] toByteArray() throws RobotCoreException {
+		return null;
+	}
 
-      buffer.put(ROBOCOL_VERSION);
-      buffer.put(peerType.asByte());
-    } catch (BufferOverflowException e) {
-      RobotLog.logStacktrace(e);
-    }
-    return buffer.array();
-  }
+	@Override
+	public void fromByteArray(byte[] byteArray) throws RobotCoreException {
 
-  @Override
-  public void fromByteArray(byte[] byteArray) throws RobotCoreException {
-    if (byteArray.length < BUFFER_SIZE) {
-      throw new RobotCoreException("Expected buffer of at least " + BUFFER_SIZE + " bytes, received " + byteArray.length);
-    }
+	}
 
-    ByteBuffer byteBuffer = ByteBuffer.wrap(byteArray, HEADER_LENGTH, PAYLOAD_SIZE);
-    byte version = byteBuffer.get();
-    switch (version) {
-      case 1:
-        peerType = PeerType.fromByte(byteBuffer.get());
-        break;
-      default:
-        break;
-    }
-  }
+	@Override
+	public String toString() {
+		return null;
+	}
 
-  @Override
-  public String toString() {
-    return String.format("Peer Discovery - peer type: %s", peerType.name());
-  }
 }

@@ -31,62 +31,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.robotcore.hardware;
 
-/**
- * Interface for working with Servo Controllers
- * <p>
- * Different servo controllers will implement this interface.
- */
 public interface ServoController {
 
-  /**
-   * PWM Status - is pwm enabled?
-   */
-  public enum PwmStatus { ENABLED, DISABLED };
+	public enum PwmStatus {
+		ENABLED,
+		DISABLED
+	};
 
-  /**
-   * Device Name
-   * @return device manufacturer and name
-   */
-  public abstract String getDeviceName();
+	public abstract String getDeviceName();
 
-  /**
-   * Version
-   * @return get the version of this device
-   */
-  public abstract int getVersion();
+	public abstract int getVersion();
 
-  /**
-   * Close this device
-   */
-  public abstract void close();
+	public abstract void close();
 
-  /**
-   * PWM enable
-   */
-  public abstract void pwmEnable();
+	public abstract void pwmEnable();
 
-  /**
-   * PWM disable
-   */
-  public abstract void pwmDisable();
+	public abstract void pwmDisable();
 
-  /**
-   * Get the PWM status
-   * @return status
-   */
-  public abstract PwmStatus getPwmStatus();
+	public abstract PwmStatus getPwmStatus();
 
-  /**
-   * Set the position of a servo at the given channel
-   * @param channel channel of servo
-   * @param position from 0.0 to 1.0
-   */
-  public abstract void setServoPosition(int channel, double position);
+	public abstract void setServoPosition(int channel, double position);
 
-  /**
-   * Get the position of a servo at a given channel
-   * @param channel channel of servo
-   * @return position, scaled from 0.0 to 1.0
-   */
-  public abstract double getServoPosition(int channel);
+	public abstract double getServoPosition(int channel);
+
 }

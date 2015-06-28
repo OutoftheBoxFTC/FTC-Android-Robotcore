@@ -32,75 +32,26 @@ package com.qualcomm.robotcore.hardware;
 
 import com.qualcomm.robotcore.util.SerialNumber;
 
-/**
- * Interface for working with Digital Channel Controllers
- * <p>
- * Different digital channel controllers will implement this interface.
- */
 public interface DigitalChannelController {
 
-  /**
-   * Digital channel mode - input or output
-   */
-  public enum Mode { INPUT, OUTPUT; }
+	public enum Mode {
+		INPUT, OUTPUT
+	}
 
-  /**
-   * Device Name
-   *
-   * @return device manufacturer and name
-   */
-  public abstract String getDeviceName();
+	public abstract String getDeviceName();
 
-  /**
-   * Serial Number
-   *
-   * @return return the USB serial number of this device
-   */
-  public abstract SerialNumber getSerialNumber();
+	public abstract SerialNumber getSerialNumber();
 
-  /**
-   * Version
-   *
-   * @return get the version of this device
-   */
-  public abstract int getVersion();
+	public abstract int getVersion();
 
-  /**
-   * Close this device
-   */
-  public abstract void close();
+	public abstract void close();
 
-  /**
-   * Get the mode of a digital channel
-   *
-   * @param channel
-   * @return INPUT or OUTPUT
-   */
-  public Mode getDigitalChannelMode(int channel);
+	public Mode getDigitalChannelMode(int channel);
 
-  /**
-   * Set the mode of a digital channel
-   *
-   * @param channel
-   * @param mode INPUT or OUTPUT
-   */
-  public void setDigitalChannelMode(int channel, Mode mode);
+	public void setDigitalChannelMode(int channel, Mode mode);
 
-  /**
-   * Get the state of a digital channel
-   *
-   * @param channel
-   * @return true if set; otherwise false
-   */
-  public boolean getDigitalChannelState(int channel);
+	public boolean getDigitalChannelState(int channel);
 
-  /**
-   * Set the state of a digital channel
-   * <p>
-   * The behavior of this method is undefined for INPUT digital channels.
-   *
-   * @param channel
-   * @param state true to set; false to unset
-   */
-  public void setDigitalChannelState(int channel, boolean state);
+	public void setDigitalChannelState(int channel, boolean state);
+
 }

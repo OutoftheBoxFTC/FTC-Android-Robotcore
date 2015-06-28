@@ -30,34 +30,10 @@
 
 package com.qualcomm.robotcore.util;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.content.DialogInterface;
-import android.os.Bundle;
+public class GenericDialogFragment {
 
-
-/** 
- * This dialog fragment supports a custom error message with just an OK button to dismiss it. 
- */
-public class GenericDialogFragment extends DialogFragment {
-  @Override
-  public Dialog onCreateDialog(Bundle savedInstanceState) {
-    // This is the default error message to display
-    final String defaultDialogMsg = "App error condition!";
-
-    final String dialogMsg = getArguments().getString("dialogMsg", defaultDialogMsg);
-
-    // Use the Builder class for convenient dialog construction
-    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    builder.setMessage(dialogMsg).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-      @Override
-      public void onClick(DialogInterface dialog, int id) {
-        // TODO Do Nothing for now
-      }
-    });
-    // Create the AlertDialog object and return it
-    return builder.create();
-  }
+	public Object onCreateDialog(Object savedInstanceState) {
+		return null;
+	}
 
 }

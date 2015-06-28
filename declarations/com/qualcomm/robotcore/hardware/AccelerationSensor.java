@@ -31,47 +31,32 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.robotcore.hardware;
 
-/**
- * Acceleration Sensor
- */
 public abstract class AccelerationSensor {
 
-  /**
-   * Acceleration in the x, y, and z axis
-   */
-  public static class Acceleration {
-    public Acceleration() {
-      this(0.0, 0.0, 0.0);
-    }
+	public static class Acceleration {
 
-    public Acceleration(double x, double y, double z) {
-      this.x = x; this.y = y; this.z = z;
-    }
+		public Acceleration() {
 
-    public double x;
-    public double y;
-    public double z;
+		}
 
-    @Override
-    public String toString() {
-      return String.format("Acceleration - x: %5.2f, y: %5.2f, z: %5.2f", x, y, z);
-    }
-  }
+		public Acceleration(double x, double y, double z) {
 
-  /**
-   * Acceleration, measured in g's
-   * @return acceleration in g's
-   */
-  public abstract Acceleration getAcceleration();
+		}
 
-  /**
-   * Status of this sensor, in string form
-   * @return status
-   */
-  public abstract String status();
+		@Override
+		public String toString() {
+			return null;
+		}
 
-  @Override
-  public String toString() {
-    return getAcceleration().toString();
-  }
+	}
+
+	public abstract Acceleration getAcceleration();
+
+	public abstract String status();
+
+	@Override
+	public String toString() {
+		return null;
+	}
+
 }

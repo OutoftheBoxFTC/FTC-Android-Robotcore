@@ -33,78 +33,68 @@ package com.qualcomm.robotcore.hardware.configuration;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class DeviceConfiguration implements Serializable {
 
-  public enum ConfigurationType {
-                        MOTOR,
-                        SERVO,
-                        GYRO,
-                        COMPASS,
-                        IR_SEEKER,
-                        LIGHT_SENSOR,
-                        ACCELEROMETER,
-                        MOTOR_CONTROLLER,
-                        SERVO_CONTROLLER,
-                        LEGACY_MODULE_CONTROLLER,
-                        NOTHING};
+	public enum ConfigurationType {
+		MOTOR,
+		SERVO,
+		GYRO,
+		COMPASS,
+		IR_SEEKER,
+		LIGHT_SENSOR,
+		ACCELEROMETER,
+		MOTOR_CONTROLLER,
+		SERVO_CONTROLLER,
+		LEGACY_MODULE_CONTROLLER,
+		NOTHING
+	};
 
-  public static final String DISABLED_DEVICE_NAME = "NO DEVICE ATTACHED";
-  protected String name;
-  private ConfigurationType type = ConfigurationType.NOTHING;
-  private int port;
+	public static final String DISABLED_DEVICE_NAME = "NO DEVICE ATTACHED";
+	protected String name;
 
-  private boolean disabled = false;
+	public DeviceConfiguration(int port){
 
-  public DeviceConfiguration(int port){
-    this.name = DISABLED_DEVICE_NAME;
-    this.type = ConfigurationType.NOTHING;
-    this.port = port;
-  }
+	}
 
-  public DeviceConfiguration(ConfigurationType type){
+	public DeviceConfiguration(ConfigurationType type){
 
-    this.name = "";
-    this.type = type;
-  }
+	}
 
-  public boolean isDisabled() {
-    return disabled;
-  }
+	public boolean isDisabled() {
+		return false;
+	}
 
-  public void setDisabled(boolean disabled) {
-    this.disabled = disabled;
-  }
+	public void setDisabled(boolean disabled) {
 
-  public String getName(){
-    return this.name;
-  }
+	}
 
-  public void setName(String newName){
-    this.name = newName;
-  }
+	public String getName(){
+		return null;
+	}
 
-  public void setType(ConfigurationType type){
-    this.type = type;
-  }
+	public void setName(String newName){
 
-  public ConfigurationType getType(){
-    return this.type;
-  }
+	}
 
+	public void setType(ConfigurationType type) {
 
-  public int getPort(){
-    return port;
-  }
+	}
 
-  public void setPort(int port) { this.port = port; }
+	public ConfigurationType getType() {
+		return null;
+	}
 
-  public ConfigurationType typeFromString(String type){
-    for (ConfigurationType configType : ConfigurationType.values()){
-      if (type.equalsIgnoreCase(configType.toString())){
-        return configType;
-      }
-    }
-    return ConfigurationType.NOTHING;
-  }
+	public int getPort() {
+		return 0;
+	}
+
+	public void setPort(int port) {
+
+	}
+
+	public ConfigurationType typeFromString(String type){
+		return null;
+	}
 
 }

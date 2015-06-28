@@ -33,21 +33,13 @@ package com.qualcomm.robotcore.hardware;
 
 public abstract class UltrasonicSensor {
 
-  /**
-   * Get the Ultrasonic levels from this sensor
-   * @return ultrasonic levels
-   */
-  public abstract double getUltrasonicLevel();
+	public abstract double getUltrasonicLevel();
 
-  /**
-   * Status of this sensor, in string form
-   * @return status
-   */
-  public abstract String status();
+	public abstract String status();
 
-  @Override
-  public String toString() {
-    return String.format("Ultrasonic: %6.1f", getUltrasonicLevel());
-  }
+	@Override
+	public String toString() {
+		return null;
+	}
 
 }

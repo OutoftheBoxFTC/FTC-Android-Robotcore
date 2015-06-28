@@ -30,81 +30,30 @@
 
 package com.qualcomm.robotcore.util;
 
-import android.app.Activity;
-import android.os.Handler;
-import android.view.WindowManager;
-
-/**
- * A class that will dim the screen after a set amount of time.
- */
 public class Dimmer {
 
-  public static final int DEFAULT_DIM_TIME = 30*1000; // milliseconds
-  public static final int LONG_BRIGHT_TIME = 60*1000; // milliseconds
-  public static final float MAXIMUM_BRIGHTNESS = 1.0f;
-  public static final float MINIMUM_BRIGHTNESS = 0.05f;
+	public static final int DEFAULT_DIM_TIME = 30*1000;
+	public static final int LONG_BRIGHT_TIME = 60*1000;
+	public static final float MAXIMUM_BRIGHTNESS = 1.0f;
+	public static final float MINIMUM_BRIGHTNESS = 0.05f;
 
-  Handler handler = new Handler();
+	long waitTime;
+	float userBrightness = MAXIMUM_BRIGHTNESS;
 
-  Activity activity;
-  final WindowManager.LayoutParams layoutParams;
-  long waitTime; // milliseconds
-  float userBrightness = MAXIMUM_BRIGHTNESS;
+	public Dimmer(Object activity) {
 
-  public Dimmer(Activity activity) {
-    this(DEFAULT_DIM_TIME, activity);
-  }
+	}
 
-  public Dimmer(long waitTime, Activity activity) {
-    this.waitTime = waitTime;
-    this.activity = activity;
-    this.layoutParams = activity.getWindow().getAttributes();
-    this.userBrightness = layoutParams.screenBrightness;
-  }
+	public Dimmer(long waitTime, Object activity) {
 
-  private float percentageDim() {
-    float newBrightness = MINIMUM_BRIGHTNESS * userBrightness;
-    if (newBrightness < MINIMUM_BRIGHTNESS) {
-      return MINIMUM_BRIGHTNESS;
-    }
-    return newBrightness;
-  }
+	}
 
-  public void handleDimTimer() {
-    sendToUIThread(userBrightness);
-    handler.removeCallbacks(null);
-    handler.postDelayed(new Runnable() {
-      @Override
-      public void run() {
-        sendToUIThread(percentageDim());
-      }
-    }, waitTime);
-  }
+	public void handleDimTimer() {
 
-  private void sendToUIThread(float brightness) {
-    layoutParams.screenBrightness = brightness;
-    activity.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        activity.getWindow().setAttributes(layoutParams);
-      }
-    });
-  }
+	}
 
-  /**
-   * Cancels all existing handler calls that are not already running, and sets up a new handler
-   * that will post in x milliseconds.
-   *
-   * I.e., leaves the screen bright for one full minute.
-   */
-  public void longBright(){
-    sendToUIThread(userBrightness);
-    handler.removeCallbacks(null);
-    handler.postDelayed(new Runnable() {
-      @Override
-      public void run() {
-        sendToUIThread(percentageDim());
-      }
-    }, LONG_BRIGHT_TIME); // milliseconds
-  }
+	public void longBright(){
+
+	}
+
 }
