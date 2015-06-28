@@ -30,23 +30,12 @@
 
 package com.qualcomm.robotcore.wifi;
 
-import android.net.wifi.WifiManager;
-
-/**
- * Static class to fix configuration issues with wifi direct
- */
 public class FixWifiDirectSetup {
 
-  public static final int WIFI_TOGGLE_DELAY = 2 * 1000; // in milliseconds
+	public static final int WIFI_TOGGLE_DELAY = 2 * 1000;
 
-  public static void fixWifiDirectSetup(WifiManager wifiManager) throws InterruptedException {
+	public static void fixWifiDirectSetup(Object wifiManager) throws InterruptedException {
 
-    toggleWifi(false, wifiManager);
-    toggleWifi(true, wifiManager);
-  }
+	}
 
-  private static void toggleWifi(boolean enabled, WifiManager wifiManager) throws InterruptedException {
-    wifiManager.setWifiEnabled(enabled);
-    Thread.sleep(WIFI_TOGGLE_DELAY);
-  }
 }
