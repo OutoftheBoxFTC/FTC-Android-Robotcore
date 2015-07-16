@@ -61,4 +61,8 @@
 * make members private; add getters/ setter
 * find out where the members are being assigned, and move that functionality to inside `Gamepad`.
 * expand out the fully qualified type names from the method parameters
+* in `update(KeyEvent)`, change to switch statment
+* simplify the to/from byte array processes
+* rename `atRest` to `isAtRest`
+* simplify `toString()` button compilation
 
