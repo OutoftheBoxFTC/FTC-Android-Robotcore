@@ -42,5 +42,6 @@ public interface OpModeRegister {
    * @param manager op mode manager
    */
   public void register(OpModeManager manager);
+  
 }
 

@@ -62,4 +62,5 @@ public interface SyncdDevice {
    * startBlockingWork() has been called.
    */
   public void startBlockingWork();
+  
 }

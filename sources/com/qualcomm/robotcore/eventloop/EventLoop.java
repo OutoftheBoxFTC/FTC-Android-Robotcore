@@ -41,44 +41,44 @@ import com.qualcomm.robotcore.robocol.Command;
  */
 public interface EventLoop {
 
-  /**
-   * Init method, this will be called before the first call to loop. You should set up
-   * your hardware in this method.
-   *
-   * @param eventLoopManager event loop manager that is responsible for this event loop
-   *
-   * @throws RobotCoreException if a RobotCoreException is thrown, it will be handled
-   *         by the event loop manager. The manager will report that the robot failed
-   *         to start.
-   */
-  public abstract void init(EventLoopManager eventLoopManager) throws RobotCoreException, InterruptedException;
+	/**
+	 * Init method, this will be called before the first call to loop. You should set up
+	 * your hardware in this method.
+	 *
+	 * @param eventLoopManager event loop manager that is responsible for this event loop
+	 *
+	 * @throws RobotCoreException if a RobotCoreException is thrown, it will be handled
+	 *         by the event loop manager. The manager will report that the robot failed
+	 *         to start.
+	 */
+	public abstract void init(EventLoopManager eventLoopManager) throws RobotCoreException, InterruptedException;
 
-  /**
-   * This method will be repeatedly called by the event loop manager.
-   *
-   * @throws RobotCoreException if a RobotCoreException is thrown, it will be handled
-   *         by the event loop manager. The manager may decide to either stop processing
-   *         this iteration of the loop, or it may decide to shut down the robot.
-   */
-  public abstract void loop() throws RobotCoreException, InterruptedException;
+	/**
+	 * This method will be repeatedly called by the event loop manager.
+	 *
+	 * @throws RobotCoreException if a RobotCoreException is thrown, it will be handled
+	 *         by the event loop manager. The manager may decide to either stop processing
+	 *         this iteration of the loop, or it may decide to shut down the robot.
+	 */
+	public abstract void loop() throws RobotCoreException, InterruptedException;
 
-  /**
-   * Teardown method, this will be called after the last call to loop. You should place your robot
-   * into a safe state before this method exits, since there will be no more changes to communicate
-   * with your robot.
-   *
-   * @throws RobotCoreException if a RobotCoreException is thrown, it will be handled by the event
-   *         loop manager. The manager will then attempt to shut down the robot without the benefit
-   *         of the teardown method.
-   */
-  public abstract void teardown() throws RobotCoreException, InterruptedException;
+	/**
+	 * Teardown method, this will be called after the last call to loop. You should place your robot
+	 * into a safe state before this method exits, since there will be no more changes to communicate
+	 * with your robot.
+	 *
+	 * @throws RobotCoreException if a RobotCoreException is thrown, it will be handled by the event
+	 *         loop manager. The manager will then attempt to shut down the robot without the benefit
+	 *         of the teardown method.
+	 */
+	public abstract void teardown() throws RobotCoreException, InterruptedException;
 
-  /**
-   * Process command method, this will be called if the event loop manager receives a user defined
-   * command. How this command is handled is up to the event loop implementation.
-   * @param command command to process
-   */
-  public abstract void processCommand(Command command);
+	/**
+	 * Process command method, this will be called if the event loop manager receives a user defined
+	 * command. How this command is handled is up to the event loop implementation.
+	 * @param command command to process
+	 */
+	public abstract void processCommand(Command command);
 
-  public abstract OpModeManager getOpModeManager();
+	public abstract OpModeManager getOpModeManager();
 }
