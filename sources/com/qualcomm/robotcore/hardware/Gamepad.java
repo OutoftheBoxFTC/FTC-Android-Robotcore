@@ -393,19 +393,19 @@ public class Gamepad implements RobocolParsable {
 			right_trigger = byteBuffer.getFloat();
 
 			buttons = byteBuffer.getInt();
-			dpad_up      = (buttons & 0x1000) != 0 ? true : false;
-			dpad_down    = (buttons & 0x0800) != 0 ? true : false;
-			dpad_left    = (buttons & 0x0400) != 0 ? true : false;
-			dpad_right   = (buttons & 0x0200) != 0 ? true : false;
-			a            = (buttons & 0x0100) != 0 ? true : false;
-			b            = (buttons & 0x0080) != 0 ? true : false;
-			x            = (buttons & 0x0040) != 0 ? true : false;
-			y            = (buttons & 0x0020) != 0 ? true : false;
-			guide        = (buttons & 0x0010) != 0 ? true : false;
-			start        = (buttons & 0x0008) != 0 ? true : false;
-			back         = (buttons & 0x0004) != 0 ? true : false;
-			left_bumper  = (buttons & 0x0002) != 0 ? true : false;
-			right_bumper = (buttons & 0x0001) != 0 ? true : false;
+			dpad_up      = (buttons & 0x1000) != 0;
+			dpad_down    = (buttons & 0x0800) != 0;
+			dpad_left    = (buttons & 0x0400) != 0;
+			dpad_right   = (buttons & 0x0200) != 0;
+			a            = (buttons & 0x0100) != 0;
+			b            = (buttons & 0x0080) != 0;
+			x            = (buttons & 0x0040) != 0;
+			y            = (buttons & 0x0020) != 0;
+			guide        = (buttons & 0x0010) != 0;
+			start        = (buttons & 0x0008) != 0;
+			back         = (buttons & 0x0004) != 0;
+			left_bumper  = (buttons & 0x0002) != 0;
+			right_bumper = (buttons & 0x0001) != 0;
 		}
 
 		// extract version 2 values
@@ -467,11 +467,14 @@ public class Gamepad implements RobocolParsable {
 	protected float cleanMotionValues(float number) {
 
 		// apply deadzone
-		if (number < joystickDeadzone && number > -joystickDeadzone) return 0.0f;
+		if (number < joystickDeadzone && number > -joystickDeadzone)
+			return 0.0f;
 
 		// apply trim
-		if (number >  MAX_MOTION_RANGE) return  MAX_MOTION_RANGE;
-		if (number < -MAX_MOTION_RANGE) return -MAX_MOTION_RANGE;
+		if (number >  MAX_MOTION_RANGE)
+			return  MAX_MOTION_RANGE;
+		if (number < -MAX_MOTION_RANGE)
+			return -MAX_MOTION_RANGE;
 
 		// scale values to be between deadzone and trim
 		if (number < 0) {
