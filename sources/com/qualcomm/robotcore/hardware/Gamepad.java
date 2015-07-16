@@ -34,6 +34,7 @@ import android.annotation.TargetApi;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.os.Build;
 
 import com.qualcomm.robotcore.exception.RobotCoreException;
 import com.qualcomm.robotcore.robocol.RobocolParsable;
@@ -274,7 +275,7 @@ public class Gamepad implements RobocolParsable {
 	 * Update the gamepad based on a MotionEvent
 	 * @param event
 	 */
-	public void update(android.view.MotionEvent event) {
+	public void update(MotionEvent event) {
 
 		id = event.getDeviceId();
 		timestamp = event.getEventTime();
@@ -539,7 +540,7 @@ public class Gamepad implements RobocolParsable {
 			if ((source & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD
 					|| (source & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK) {
 
-				if (android.os.Build.VERSION.SDK_INT >= 19) {
+				if (Build.VERSION.SDK_INT >= 19) {
 					// null mDeviceWhitelist means all devices are valid
 					// non-null mDeviceWhitelist means only use devices in mDeviceWhitelist
 					if (deviceWhitelist == null
