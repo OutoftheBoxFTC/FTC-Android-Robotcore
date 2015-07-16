@@ -39,68 +39,72 @@ import com.qualcomm.robotcore.util.SerialNumber;
  */
 public interface DigitalChannelController {
 
-  /**
-   * Digital channel mode - input or output
-   */
-  public enum Mode { INPUT, OUTPUT; }
+	/**
+	 * Digital channel mode - input or output
+	 */
+	public enum Mode {
+		INPUT,
+		OUTPUT
+	}
 
-  /**
-   * Device Name
-   *
-   * @return device manufacturer and name
-   */
-  public abstract String getDeviceName();
+	/**
+	 * Device Name
+	 *
+	 * @return device manufacturer and name
+	 */
+	public abstract String getDeviceName();
 
-  /**
-   * Serial Number
-   *
-   * @return return the USB serial number of this device
-   */
-  public abstract SerialNumber getSerialNumber();
+	/**
+	 * Serial Number
+	 *
+	 * @return return the USB serial number of this device
+	 */
+	public abstract SerialNumber getSerialNumber();
 
-  /**
-   * Version
-   *
-   * @return get the version of this device
-   */
-  public abstract int getVersion();
+	/**
+	 * Version
+	 *
+	 * @return get the version of this device
+	 */
+	public abstract int getVersion();
 
-  /**
-   * Close this device
-   */
-  public abstract void close();
+	/**
+	 * Close this device
+	 */
+	public abstract void close();
 
-  /**
-   * Get the mode of a digital channel
-   *
-   * @param channel
-   * @return INPUT or OUTPUT
-   */
-  public Mode getDigitalChannelMode(int channel);
+	/**
+	 * Get the mode of a digital channel
+	 *
+	 * @param channel
+	 * @return INPUT or OUTPUT
+	 */
+	public Mode getDigitalChannelMode(int channel);
 
-  /**
-   * Set the mode of a digital channel
-   *
-   * @param channel
-   * @param mode INPUT or OUTPUT
-   */
-  public void setDigitalChannelMode(int channel, Mode mode);
+	/**
+	 * Set the mode of a digital channel
+	 *
+	 * @param channel
+	 * @param mode INPUT or OUTPUT
+	 */
+	public void setDigitalChannelMode(int channel, Mode mode);
 
-  /**
-   * Get the state of a digital channel
-   *
-   * @param channel
-   * @return true if set; otherwise false
-   */
-  public boolean getDigitalChannelState(int channel);
+	/**
+	 * Get the state of a digital channel
+	 *
+	 * @param channel
+	 * @return true if set; otherwise false
+	 */
+	public boolean getDigitalChannelState(int channel);
 
-  /**
-   * Set the state of a digital channel
-   * <p>
-   * The behavior of this method is undefined for INPUT digital channels.
-   *
-   * @param channel
-   * @param state true to set; false to unset
-   */
-  public void setDigitalChannelState(int channel, boolean state);
+	/**
+	 * Set the state of a digital channel
+	 * <p>
+	 * The behavior of this method is undefined for INPUT digital channels.
+	 *
+	 * @param channel
+	 * @param state true to set; false to unset
+	 */
+	public void setDigitalChannelState(int channel, boolean state);
+	
 }

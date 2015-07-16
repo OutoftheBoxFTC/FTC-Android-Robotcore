@@ -112,12 +112,12 @@ public class OpModeManager {
 
 	public String getActiveOpModeName() {
 		return  activeOpModeName;
-		}
+	}
 
 	public OpMode getActiveOpMode() {
 		return activeOpMode;
 	}
-	
+
 	//added from decompiled
 	public void resumeOpMode() {
 		activeOpModeName = this.unknonwnStringF;
@@ -134,7 +134,7 @@ public class OpModeManager {
 		this.activeOpModeName = DEFAULT_OP_MODE_NAME;
 		this.unknownBooleanI = true;
 	}
-	
+
 	//added from decompiled
 	public void cancelResume() {
 		this.unknonwnOpModeE = DEFAULT_OP_MODE;
@@ -142,7 +142,7 @@ public class OpModeManager {
 		this.unknownBooleanK = false;
 		this.opModeSwapNeeded = false;
 	}
-	
+
 	public void switchOpModes(String name) {
 		activeOpModeName = name;
 		opModeSwapNeeded = true;
@@ -163,7 +163,7 @@ public class OpModeManager {
 		activeOpMode.time = activeOpMode.getRuntime();
 		activeOpMode.gamepad1 = gamepads[0];
 		activeOpMode.gamepad2 = gamepads[1];
-		
+
 		// run the start method, if needed
 		if (opModeSwapNeeded) {
 			unkownMethodA();
@@ -199,7 +199,7 @@ public class OpModeManager {
 		}
 		opModeObjects.put(name, opMode);
 	}
-	
+
 	private void unkownMethodA() {
 		RobotLog.i("Attempting to resume op mode " + this.activeOpModeName);
 		this.activeOpModeName = this.unknonwnStringF;
@@ -213,7 +213,7 @@ public class OpModeManager {
 
 	private void performOpModeSwap() {
 		RobotLog.i("Attempting to switch to op mode " + activeOpModeName);
-		
+
 		if (!this.unknownBooleanK)
 			stopActiveOpMode();
 

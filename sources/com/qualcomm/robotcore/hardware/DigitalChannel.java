@@ -35,55 +35,55 @@ package com.qualcomm.robotcore.hardware;
  */
 public class DigitalChannel {
 
-  private DigitalChannelController controller = null;
-  private int channel = -1;
+	private DigitalChannelController controller = null;
+	private int channel = -1;
 
-  /**
-   * Constructor
-   *
-   * @param controller Digital channel controller this channel is attached to
-   * @param channel channel on the digital channel controller
-   */
-  public DigitalChannel(DigitalChannelController controller, int channel) {
-    this.controller = controller;
-    this.channel = channel;
-  }
+	/**
+	 * Constructor
+	 *
+	 * @param controller Digital channel controller this channel is attached to
+	 * @param channel channel on the digital channel controller
+	 */
+	public DigitalChannel(DigitalChannelController controller, int channel) {
+		this.controller = controller;
+		this.channel = channel;
+	}
 
-  /**
-   * Get the channel mode
-   *
-   * @return channel mode
-   */
-  public DigitalChannelController.Mode getMode() {
-    return controller.getDigitalChannelMode(channel);
-  }
+	/**
+	 * Get the channel mode
+	 *
+	 * @return channel mode
+	 */
+	public DigitalChannelController.Mode getMode() {
+		return controller.getDigitalChannelMode(channel);
+	}
 
-  /**
-   * Set the channel mode
-   *
-   * @param mode
-   */
-  public void setMode(DigitalChannelController.Mode mode) {
-    controller.setDigitalChannelMode(channel, mode);
-  }
+	/**
+	 * Set the channel mode
+	 *
+	 * @param mode
+	 */
+	public void setMode(DigitalChannelController.Mode mode) {
+		controller.setDigitalChannelMode(channel, mode);
+	}
 
-  /**
-   * Get the channel state
-   *
-   * @return state
-   */
-  public boolean getState() {
-    return controller.getDigitalChannelState(channel);
-  }
+	/**
+	 * Get the channel state
+	 *
+	 * @return state
+	 */
+	public boolean getState() {
+		return controller.getDigitalChannelState(channel);
+	}
 
-  /**
-   * Set the channel state
-   * <p>
-   * The behavior of this method is undefined for INPUT digital channels.
-   *
-   * @param state
-   */
-  public void setState(boolean state) {
-    controller.setDigitalChannelState(channel, state);
-  }
+	/**
+	 * Set the channel state
+	 * <p>
+	 * The behavior of this method is undefined for INPUT digital channels.
+	 *
+	 * @param state
+	 */
+	public void setState(boolean state) {
+		controller.setDigitalChannelState(channel, state);
+	}
 }

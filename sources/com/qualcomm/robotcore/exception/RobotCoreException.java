@@ -37,20 +37,25 @@ package com.qualcomm.robotcore.exception;
  */
 public class RobotCoreException extends Exception {
 
-  private static final long serialVersionUID = -6837027308140695266L;
+	private static final long serialVersionUID = -6837027308140695266L;
 
-  private Exception chainedException = null;
+	private Exception chainedException = null;
 
-  public RobotCoreException(String message) {
-    super(message);
-  }
+	public RobotCoreException(String message) {
+		super(message);
+	}
 
-  public RobotCoreException(String message, Exception e) {
-    super(message);
-    chainedException = e;
-  }
+	public RobotCoreException(String message, Exception e) {
+		super(message);
+		chainedException = e;
+	}
 
-  public boolean isChainedException() { return (chainedException != null); }
+	public boolean isChainedException() {
+		return (chainedException != null);
+	}
 
-  public Exception getChainedException() { return chainedException; }
+	public Exception getChainedException() {
+		return chainedException;
+	}
+
 }

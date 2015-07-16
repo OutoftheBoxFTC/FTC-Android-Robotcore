@@ -1,4 +1,4 @@
-a/* Copyright (c) 2014, 2015 Qualcomm Technologies Inc
+/* Copyright (c) 2014, 2015 Qualcomm Technologies Inc
 
 All rights reserved.
 
@@ -41,7 +41,10 @@ public class DcMotor {
 	/**
 	 * Motor direction
 	 */
-	public enum Direction { FORWARD, REVERSE };
+	public enum Direction {
+		FORWARD,
+		REVERSE
+	};
 
 	protected Direction direction = Direction.FORWARD;
 	protected DcMotorController controller = null;
@@ -115,7 +118,8 @@ public class DcMotor {
 	 */
 	public void setPower(double power) {
 		if (direction == Direction.REVERSE) power *= -1;
-		if (mode == DcMotorController.RunMode.RUN_TO_POSITION) power = Math.abs(power);
+		if (mode == DcMotorController.RunMode.RUN_TO_POSITION)
+			power = Math.abs(power);
 		controller.setMotorPower(portNumber, power);
 	}
 
@@ -126,7 +130,8 @@ public class DcMotor {
 	 */
 	public double getPower() {
 		double power = controller.getMotorPower(portNumber);
-		if (direction == Direction.REVERSE && power != 0.0) power *= -1;
+		if (direction == Direction.REVERSE && power != 0.0)
+			power *= -1;
 		return power;
 	}
 
@@ -150,10 +155,8 @@ public class DcMotor {
 	 * Set the motor target position, where 1.0 is one full rotation
 	 * Motor power should be positive if using run to position
 	 *  @param position range from Integer.MIN_VALUE to Integer.MAX_VALUE
-	 *
-	 *
 	 */
-	public void setTargetPosition(int position){
+	public void setTargetPosition(int position) {
 		controller.setMotorTargetPosition(portNumber, position);
 	}
 
