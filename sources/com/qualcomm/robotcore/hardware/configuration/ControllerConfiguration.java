@@ -39,65 +39,66 @@ import java.util.List;
 
 public class ControllerConfiguration extends DeviceConfiguration implements Serializable {
 
+	public static final SerialNumber NO_SERIAL_NUMBER = new SerialNumber("-1");
 
-  public static final SerialNumber NO_SERIAL_NUMBER = new SerialNumber("-1");
+	private List<DeviceConfiguration> devices;
+	private SerialNumber serialNumber;
+	private ConfigurationType type = ConfigurationType.NOTHING;
 
-  private List<DeviceConfiguration> devices;
-  private SerialNumber serialNumber;
-  private ConfigurationType type = ConfigurationType.NOTHING;
+	public ControllerConfiguration(String name, List<DeviceConfiguration> devices,
+			SerialNumber serialNumber, ConfigurationType type) {
+		super(type);
+		super.setName(name);
+		this.devices = devices;
+		this.serialNumber = serialNumber;
+	}
 
-  public ControllerConfiguration(String name, List<DeviceConfiguration> devices, SerialNumber serialNumber, ConfigurationType type) {
-    super(type);
-    super.setName(name);
-    this.devices = devices;
-    this.serialNumber = serialNumber;
-  }
+	public List<DeviceConfiguration> getDevices() {
+		return devices;
+	}
 
-  public List<DeviceConfiguration> getDevices() {
-    return devices;
-  }
+	@Override
+	public ConfigurationType getType(){
+		return super.getType();
+	}
 
-  public ConfigurationType getType(){
-    return super.getType();
-  }
+	public SerialNumber getSerialNumber(){
+		return this.serialNumber;
+	}
 
-  public SerialNumber getSerialNumber(){
-    return this.serialNumber;
-  }
+	public void addDevices(List<DeviceConfiguration> devices){
+		this.devices = devices;
+	}
 
-  public void addDevices(List<DeviceConfiguration> devices){
-    this.devices = devices;
-  }
+	public ConfigurationType deviceTypeToConfigType(DeviceManager.DeviceType type){
+		if (type == DeviceManager.DeviceType.MODERN_ROBOTICS_USB_DC_MOTOR_CONTROLLER){
+			return ConfigurationType.MOTOR_CONTROLLER;
+		}
+		if (type == DeviceManager.DeviceType.MODERN_ROBOTICS_USB_SERVO_CONTROLLER){
+			return ConfigurationType.SERVO_CONTROLLER;
+		}
+		if (type == DeviceManager.DeviceType.MODERN_ROBOTICS_USB_LEGACY_MODULE){
+			return ConfigurationType.LEGACY_MODULE_CONTROLLER;
+		}
+		else {
+			return ConfigurationType.NOTHING;
+		}
+	}
 
-  public ConfigurationType deviceTypeToConfigType(DeviceManager.DeviceType type){
-    if (type == DeviceManager.DeviceType.MODERN_ROBOTICS_USB_DC_MOTOR_CONTROLLER){
-      return ConfigurationType.MOTOR_CONTROLLER;
-    }
-    if (type == DeviceManager.DeviceType.MODERN_ROBOTICS_USB_SERVO_CONTROLLER){
-      return ConfigurationType.SERVO_CONTROLLER;
-    }
-    if (type == DeviceManager.DeviceType.MODERN_ROBOTICS_USB_LEGACY_MODULE){
-      return ConfigurationType.LEGACY_MODULE_CONTROLLER;
-    }
-    else {
-      return ConfigurationType.NOTHING;
-    }
-  }
-
-  public DeviceManager.DeviceType configTypeToDeviceType(ConfigurationType type){
-    if (type == ConfigurationType.MOTOR_CONTROLLER){
-      return DeviceManager.DeviceType.MODERN_ROBOTICS_USB_DC_MOTOR_CONTROLLER;
-    }
-    if (type == ConfigurationType.SERVO_CONTROLLER){
-      return DeviceManager.DeviceType.MODERN_ROBOTICS_USB_SERVO_CONTROLLER;
-    }
-    if (type == ConfigurationType.LEGACY_MODULE_CONTROLLER){
-      return DeviceManager.DeviceType.MODERN_ROBOTICS_USB_LEGACY_MODULE;
-    }
-    else {
-      return DeviceManager.DeviceType.FTDI_USB_UNKNOWN_DEVICE;
-    }
-  }
+	public DeviceManager.DeviceType configTypeToDeviceType(ConfigurationType type){
+		if (type == ConfigurationType.MOTOR_CONTROLLER){
+			return DeviceManager.DeviceType.MODERN_ROBOTICS_USB_DC_MOTOR_CONTROLLER;
+		}
+		if (type == ConfigurationType.SERVO_CONTROLLER){
+			return DeviceManager.DeviceType.MODERN_ROBOTICS_USB_SERVO_CONTROLLER;
+		}
+		if (type == ConfigurationType.LEGACY_MODULE_CONTROLLER){
+			return DeviceManager.DeviceType.MODERN_ROBOTICS_USB_LEGACY_MODULE;
+		}
+		else {
+			return DeviceManager.DeviceType.FTDI_USB_UNKNOWN_DEVICE;
+		}
+	}
 
 }
 

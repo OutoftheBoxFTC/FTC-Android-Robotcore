@@ -42,10 +42,10 @@ import com.qualcomm.robotcore.exception.RobotCoreException;
  */
 public interface HardwareFactory {
 
-  /**
-   * Create a hardware map
-   * @return HardwareMap
-   */
-  public HardwareMap createHardwareMap(EventLoopManager manager)
-      throws RobotCoreException, InterruptedException;
+	/**
+	 * Create a hardware map
+	 * @return HardwareMap
+	 */
+	public HardwareMap createHardwareMap(EventLoopManager manager)
+			throws RobotCoreException, InterruptedException;
 }

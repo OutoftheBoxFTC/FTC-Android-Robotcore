@@ -38,131 +38,140 @@ import com.qualcomm.robotcore.util.Range;
  */
 public class Servo {
 
-  /**
-   * Motor direction
-   */
-  public enum Direction { FORWARD, REVERSE };
+	/**
+	 * Motor direction
+	 */
+	public enum Direction { FORWARD, REVERSE };
 
-  public final static double MIN_POSITION = 0.0;
-  public final static double MAX_POSITION = 1.0;
+	public final static double MIN_POSITION = 0.0;
+	public final static double MAX_POSITION = 1.0;
 
-  protected ServoController controller = null;
-  protected int portNumber = -1;
+	protected ServoController controller = null;
+	protected int portNumber = -1;
 
-  protected Direction direction = Direction.FORWARD;
-  protected double minPosition = 0.0;
-  protected double maxPosition = 1.0;
+	protected Direction direction = Direction.FORWARD;
+	protected double minPosition = 0.0;
+	protected double maxPosition = 1.0;
 
-  /**
-   * Constructor
-   * @param controller Servo controller that this servo is attached to
-   * @param portNumber physical port number on the servo controller
-   */
-  public Servo(ServoController controller, int portNumber) {
-    this(controller, portNumber, Direction.FORWARD);
-  }
+	/**
+	 * Constructor
+	 * @param controller Servo controller that this servo is attached to
+	 * @param portNumber physical port number on the servo controller
+	 */
+	public Servo(ServoController controller, int portNumber) {
+		this(controller, portNumber, Direction.FORWARD);
+	}
 
-  /**
-   * COnstructor
-   * @param controller Servo controller that this servo is attached to
-   * @param portNumber physical port number on the servo controller
-   * @param direction FORWARD for normal operation, REVERSE to reverse operation
-   */
-  public Servo(ServoController controller, int portNumber, Direction direction) {
-    this.direction = direction;
-    this.controller = controller;
-    this.portNumber = portNumber;
-  }
+	/**
+	 * Constructor
+	 * @param controller Servo controller that this servo is attached to
+	 * @param portNumber physical port number on the servo controller
+	 * @param direction FORWARD for normal operation, REVERSE to reverse operation
+	 */
+	public Servo(ServoController controller, int portNumber, Direction direction) {
+		this.direction = direction;
+		this.controller = controller;
+		this.portNumber = portNumber;
+	}
 
-  /**
-   * Get Servo Controller
-   * @return servo controller
-   */
-  public ServoController getController() {
-    return controller;
-  }
+	/**
+	 * Get Servo Controller
+	 * @return servo controller
+	 */
+	public ServoController getController() {
+		return controller;
+	}
 
-  /**
-   * Set the direction
-   * @param direction direction
-   */
-  public void setDirection(Direction direction) {
-    this.direction = direction;
-  }
+	/**
+	 * Set the direction
+	 * @param direction direction
+	 */
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
 
-  /**
-   * Get the direction
-   * @return direction
-   */
-  public Direction getDirection() {
-    return direction;
-  }
+	/**
+	 * Get the direction
+	 * @return direction
+	 */
+	public Direction getDirection() {
+		return direction;
+	}
 
-  /**
-   * Get Channel
-   * @return channel
-   */
-  public int getPortNumber() {
-    return portNumber;
-  }
+	/**
+	 * Get Channel
+	 * @return channel
+	 */
+	public int getPortNumber() {
+		return portNumber;
+	}
 
-  /**
-   * Set the position of the servo
-   * @param position from 0.0 to 1.0
-   */
-  public void setPosition(double position) {
-    if (direction == Direction.REVERSE) position = reverse(position);
-    double scaled = Range.scale(position, MIN_POSITION, MAX_POSITION, minPosition, maxPosition);
-    controller.setServoPosition(portNumber, scaled);
-  }
+	/**
+	 * Set the position of the servo
+	 * @param position from 0.0 to 1.0
+	 */
+	public void setPosition(double position) {
+		if (direction == Direction.REVERSE)
+			position = reverse(position);
+		double scaled = Range.scale(position, MIN_POSITION, MAX_POSITION, minPosition, maxPosition);
+		controller.setServoPosition(portNumber, scaled);
+	}
 
-  /**
-   * Get the position of the servo
-   * @return position, scaled from 0.0 to 1.0
-   */
-  public double getPosition() {
-    double position = controller.getServoPosition(portNumber);
-    if (direction == Direction.REVERSE) position = reverse(position);
-    double scaled = Range.scale(position, minPosition, maxPosition, MIN_POSITION, MAX_POSITION);
-    return Range.clip(scaled, MIN_POSITION, MAX_POSITION);
-  }
+	/**
+	 * Get the position of the servo
+	 * @return position, scaled from 0.0 to 1.0
+	 */
+	public double getPosition() {
+		double position = controller.getServoPosition(portNumber);
+		if (direction == Direction.REVERSE)
+			position = reverse(position);
+		double scaled = Range.scale(position, minPosition, maxPosition, MIN_POSITION, MAX_POSITION);
+		return Range.clip(scaled, MIN_POSITION, MAX_POSITION);
+	}
 
-  /**
-   * Automatically scale the position of the servo.
-   * <p>
-   * For example, if scaleRange(0.2, 0.8) is set; then servo positions will be
-   * scaled to fit in that range.<br>
-   * setPosition(0.0) scales to 0.2<br>
-   * setPosition(1.0) scales to 0.8<br>
-   * setPosition(0.5) scales to 0.5<br>
-   * setPosition(0.25) scales to 0.35<br>
-   * setPosition(0.75) scales to 0.65<br>
-   * <p>
-   * This is useful if you don't want the servo to move past a given position,
-   * but don't want to manually scale the input to setPosition each time.
-   * getPosition() will scale the value back to a value between 0.0 and 1.0. If
-   * you need to know the actual position use
-   * Servo.getController().getServoPosition(Servo.getChannel()).
-   *
-   * @param min
-   *           minimum position of the servo from 0.0 to 1.0
-   * @param max
-   *           maximum position of the servo from 0.0 to 1.0
-   * @throws IllegalArgumentException if out of bounds, or min >= max
-   */
-  public void scaleRange(double min, double max) throws IllegalArgumentException {
-    Range.throwIfRangeIsInvalid(min, MIN_POSITION, MAX_POSITION);
-    Range.throwIfRangeIsInvalid(max, MIN_POSITION, MAX_POSITION);
+	/**
+	 * Automatically scale the position of the servo.
+	 * <p>
+	 * For example, if scaleRange(0.2, 0.8) is set; then servo positions will be
+	 * scaled to fit in that range.
+	 * <br>
+	 * setPosition(0.0) scales to 0.2
+	 * <br>
+	 * setPosition(1.0) scales to 0.8
+	 * <br>
+	 * setPosition(0.5) scales to 0.5
+	 * <br>
+	 * setPosition(0.25) scales to 0.35
+	 * <br>
+	 * setPosition(0.75) scales to 0.65
+	 * <br>
+	 * <p>
+	 * This is useful if you don't want the servo to move past a given position,
+	 * but don't want to manually scale the input to setPosition each time.
+	 * getPosition() will scale the value back to a value between 0.0 and 1.0. If
+	 * you need to know the actual position use
+	 * Servo.getController().getServoPosition(Servo.getChannel()).
+	 *
+	 * @param min
+	 *           minimum position of the servo from 0.0 to 1.0
+	 * @param max
+	 *           maximum position of the servo from 0.0 to 1.0
+	 * @throws IllegalArgumentException if out of bounds, or min >= max
+	 */
+	public void scaleRange(double min, double max) throws IllegalArgumentException {
+		Range.throwIfRangeIsInvalid(min, MIN_POSITION, MAX_POSITION);
+		Range.throwIfRangeIsInvalid(max, MIN_POSITION, MAX_POSITION);
 
-    if (min >= max) {
-      throw new IllegalArgumentException("min must be less than max");
-    }
+		if (min >= max) {
+			throw new IllegalArgumentException("min must be less than max");
+		}
 
-    minPosition = min;
-    maxPosition = max;
-  }
+		minPosition = min;
+		maxPosition = max;
+	}
 
-  private double reverse(double position) {
-    return MAX_POSITION - position + MIN_POSITION;
-  }
+	private double reverse(double position) {
+		return MAX_POSITION - position + MIN_POSITION;
+	}
+	
 }

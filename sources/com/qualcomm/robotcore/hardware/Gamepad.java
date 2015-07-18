@@ -418,6 +418,7 @@ public class Gamepad implements RobocolParsable {
 
 	/**
 	 * Are all analog sticks and triggers in their rest position?
+	 * 
 	 * @return true if all analog sticks and triggers are at rest; otherwise false
 	 */
 	public boolean atRest() {
@@ -441,20 +442,33 @@ public class Gamepad implements RobocolParsable {
 	 */
 	@Override
 	public String toString() {
-		String buttons = new String();
-		if (dpad_up) buttons += "dpad_up ";
-		if (dpad_down) buttons += "dpad_down ";
-		if (dpad_left) buttons += "dpad_left ";
-		if (dpad_right) buttons += "dpad_right ";
-		if (a) buttons += "a ";
-		if (b) buttons += "b ";
-		if (x) buttons += "x ";
-		if (y) buttons += "y ";
-		if (guide) buttons += "guide ";
-		if (start) buttons += "start ";
-		if (back) buttons += "back ";
-		if (left_bumper) buttons += "left_bumper ";
-		if (right_bumper) buttons += "right_bumper ";
+		String buttons = "";
+		if (dpad_up)
+			buttons += "dpad_up ";
+		if (dpad_down)
+			buttons += "dpad_down ";
+		if (dpad_left)
+			buttons += "dpad_left ";
+		if (dpad_right)
+			buttons += "dpad_right ";
+		if (a)
+			buttons+= "a ";
+		if (b)
+			buttons += "b ";
+		if (x)
+			buttons += "x ";
+		if (y)
+			buttons += "y ";
+		if (guide)
+			buttons += "guide ";
+		if (start)
+			buttons += "start ";
+		if (back)
+			buttons += "back ";
+		if (left_bumper)
+			buttons += "left_bumper ";
+		if (right_bumper)
+			buttons += "right_bumper ";
 
 		return String.format("ID: %2d user: %2d lx: % 1.2f ly: % 1.2f rx: % 1.2f ry: % 1.2f lt: %1.2f rt: %1.2f %s",
 				id, user, left_stick_x, left_stick_y,
@@ -493,7 +507,8 @@ public class Gamepad implements RobocolParsable {
 	}
 
 	protected void callCallback() {
-		if (callback != null) callback.gamepadChanged(this);
+		if (callback != null)
+			callback.gamepadChanged(this);
 	}
 
 	/**

@@ -45,178 +45,177 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-//import com.qualcomm.robotcore.util.RobotLog;
-
 public class WriteXMLFileHandler {
 
-  private Context context;
-  private XmlSerializer serializer;
-  private HashSet<String> names = new HashSet<String>();
-  private ArrayList<String> duplicates = new ArrayList<String>();
-  private String[] indentation = {"    ", "        ", "            "};
-  private int indent = 0;
+	private Context context;
+	private XmlSerializer serializer;
+	private HashSet<String> names = new HashSet<String>();
+	private ArrayList<String> duplicates = new ArrayList<String>();
+	private String[] indentation = {"    ", "        ", "            "};
+	private int indent = 0;
 
-  public WriteXMLFileHandler(Context context) {
-    this.context = context;
-    serializer = Xml.newSerializer();
-  }
+	public WriteXMLFileHandler(Context context) {
+		this.context = context;
+		serializer = Xml.newSerializer();
+	}
 
+	public String writeXml(ArrayList<ControllerConfiguration> deviceControllerConfigurations) {
+		
+		duplicates = new ArrayList<String>();
+		names = new HashSet<String>();
 
-  public String writeXml(ArrayList<ControllerConfiguration> deviceControllerConfigurations){
-    duplicates = new ArrayList<String>();
-    names = new HashSet<String>();
+		StringWriter writer = new StringWriter();
+		try {
+			serializer.setOutput(writer);
+			serializer.startDocument("UTF-8", true);
+			serializer.ignorableWhitespace("\n");
+			serializer.startTag("", "Robot");
+			serializer.ignorableWhitespace("\n");
+			for (ControllerConfiguration controllerConfiguration : deviceControllerConfigurations){
+				// Do the same thing for DcMotorControllers, ServoControllers, and LegacyModules
+				String type = controllerConfiguration.getType().toString();
+				if (type.equalsIgnoreCase(DeviceConfiguration.ConfigurationType.MOTOR_CONTROLLER.toString())
+						|| type.equalsIgnoreCase(DeviceConfiguration.ConfigurationType.SERVO_CONTROLLER.toString())){
+					handleController(controllerConfiguration);
+				}
+				if (type.equalsIgnoreCase(DeviceConfiguration.ConfigurationType.LEGACY_MODULE_CONTROLLER.toString())){
+					handleLegacyModuleController(controllerConfiguration);
+				}
+			}
+			serializer.endTag("", "Robot");
+			serializer.endDocument();
+			return writer.toString();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-    StringWriter writer = new StringWriter();
-    try {
-      serializer.setOutput(writer);
-      serializer.startDocument("UTF-8", true);
-      serializer.ignorableWhitespace("\n");
-      serializer.startTag("", "Robot");
-      serializer.ignorableWhitespace("\n");
-      for (ControllerConfiguration controllerConfiguration : deviceControllerConfigurations){
-        // Do the same thing for DcMotorControllers, ServoControllers, and LegacyModules
-        String type = controllerConfiguration.getType().toString();
-        if (type.equalsIgnoreCase(DeviceConfiguration.ConfigurationType.MOTOR_CONTROLLER.toString()) ||
-                type.equalsIgnoreCase(DeviceConfiguration.ConfigurationType.SERVO_CONTROLLER.toString())){
-          handleController(controllerConfiguration);
-        }
-        if (type.equalsIgnoreCase(DeviceConfiguration.ConfigurationType.LEGACY_MODULE_CONTROLLER.toString())){
-          handleLegacyModuleController(controllerConfiguration);
-        }
-      }
-      serializer.endTag("", "Robot");
-      serializer.endDocument();
-      return writer.toString();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-  }
+	private void checkForDuplicates(String name){
+		if (name.equalsIgnoreCase(DeviceConfiguration.DISABLED_DEVICE_NAME)){
+			return;
+		}
+		if (names.contains(name)){
+			duplicates.add(name);
+		} else {
+			names.add(name);
+		}
+	}
 
-  private void checkForDuplicates(String name){
-    if (name.equalsIgnoreCase(DeviceConfiguration.DISABLED_DEVICE_NAME)){
-      return;
-    }
-    if (names.contains(name)){
-      duplicates.add(name);
-    } else {
-      names.add(name);
-    }
-  }
+	private void handleLegacyModuleController(ControllerConfiguration controller) throws IOException {
+		serializer.ignorableWhitespace(indentation[indent]);
+		serializer.startTag("", conform(controller.getType().toString()));
+		String name = controller.getName();
+		checkForDuplicates(name);
+		serializer.attribute("", "name", controller.getName());
+		serializer.attribute("", "serialNumber", controller.getSerialNumber().toString());
+		serializer.ignorableWhitespace("\n");
+		indent++;
 
-  private void handleLegacyModuleController(ControllerConfiguration controller) throws IOException {
-    serializer.ignorableWhitespace(indentation[indent]);
-    serializer.startTag("", conform(controller.getType().toString()));
-    String name = controller.getName();
-    checkForDuplicates(name);
-    serializer.attribute("", "name", controller.getName());
-    serializer.attribute("", "serialNumber", controller.getSerialNumber().toString());
-    serializer.ignorableWhitespace("\n");
-    indent++;
+		// step through the list of attached devices,
+		ArrayList<DeviceConfiguration> devices = (ArrayList<DeviceConfiguration>) controller.getDevices();
+		for (DeviceConfiguration device : devices){
+			String type = device.getType().toString();
+			if (type.equalsIgnoreCase(DeviceConfiguration.ConfigurationType.MOTOR_CONTROLLER.toString())
+					|| type.equalsIgnoreCase(DeviceConfiguration.ConfigurationType.SERVO_CONTROLLER.toString())){
+				handleController((ControllerConfiguration)device);
+			} else {
+				buildDevice(serializer, device);
+			}
+		}
 
-    // step through the list of attached devices,
-    ArrayList<DeviceConfiguration> devices = (ArrayList<DeviceConfiguration>) controller.getDevices();
-    for (DeviceConfiguration device : devices){
-      String type = device.getType().toString();
-      if (type.equalsIgnoreCase(DeviceConfiguration.ConfigurationType.MOTOR_CONTROLLER.toString()) ||
-              type.equalsIgnoreCase(DeviceConfiguration.ConfigurationType.SERVO_CONTROLLER.toString())){
-        handleController((ControllerConfiguration)device);
-      } else {
-        buildDevice(serializer, device);
-      }
-    }
+		indent--;
+		serializer.ignorableWhitespace(indentation[indent]);
+		serializer.endTag("", conform(controller.getType().toString()));
+		serializer.ignorableWhitespace("\n");
+	}
 
-    indent--;
-    serializer.ignorableWhitespace(indentation[indent]);
-    serializer.endTag("", conform(controller.getType().toString()));
-    serializer.ignorableWhitespace("\n");
-  }
+	private void handleController(ControllerConfiguration controller) throws IOException {
+		serializer.ignorableWhitespace(indentation[indent]);
+		serializer.startTag("", conform(controller.getType().toString()));
+		String name = controller.getName();
+		checkForDuplicates(name);
+		serializer.attribute("", "name", controller.getName());
+		serializer.attribute("", "serialNumber", controller.getSerialNumber().toString());
+		serializer.attribute("", "port", String.valueOf(controller.getPort()));
+		serializer.ignorableWhitespace("\n");
+		indent++;
 
-  private void handleController(ControllerConfiguration controller) throws IOException {
-    serializer.ignorableWhitespace(indentation[indent]);
-    serializer.startTag("", conform(controller.getType().toString()));
-    String name = controller.getName();
-    checkForDuplicates(name);
-    serializer.attribute("", "name", controller.getName());
-    serializer.attribute("", "serialNumber", controller.getSerialNumber().toString());
-    serializer.attribute("", "port", String.valueOf(controller.getPort()));
-    serializer.ignorableWhitespace("\n");
-    indent++;
+		// step through the list of attached devices,
+		ArrayList<DeviceConfiguration> devices = (ArrayList<DeviceConfiguration>) controller.getDevices();
+		for (DeviceConfiguration device : devices){
+			buildDevice(serializer, device);
+		}
+		indent--;
+		serializer.ignorableWhitespace(indentation[indent]);
+		serializer.endTag("", conform(controller.getType().toString()));
+		serializer.ignorableWhitespace("\n");
+	}
 
-    // step through the list of attached devices,
-    ArrayList<DeviceConfiguration> devices = (ArrayList<DeviceConfiguration>) controller.getDevices();
-    for (DeviceConfiguration device : devices){
-      buildDevice(serializer, device);
-    }
-    indent--;
-    serializer.ignorableWhitespace(indentation[indent]);
-    serializer.endTag("", conform(controller.getType().toString()));
-    serializer.ignorableWhitespace("\n");
-  }
+	private void buildDevice(XmlSerializer serializer, DeviceConfiguration device){
+		try {
+			serializer.ignorableWhitespace(indentation[indent]);
+			serializer.startTag("", conform(device.getType().toString()));
+			String name = device.getName();
+			checkForDuplicates(name);
+			serializer.attribute("", "name", device.getName());
+			serializer.attribute("", "port", String.valueOf(device.getPort()));
+			serializer.endTag("", conform(device.getType().toString()));
+			serializer.ignorableWhitespace("\n");
+		} catch (Exception e){
+			throw new RuntimeException(e);
+		}
+	}
 
-  private void buildDevice(XmlSerializer serializer, DeviceConfiguration device){
-    try {
-      serializer.ignorableWhitespace(indentation[indent]);
-      serializer.startTag("", conform(device.getType().toString()));
-      String name = device.getName();
-      checkForDuplicates(name);
-      serializer.attribute("", "name", device.getName());
-      serializer.attribute("", "port", String.valueOf(device.getPort()));
-      serializer.endTag("", conform(device.getType().toString()));
-      serializer.ignorableWhitespace("\n");
-    } catch (Exception e){
-      throw new RuntimeException(e);
-    }
-  }
+	// TODO: check for verification against JAD decompiled
+	public void writeToFile(String data, String folderName, String filename) throws RobotCoreException, IOException {
+		if (duplicates.size() > 0) {
+			throw new IOException("Duplicate names: " + duplicates);
+		}
+		filename = filename.replaceFirst("[.][^.]+$", ""); // strip .xml
 
-  public void writeToFile(String data, String folderName, String filename) throws RobotCoreException, IOException{
-    if (duplicates.size() > 0){
-      throw new IOException("Duplicate names: " + duplicates);
-    }
-    filename = filename.replaceFirst("[.][^.]+$", ""); // strip .xml
+		File folder = new File(folderName);
+		boolean success = true;
 
-    File folder = new File(folderName);
-    boolean success = true;
+		if (!folder.exists()){
+			success = folder.mkdir();
+		}
+		if (success){
+			File file = new File(folderName + filename + Utility.FILE_EXT);
+			FileOutputStream stream = null;
+			try{
+				stream = new FileOutputStream(file);
+				stream.write(data.getBytes());
+			} catch (Exception e){
+				e.printStackTrace();
+			} finally {
+				try {
+					stream.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		} else {
+			throw new RobotCoreException("Unable to create directory");
+		}
+	}
 
-    if (!folder.exists()){
-      success = folder.mkdir();
-    }
-    if (success){
-      File file = new File(folderName + filename + Utility.FILE_EXT);
-      FileOutputStream stream = null;
-      try{
-        stream = new FileOutputStream(file);
-        stream.write(data.getBytes());
-      } catch (Exception e){
-        e.printStackTrace();
-      } finally {
-        try {
-          stream.close();
-        } catch (IOException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-      }
-    } else {
-      throw new RobotCoreException("Unable to create directory");
-    }
-  }
+	private String conform(String old){
 
-  private String conform(String old){
+		//UpperCamelCase (first letter capitalized)
+		String standardized = old.substring(0, 1) + old.substring(1).toLowerCase();
+		int hyphenIndex = old.lastIndexOf("_");
 
-    //UpperCamelCase (first letter capitalized)
-    String standardized = old.substring(0, 1) + old.substring(1).toLowerCase();
-    int hyphenIndex = old.lastIndexOf("_");
+		while (hyphenIndex > 0) {
+			int camelIndex = hyphenIndex + 1;
+			String start = standardized.substring(0, hyphenIndex);
+			String camelized = standardized.substring(camelIndex, camelIndex + 1).toUpperCase();
+			String end = standardized.substring(camelIndex+1);
 
-    while (hyphenIndex > 0) {
-      int camelIndex = hyphenIndex + 1;
-      String start = standardized.substring(0, hyphenIndex);
-      String camelized = standardized.substring(camelIndex, camelIndex + 1).toUpperCase();
-      String end = standardized.substring(camelIndex+1);
+			standardized = start + camelized + end;
+			hyphenIndex = standardized.lastIndexOf("_");
+		}
 
-      standardized = start + camelized + end;
-      hyphenIndex = standardized.lastIndexOf("_");
-    }
-
-    return standardized;
-  }
+		return standardized;
+	}
 }
