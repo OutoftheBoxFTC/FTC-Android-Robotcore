@@ -54,133 +54,131 @@ import java.util.Map;
  */
 public class MockDeviceManager extends DeviceManager {
 
+	public Map<SerialNumber, DeviceType> devices;
+	public MockUsbDcMotorController mock_dc = new MockUsbDcMotorController("7", DeviceType.MODERN_ROBOTICS_USB_DC_MOTOR_CONTROLLER);
+	public MockUsbServoController mock_servo = new MockUsbServoController("6", DeviceType.MODERN_ROBOTICS_USB_SERVO_CONTROLLER);
+	public MockUsbLegacyModule mock_legmod = new MockUsbLegacyModule("5", DeviceType.MODERN_ROBOTICS_USB_LEGACY_MODULE);
+	public MockNxtUltrasonicSensor mock_ultra = new MockNxtUltrasonicSensor(mock_legmod, 5);
+	public MockNxtAccelerationSensor mock_accel = new MockNxtAccelerationSensor(mock_legmod, 4);
+	public MockNxtCompassSensor mock_compass = new MockNxtCompassSensor(mock_legmod, 3);
+	public MockNxtIrSeekerSensor mock_ir = new MockNxtIrSeekerSensor(mock_legmod, 2);
+	public MockNxtLightSensor mock_light = new MockNxtLightSensor(mock_legmod, 1);
 
-  public Map<SerialNumber, DeviceType> devices;
-  public MockUsbDcMotorController mock_dc = new MockUsbDcMotorController("7", DeviceType.MODERN_ROBOTICS_USB_DC_MOTOR_CONTROLLER);
-  public MockUsbServoController mock_servo = new MockUsbServoController("6", DeviceType.MODERN_ROBOTICS_USB_SERVO_CONTROLLER);
-  public MockUsbLegacyModule mock_legmod = new MockUsbLegacyModule("5", DeviceType.MODERN_ROBOTICS_USB_LEGACY_MODULE);
-  public MockNxtUltrasonicSensor mock_ultra = new MockNxtUltrasonicSensor(mock_legmod, 5);
-  public MockNxtAccelerationSensor mock_accel = new MockNxtAccelerationSensor(mock_legmod, 4);
-  public MockNxtCompassSensor mock_compass = new MockNxtCompassSensor(mock_legmod, 3);
-  public MockNxtIrSeekerSensor mock_ir = new MockNxtIrSeekerSensor(mock_legmod, 2);
-  public MockNxtLightSensor mock_light = new MockNxtLightSensor(mock_legmod, 1);
+	/**
+	 * MockUsbDeviceManager constructor
+	 *
+	 * @param context Context of current Android app
+	 * @throws RobotCoreException if unable to open FTDI D2XX manager
+	 */
+	public MockDeviceManager(Context context, EventLoopManager manager) throws RobotCoreException {
 
+		/*
+		 * Edit this list to change the devices that will be returned by scanForUsbDevices()
+		 */
+		devices = new HashMap<SerialNumber, DeviceType>();
+		devices.put(new SerialNumber("7"), DeviceType.MODERN_ROBOTICS_USB_DC_MOTOR_CONTROLLER);
+		devices.put(new SerialNumber("6"), DeviceType.MODERN_ROBOTICS_USB_SERVO_CONTROLLER);
+		devices.put(new SerialNumber("5"), DeviceType.MODERN_ROBOTICS_USB_LEGACY_MODULE);
+		//devices.put(new SerialNumber("8"), DeviceType.MODERN_ROBOTICS_USB_DC_MOTOR_CONTROLLER);
 
-  /**
-   * MockUsbDeviceManager constructor
-   *
-   * @param context Context of current Android app
-   * @throws RobotCoreException if unable to open FTDI D2XX manager
-   */
-  public MockDeviceManager(Context context, EventLoopManager manager) throws RobotCoreException {
+	}
 
-    /*
-     * Edit this list to change the devices that will be returned by scanForUsbDevices()
-     */
-    devices = new HashMap<SerialNumber, DeviceType>();
-    devices.put(new SerialNumber("7"), DeviceType.MODERN_ROBOTICS_USB_DC_MOTOR_CONTROLLER);
-    devices.put(new SerialNumber("6"), DeviceType.MODERN_ROBOTICS_USB_SERVO_CONTROLLER);
-    devices.put(new SerialNumber("5"), DeviceType.MODERN_ROBOTICS_USB_LEGACY_MODULE);
-    //devices.put(new SerialNumber("8"), DeviceType.MODERN_ROBOTICS_USB_DC_MOTOR_CONTROLLER);
+	/* (non-Javadoc)
+	 * @see com.qualcomm.Mock.DeviceManager#scanForUsbDevices()
+	 */
+	@Override
+	public Map<SerialNumber, DeviceType> scanForUsbDevices() throws RobotCoreException {
+		return devices;
+	}
 
-  }
+	/* (non-Javadoc)
+	 * @see com.qualcomm.Mock.DeviceManager#createUsbDcMotorController(com.qualcomm.robotcore.util.SerialNumber)
+	 */
+	@Override
+	public DcMotorController createUsbDcMotorController(SerialNumber serialNumber){
 
-  /* (non-Javadoc)
-   * @see com.qualcomm.Mock.DeviceManager#scanForUsbDevices()
-   */
-  @Override
-  public Map<SerialNumber, DeviceType> scanForUsbDevices() throws RobotCoreException {
-    return devices;
-  }
+		return mock_dc;
+	}
 
-  /* (non-Javadoc)
-   * @see com.qualcomm.Mock.DeviceManager#createUsbDcMotorController(com.qualcomm.robotcore.util.SerialNumber)
-   */
-  @Override
-  public DcMotorController createUsbDcMotorController(SerialNumber serialNumber){
+	/* (non-Javadoc)
+	 * @see com.qualcomm.Mock.DeviceManager#createUsbServoController(com.qualcomm.robotcore.util.SerialNumber)
+	 */
+	@Override
+	public ServoController createUsbServoController(SerialNumber serialNumber){
+		return mock_servo;
+	}
 
-    return mock_dc;
-  }
+	/* (non-Javadoc)
+	 * @see com.qualcomm.Mock.DeviceManager#createUsbLegacyModule(com.qualcomm.robotcore.util.SerialNumber)
+	 */
+	@Override
+	public LegacyModule createUsbLegacyModule(SerialNumber serialNumber){
+		return mock_legmod;
+	}
 
-  /* (non-Javadoc)
-   * @see com.qualcomm.Mock.DeviceManager#createUsbServoController(com.qualcomm.robotcore.util.SerialNumber)
-   */
-  @Override
-  public ServoController createUsbServoController(SerialNumber serialNumber){
-    return mock_servo;
-  }
+	/* (non-Javadoc)
+	 * @see com.qualcomm.Mock.DeviceManager#createNxtDcMotorController(com.qualcomm.robotcore.hardware.LegacyModule, int)
+	 */
+	@Override
+	public DcMotorController createNxtDcMotorController(LegacyModule legacyModule, int physicalPort) {
+		return null;
+	}
 
-  /* (non-Javadoc)
-   * @see com.qualcomm.Mock.DeviceManager#createUsbLegacyModule(com.qualcomm.robotcore.util.SerialNumber)
-   */
-  @Override
-  public LegacyModule createUsbLegacyModule(SerialNumber serialNumber){
-    return mock_legmod;
-  }
+	/* (non-Javadoc)
+	 * @see com.qualcomm.Mock.DeviceManager#createNServoControllerController(com.qualcomm.robotcore.hardware.LegacyModule, int)
+	 */
+	@Override
+	public ServoController createNxtServoController(LegacyModule legacyModule, int physicalPort) {
+		return null;
+	}
 
-  /* (non-Javadoc)
-   * @see com.qualcomm.Mock.DeviceManager#createNxtDcMotorController(com.qualcomm.robotcore.hardware.LegacyModule, int)
-   */
-  @Override
-  public DcMotorController createNxtDcMotorController(LegacyModule legacyModule, int physicalPort) {
-    return null;
-  }
+	/* (non-Javadoc)
+	 * @see com.qualcomm.Mock.DeviceManager#createNxtCompassSensor(com.qualcomm.robotcore.hardware.LegacyModule, int)
+	 */
+	@Override
+	public CompassSensor createNxtCompassSensor(LegacyModule legacyModule, int physicalPort) {
 
-  /* (non-Javadoc)
- * @see com.qualcomm.Mock.DeviceManager#createNServoControllerController(com.qualcomm.robotcore.hardware.LegacyModule, int)
- */
-  @Override
-  public ServoController createNxtServoController(LegacyModule legacyModule, int physicalPort) {
-    return null;
-  }
+		return mock_compass;
+	}
 
-  /* (non-Javadoc)
-   * @see com.qualcomm.Mock.DeviceManager#createNxtCompassSensor(com.qualcomm.robotcore.hardware.LegacyModule, int)
-   */
-  @Override
-  public CompassSensor createNxtCompassSensor(LegacyModule legacyModule, int physicalPort) {
+	/* (non-Javadoc)
+	 * @see com.qualcomm.Mock.DeviceManager#createNxtAccelerationSensor(com.qualcomm.robotcore.hardware.LegacyModule, int)
+	 */
+	@Override
+	public AccelerationSensor createNxtAccelerationSensor(LegacyModule legacyModule, int physicalPort) {
 
-    return mock_compass;
-  }
+		return mock_accel;
+	}
 
-  /* (non-Javadoc)
-   * @see com.qualcomm.Mock.DeviceManager#createNxtAccelerationSensor(com.qualcomm.robotcore.hardware.LegacyModule, int)
-   */
-  @Override
-  public AccelerationSensor createNxtAccelerationSensor(LegacyModule legacyModule, int physicalPort) {
+	/* (non-Javadoc)
+	 * @see com.qualcomm.Mock.DeviceManager#createNxtLightSensor(com.qualcomm.robotcore.hardware.LegacyModule, int)
+	 */
+	@Override
+	public LightSensor createNxtLightSensor(LegacyModule legacyModule, int physicalPort) {
 
-    return mock_accel;
-  }
+		return mock_light;
+	}
 
-  /* (non-Javadoc)
-   * @see com.qualcomm.Mock.DeviceManager#createNxtLightSensor(com.qualcomm.robotcore.hardware.LegacyModule, int)
-   */
-  @Override
-  public LightSensor createNxtLightSensor(LegacyModule legacyModule, int physicalPort) {
+	/* (non-Javadoc)
+	 * @see com.qualcomm.Mock.DeviceManager#createNxtIrSeekerSensor(com.qualcomm.robotcore.hardware.LegacyModule, int)
+	 */
+	@Override
+	public IrSeekerSensor createNxtIrSeekerSensor(LegacyModule legacyModule, int physicalPort) {
 
-    return mock_light;
-  }
+		return mock_ir;
+	}
 
-  /* (non-Javadoc)
-   * @see com.qualcomm.Mock.DeviceManager#createNxtIrSeekerSensor(com.qualcomm.robotcore.hardware.LegacyModule, int)
-   */
-  @Override
-  public IrSeekerSensor createNxtIrSeekerSensor(LegacyModule legacyModule, int physicalPort) {
+	@Override
+	public UltrasonicSensor createNxtUltrasonicSensor(LegacyModule legacyModule, int physicalPort) {
+		return mock_ultra;
+	}
 
-    return mock_ir;
-  }
+	/* (non-Javadoc)
+	 * @see com.qualcomm.Mock.DeviceManager#createNxtIrSeekerSensor(com.qualcomm.robotcore.hardware.LegacyModule, int)
+	 */
+	@Override
+	public GyroSensor createNxtGyroSensor(LegacyModule legacyModule, int physicalPort) {
 
-  @Override
-  public UltrasonicSensor createNxtUltrasonicSensor(LegacyModule legacyModule, int physicalPort) {
-    return mock_ultra;
-  }
-
-  /* (non-Javadoc)
-   * @see com.qualcomm.Mock.DeviceManager#createNxtIrSeekerSensor(com.qualcomm.robotcore.hardware.LegacyModule, int)
-   */
-  @Override
-  public GyroSensor createNxtGyroSensor(LegacyModule legacyModule, int physicalPort) {
-
-    return null;
-  }
+		return null;
+	}
 }
