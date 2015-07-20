@@ -95,8 +95,7 @@ public class MockDeviceManager extends DeviceManager {
 	 * @see com.qualcomm.Mock.DeviceManager#createUsbDcMotorController(com.qualcomm.robotcore.util.SerialNumber)
 	 */
 	@Override
-	public DcMotorController createUsbDcMotorController(SerialNumber serialNumber){
-
+	public DcMotorController createUsbDcMotorController(SerialNumber serialNumber) {
 		return mock_dc;
 	}
 

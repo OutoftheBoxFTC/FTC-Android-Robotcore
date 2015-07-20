@@ -66,8 +66,9 @@ public class OpModeManager {
 
 	private HardwareMap hardwareMap = new HardwareMap();
 
-	//added from decompiled
-	private HardwareMap unknownHardwareMapH = new HardwareMap();
+	// added from decompiled
+	// commented because unused
+//	private HardwareMap unknownHardwareMapH = new HardwareMap();
 
 	private boolean opModeSwapNeeded = false;
 

@@ -40,56 +40,57 @@ import com.qualcomm.robotcore.hardware.LegacyModule;
  */
 public class MockUsbLegacyModule extends MockUsbDevice implements LegacyModule {
 
-  protected MockUsbLegacyModule(String serialNumber, DeviceType type) {
-    super(serialNumber, type);
-  }
+	protected MockUsbLegacyModule(String serialNumber, DeviceType type) {
+		super(serialNumber, type);
+	}
 
-  @Override
-  public void enableNxtI2cReadMode(int physicalPort, int i2cAddress, int memAddress, int memLength) {
+	@Override
+	public void enableNxtI2cReadMode(int physicalPort, int i2cAddress, int memAddress, int memLength) {
 
-  }
+	}
 
-  @Override
-  public void enableNxtI2cWriteMode(int physicalPort, int i2cAddress, int memAddress, byte[] initialValues) {
+	@Override
+	public void enableNxtI2cWriteMode(int physicalPort, int i2cAddress, int memAddress, byte[] initialValues) {
 
-  }
+	}
 
-  @Override
-  public void enableAnalogReadMode(int physicalPort, int i2cAddress) {
+	@Override
+	public void enableAnalogReadMode(int physicalPort, int i2cAddress) {
 
-  }
+	}
 
-  @Override
-  public void enable9v(int physicalPort, boolean enable) {
+	@Override
+	public void enable9v(int physicalPort, boolean enable) {
 
-  }
+	}
 
-  @Override
-  public void setDigitalLine(int physicalPort, int line, boolean set) {
+	@Override
+	public void setDigitalLine(int physicalPort, int line, boolean set) {
 
-  }
+	}
 
-  @Override
-  public byte[] readLegacyModuleCache(int physicalPort) {
-    return new byte[0];
-  }
+	@Override
+	public byte[] readLegacyModuleCache(int physicalPort) {
+		return new byte[0];
+	}
 
-  @Override
-  public void writeLegacyModuleCache(int physicalPort, byte[] data) {
+	@Override
+	public void writeLegacyModuleCache(int physicalPort, byte[] data) {
 
-  }
+	}
 
-  @Override
-  public byte[] readAnalog(int physicalPort) {
-    return new byte[0];
-  }
+	@Override
+	public byte[] readAnalog(int physicalPort) {
+		return new byte[0];
+	}
 
-  @Override
-  public boolean isPortReady(int physicalPort) { return true; }
+	@Override
+	public boolean isPortReady(int physicalPort) { return true; }
 
 
-  @Override
-  public String getDeviceName() {
-    return new String("Mock Legacy Module");
-  }
+	@Override
+	public String getDeviceName() {
+		return new String("Mock Legacy Module");
+	}
+	
 }

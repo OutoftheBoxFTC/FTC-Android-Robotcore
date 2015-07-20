@@ -35,34 +35,33 @@ import com.qualcomm.robotcore.hardware.CompassSensor;
 
 public class MockNxtCompassSensor extends CompassSensor {
 
-  private final MockUsbLegacyModule legacyModule;
-  private final int physicalPort;
+	private final MockUsbLegacyModule legacyModule;
+	private final int physicalPort;
 
-  public MockNxtCompassSensor(MockUsbLegacyModule legacyModule, int physicalPort) {
+	public MockNxtCompassSensor(MockUsbLegacyModule legacyModule, int physicalPort) {
+		this.legacyModule = legacyModule;
+		this.physicalPort = physicalPort;
+	}
 
-    this.legacyModule = legacyModule;
-    this.physicalPort = physicalPort;
-  }
+	@Override
+	public double getDirection() {
+		return 14.0;
+	}
 
-  @Override
-  public double getDirection() {
+	@Override
+	public String status() {
+		return String.format("NXT Compass Sensor, connected via device %s, port %d",
+				legacyModule.getSerialNumber().toString(), physicalPort);
+	}
 
-    return (double)14.0;
-  }
+	@Override
+	public boolean calibrationFailed() {
+		return false;
+	}
 
-  @Override
-  public String status() {
-    return String.format("NXT Compass Sensor, connected via device %s, port %d",
-        legacyModule.getSerialNumber().toString(), physicalPort);
-  }
+	@Override
+	public void setMode(CompassMode mode) {
 
-  @Override
-  public boolean calibrationFailed(){
-    return false;
-  }
-
-  @Override
-  public void setMode(CompassMode mode){
-
-  }
+	}
+	
 }

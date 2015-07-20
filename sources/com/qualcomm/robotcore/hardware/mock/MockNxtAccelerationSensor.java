@@ -35,24 +35,24 @@ import com.qualcomm.robotcore.hardware.AccelerationSensor;
 
 public class MockNxtAccelerationSensor extends AccelerationSensor {
 
-  public final MockUsbLegacyModule legacyModule;
-  private final int physicalPort;
+	public final MockUsbLegacyModule legacyModule;
+	private final int physicalPort;
 
-  public MockNxtAccelerationSensor(MockUsbLegacyModule legacyModule, int physicalPort) {
+	public MockNxtAccelerationSensor(MockUsbLegacyModule legacyModule, int physicalPort) {
 
-    this.legacyModule = legacyModule;
-    this.physicalPort = physicalPort;
-  }
+		this.legacyModule = legacyModule;
+		this.physicalPort = physicalPort;
+	}
 
-  @Override
-  public Acceleration getAcceleration() {
-    return new Acceleration();
-  }
+	@Override
+	public Acceleration getAcceleration() {
+		return new Acceleration();
+	}
 
-  @Override
-  public String status() {
-    return String.format("NXT Acceleration Sensor, connected via device %s, port %d",
-        legacyModule.getSerialNumber().toString(), physicalPort);
-  }
+	@Override
+	public String status() {
+		return String.format("NXT Acceleration Sensor, connected via device %s, port %d",
+				legacyModule.getSerialNumber().toString(), physicalPort);
+	}
 
 }

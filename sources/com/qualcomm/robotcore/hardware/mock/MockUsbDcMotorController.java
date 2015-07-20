@@ -44,102 +44,99 @@ import com.qualcomm.robotcore.util.DifferentialControlLoopCoefficients;
 public class MockUsbDcMotorController extends MockUsbDevice implements DcMotorController {
 
 	public static final byte MAX_ADDRESS = 0x21;
-  /**
-   * Use MockDeviceManager to create an instance of this class
-   *
-   * @see MockDeviceManager
-   * @param serialNumber USB serial number
-   * @param type device type
-   */
-  protected MockUsbDcMotorController(String serialNumber, DeviceType type) {
-    super(serialNumber, type);
-  }
+	
+	/**
+	 * Use MockDeviceManager to create an instance of this class
+	 *
+	 * @see MockDeviceManager
+	 * @param serialNumber USB serial number
+	 * @param type device type
+	 */
+	protected MockUsbDcMotorController(String serialNumber, DeviceType type) {
+		super(serialNumber, type);
+	}
 
-  /**
-   * Device Name
-   *
-   * @return device name
-   */
-  @Override
-  public String getDeviceName() {
-    return "Mock USB DC Motor Controller";
-  }
+	/**
+	 * Device Name
+	 *
+	 * @return device name
+	 */
+	@Override
+	public String getDeviceName() {
+		return "Mock USB DC Motor Controller";
+	}
 
-  @Override
-  public void setMotorControllerDeviceMode(DeviceMode mode) {
+	@Override
+	public void setMotorControllerDeviceMode(DeviceMode mode) {
 
-  }
+	}
 
-  @Override
-  public DeviceMode getMotorControllerDeviceMode() {
-    return null;
-  }
+	@Override
+	public DeviceMode getMotorControllerDeviceMode() {
+		return null;
+	}
 
-  @Override
-  public void setMotorChannelMode(int motor, RunMode mode) {
+	@Override
+	public void setMotorChannelMode(int motor, RunMode mode) {
 
-  }
+	}
 
-  @Override
-  public RunMode getMotorChannelMode(int motor) {
-    return RunMode.RUN_USING_ENCODERS;
-  }
+	@Override
+	public RunMode getMotorChannelMode(int motor) {
+		return RunMode.RUN_USING_ENCODERS;
+	}
 
-  @Override
-  public void setMotorPower(int motor, double power) {
+	@Override
+	public void setMotorPower(int motor, double power) {
 
-  }
+	}
 
-  @Override
-  public double getMotorPower(int motor) {
-    return 0.3;
-  }
+	@Override
+	public double getMotorPower(int motor) {
+		return 0.3;
+	}
 
-  @Override
-  public void setMotorPowerFloat(int motor) {
-  }
+	@Override
+	public void setMotorPowerFloat(int motor) {
+	}
 
-  @Override
-  public boolean getMotorPowerFloat(int motor) {
+	@Override
+	public boolean getMotorPowerFloat(int motor) {
+		return (true);
+	}
 
-    return (true);
-  }
+	@Override
+	public void setMotorTargetPosition(int motor, int position) {
+	}
 
-  @Override
-  public void setMotorTargetPosition(int motor, int position) {
-  }
+	@Override
+	public int getMotorTargetPosition(int motor) {
+		return 135;
+	}
 
-  @Override
-  public int getMotorTargetPosition(int motor) {
+	@Override
+	public int getMotorCurrentPosition(int motor) {
+		return 136;
+	}
 
-    return (135);
-  }
+	@Override
+	public void setGearRatio(int motor, double ratio) {
 
-  @Override
-  public int getMotorCurrentPosition(int motor) {
+	}
 
-    return  (136);
-  }
+	@Override
+	public double getGearRatio(int motor) {
+		return 13.9;
+	}
 
-  @Override
-  public void setGearRatio(int motor, double ratio) {
+	@Override
+	public void setDifferentialControlLoopCoefficients(int motor, DifferentialControlLoopCoefficients pid) {
 
-  }
+	}
 
-  @Override
-  public double getGearRatio(int motor) {
-    return (double) 13.9;
-  }
-
-  @Override
-  public void setDifferentialControlLoopCoefficients(int motor,
-      DifferentialControlLoopCoefficients pid) {
-
-  }
-
-  @Override
-  public DifferentialControlLoopCoefficients getDifferentialControlLoopCoefficients(int motor) {
-    return new DifferentialControlLoopCoefficients();
-  }
+	@Override
+	public DifferentialControlLoopCoefficients getDifferentialControlLoopCoefficients(int motor) {
+		return new DifferentialControlLoopCoefficients();
+	}
 
 }

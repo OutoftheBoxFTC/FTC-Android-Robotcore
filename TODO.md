@@ -22,7 +22,7 @@
 * Determine if a different process happens for objects in the differnt maps
 * change 'register(String, Class<?>) to accept (String, Class<? extends OpMode>)
 * figure out the unknonn variables/methods
-* figure out if hardwaremap H is needed at all
+* figure out if hardwaremap H is needed at all; if not, remove it
 
 #####factory.RobotFactory
 
@@ -143,3 +143,25 @@
 #####hardware.configuration.WriteXMLFileHandler
 
 * get rid of the `indentation` String array.
+
+#####hardware.mock.MockDeviceManager
+
+* figure out if the `SerialNumber` is needed for some overriden methods
+
+#####hardware.mock.MockHardwareFactory
+
+* turn the construction assignment into a call to `setHardwareMap`
+
+#####hardware.mock.MockUsbDcMotorController
+
+* find out why 135 and 136 are so special on lines 114, 119
+* return `null` instead of a `new` on 139 ????
+
+#####robocol.Command
+
+* find out if `CHARSET` is used for anything
+* rename members: remove all the M's
+* replace `equals()` body with `compareTo() == 0`
+* do something with the `generateTimestamp()` method
+
+#####robocol.Heartbeat
