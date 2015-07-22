@@ -77,7 +77,7 @@ public interface EventLoop {
 	 * 
 	 * @param command command to process
 	 */
-	public abstract void processCommand(Command command);
+	public void processCommand(Command command);
 
 	public OpModeManager getOpModeManager();
 

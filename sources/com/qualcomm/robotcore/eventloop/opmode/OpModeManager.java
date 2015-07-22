@@ -79,15 +79,10 @@ public class OpModeManager {
 	private boolean unknownBooleanK = false;
 
 
-	public OpModeManager(HardwareMap hardwareMap, OpModeRegister register) {
+	public OpModeManager(HardwareMap hardwareMap) {
 		this.hardwareMap = hardwareMap;
-
 		// register our default op mode first, that way the user can override it
 		register(DEFAULT_OP_MODE_NAME, DefaultOpMode.class);
-
-		// grab users op modes
-		register.register(this);
-
 		// switch to the default op mode
 		switchOpModes(DEFAULT_OP_MODE_NAME);
 	}
