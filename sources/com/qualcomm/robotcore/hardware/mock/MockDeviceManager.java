@@ -68,6 +68,7 @@ public class MockDeviceManager extends DeviceManager {
 	 * MockUsbDeviceManager constructor
 	 *
 	 * @param context Context of current Android app
+	 * @param manager the active EventLoopManager
 	 * @throws RobotCoreException if unable to open FTDI D2XX manager
 	 */
 	public MockDeviceManager(Context context, EventLoopManager manager) throws RobotCoreException {

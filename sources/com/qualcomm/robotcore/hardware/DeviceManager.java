@@ -70,7 +70,7 @@ public abstract class DeviceManager {
 	 * @param serialNumber serial number of controller
 	 * @return an instance of a DcMotorController
 	 * @throws RobotCoreException if unable to create instance
-	 * @throws InterruptedException
+	 * @throws InterruptedException if the thread is interrupted
 	 */
 	public abstract DcMotorController createUsbDcMotorController(SerialNumber serialNumber)
 			throws RobotCoreException, InterruptedException;
@@ -92,7 +92,7 @@ public abstract class DeviceManager {
 	 * @param serialNumber serial number of controller
 	 * @return an instance of a ServoController
 	 * @throws RobotCoreException if unable to create instance
-	 * @throws InterruptedException
+	 * @throws InterruptedException if the thread is interrupted
 	 */
 	public abstract ServoController createUsbServoController(SerialNumber serialNumber)
 			throws RobotCoreException, InterruptedException;
@@ -114,7 +114,7 @@ public abstract class DeviceManager {
 	 * @param serialNumber serial number of legacy module
 	 * @return an instance of a LegacyModule
 	 * @throws RobotCoreException if unable to create instance
-	 * @throws InterruptedException
+	 * @throws InterruptedException if the thread is interrupted
 	 */
 	public abstract LegacyModule createUsbLegacyModule(SerialNumber serialNumber)
 			throws RobotCoreException, InterruptedException;

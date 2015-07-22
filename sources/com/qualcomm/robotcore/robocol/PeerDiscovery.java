@@ -62,7 +62,7 @@ public class PeerDiscovery implements RobocolParsable {
 
 		/**
 		 * Create a PeerType from a byte
-		 * @param b
+		 * @param b the byte
 		 * @return PeerType
 		 */
 		public static PeerType fromByte(byte b) {

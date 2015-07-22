@@ -162,7 +162,7 @@ public class Servo {
 	 *
 	 * @param min minimum position of the servo from 0.0 to 1.0
 	 * @param max maximum position of the servo from 0.0 to 1.0
-	 * @throws IllegalArgumentException if out of bounds, or min >= max
+	 * @throws IllegalArgumentException if out of bounds, or min is not less than max
 	 */
 	public void scaleRange(double min, double max) throws IllegalArgumentException {
 		Range.throwIfRangeIsInvalid(min, MIN_POSITION, MAX_POSITION);

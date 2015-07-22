@@ -86,6 +86,8 @@ public class PeerDiscoveryManager {
 
 	/**
 	 * Start peer discovery
+	 * 
+	 * @param peerDiscoveryDevice the device to use for peer discovery
 	 */
 	public void start(InetAddress peerDiscoveryDevice) {
 		RobotLog.v("Starting peer discovery");

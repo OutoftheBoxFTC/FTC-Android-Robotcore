@@ -37,9 +37,9 @@ import com.qualcomm.robotcore.exception.RobotCoreException;
  * device registered with the event loop manager then the event loop manager will run the event
  * loop in this manor:
  * <p>
- * 1. wait until all sync'd device have returned from blockUtilReady() <br />
- * 2. run EventLoop.loop() <br />
- * 3. call startBlockingWork() on all sync'd device <br />
+ * 1. wait until all sync'd device have returned from blockUtilReady() <br>
+ * 2. run EventLoop.loop() <br>
+ * 3. call startBlockingWork() on all sync'd device <br>
  * <p>
  * Sync'd devices need to register themselves with the event loop manager
  */

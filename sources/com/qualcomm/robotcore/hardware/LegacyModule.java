@@ -59,6 +59,7 @@ public interface LegacyModule {
 	 * Enable a physical port in analog read mode
 	 * 
 	 * @param physicalPort physical port number on the device
+	 * @param i2cAddress the address
 	 */
 	public void enableAnalogReadMode(int physicalPort, int i2cAddress);
 

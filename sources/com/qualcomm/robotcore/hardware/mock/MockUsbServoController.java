@@ -45,12 +45,11 @@ public class MockUsbServoController extends MockUsbDevice implements ServoContro
 	/**
 	 * Use MockDeviceManager to create an instance of this class
 	 *
-	 * @see MockDeviceManager
 	 * @param serialNumber
+	 * @param type the type of the device
+	 * @see MockDeviceManager
 	 */
-	protected MockUsbServoController(
-			String serialNumber, DeviceType type) {
-
+	protected MockUsbServoController(String serialNumber, DeviceType type) {
 		super(serialNumber, type);
 	}
 

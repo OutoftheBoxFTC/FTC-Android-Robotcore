@@ -43,57 +43,59 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class Version {
-  private static final String TAG = "Version";
 
-  /** BUILD_VERSION for library, populated via custom_rules.xml */
-  public static final String BUILD_VERSION = "buildtest";
-  public static final String LABEL_VERSION = "1.0";
-  // This is the default string in case no version was explicitly supplied
-  private static String sBuildLabel = "Unspecified";
-  private static int sBuildLabelId = -1;
+	private static final String TAG = "Version";
 
-  /** Obtain the label */
-  public static String getBuildLabel(Context c) {
-    // This is an expensive call, only do once
-    if (sBuildLabelId == -1) {
-      sBuildLabelId = c.getResources().getIdentifier("buildLabel", "string", c.getPackageName());
+	/** BUILD_VERSION for library, populated via custom_rules.xml */
+	public static final String BUILD_VERSION = "buildtest";
+	public static final String LABEL_VERSION = "1.0";
+	// This is the default string in case no version was explicitly supplied
+	private static String sBuildLabel = "Unspecified";
+	private static int sBuildLabelId = -1;
 
-      // If found, id will be greater than 0
-      if (sBuildLabelId > 0) {
-        // Overwrite the default version string with the obtained one
-        sBuildLabel = c.getResources().getString(sBuildLabelId);
-      }
-      
-      // Append build timestamp to the version string
-      sBuildLabel += ", Timestamp: " + getAppBuildTime(c);
-    }
+	/** Obtain the label */
+	public static String getBuildLabel(Context c) {
+		// This is an expensive call, only do once
+		if (sBuildLabelId == -1) {
+			sBuildLabelId = c.getResources().getIdentifier("buildLabel", "string", c.getPackageName());
 
-    return sBuildLabel;
-  }
+			// If found, id will be greater than 0
+			if (sBuildLabelId > 0) {
+				// Overwrite the default version string with the obtained one
+				sBuildLabel = c.getResources().getString(sBuildLabelId);
+			}
 
-  /** Obtain the app build timestamp */
-  private static String getAppBuildTime(Context c) {
+			// Append build timestamp to the version string
+			sBuildLabel += ", Timestamp: " + getAppBuildTime(c);
+		}
 
-    // Extract the timestamp from the application
-    long appBuildTimestamp = 0;
-    try {
-      final ApplicationInfo appInfo =
-          c.getPackageManager().getApplicationInfo(c.getPackageName(), 0);
-      final ZipFile zipFile = new ZipFile(appInfo.sourceDir);
-      final ZipEntry zipEntry = zipFile.getEntry("META-INF/MANIFEST.MF");
-      appBuildTimestamp = zipEntry.getTime();
-      zipFile.close();
-    } catch (final Exception e) {
-      Log.e(TAG, "Failed to obtain application timestamp!");
-      e.printStackTrace();
-    }
+		return sBuildLabel;
+	}
 
-    // Convert timestamp into formatted calendar date and time string
-    final Date date = new Date(appBuildTimestamp);
-    final SimpleDateFormat formattedTimestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
-    final Calendar cal = new GregorianCalendar();
-    cal.setTime(date);
+	/** Obtain the app build timestamp */
+	private static String getAppBuildTime(Context c) {
 
-    return formattedTimestamp.format(date);
-  }
+		// Extract the timestamp from the application
+		long appBuildTimestamp = 0;
+		try {
+			final ApplicationInfo appInfo =
+					c.getPackageManager().getApplicationInfo(c.getPackageName(), 0);
+			final ZipFile zipFile = new ZipFile(appInfo.sourceDir);
+			final ZipEntry zipEntry = zipFile.getEntry("META-INF/MANIFEST.MF");
+			appBuildTimestamp = zipEntry.getTime();
+			zipFile.close();
+		} catch (final Exception e) {
+			Log.e(TAG, "Failed to obtain application timestamp!");
+			e.printStackTrace();
+		}
+
+		// Convert timestamp into formatted calendar date and time string
+		final Date date = new Date(appBuildTimestamp);
+		final SimpleDateFormat formattedTimestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
+		final Calendar cal = new GregorianCalendar();
+		cal.setTime(date);
+
+		return formattedTimestamp.format(date);
+	}
+
 }

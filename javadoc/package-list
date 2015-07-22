@@ -1,0 +1,15 @@
+com.qualcomm.robotcore
+com.qualcomm.robotcore.eventloop
+com.qualcomm.robotcore.eventloop.opmode
+com.qualcomm.robotcore.exception
+com.qualcomm.robotcore.factory
+com.qualcomm.robotcore.hardware
+com.qualcomm.robotcore.hardware.configuration
+com.qualcomm.robotcore.hardware.logitech
+com.qualcomm.robotcore.hardware.microsoft
+com.qualcomm.robotcore.hardware.mock
+com.qualcomm.robotcore.robocol
+com.qualcomm.robotcore.robot
+com.qualcomm.robotcore.sensor
+com.qualcomm.robotcore.util
+com.qualcomm.robotcore.wifi

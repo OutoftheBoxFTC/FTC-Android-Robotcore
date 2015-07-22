@@ -60,6 +60,8 @@ public class CurvedWheelMotion {
 	/**
 	 * Calculate the left or right wheel velocity for a differential drive robot given its
 	 * translational velocity and rotational velocities.
+	 * <br>
+	 * Note: for a skid-steering (4-wheel) robot, this calculation is approximate.
 	 * 
 	 * @param linearVelocityInMmPerSec robot linear velocity in mm per sec (+ve = forward, -ve = reverse)
 	 * @param rotationalVelocityInDegPerSec robot rotational velocity in degrees per sec (+ve = CCW, -ve = CW)
@@ -67,7 +69,6 @@ public class CurvedWheelMotion {
 	 * @param axleLengthInMm axle length in mm
 	 * @param leftWheel boolean indicating this is for the left wheel (true) or right wheel (false)
 	 * @return translational left wheel velocity (along the ground)
-	 * @note for a skid-steering (4-wheel) robot, this calculation is approximate.
 	 */
 	public static int getDiffDriveRobotWheelVelocity(final int linearVelocityInMmPerSec,
 			final double rotationalVelocityInDegPerSec, final int wheelRadiusInMm,

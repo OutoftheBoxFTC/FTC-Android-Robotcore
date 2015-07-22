@@ -61,7 +61,7 @@ public class MockHardwareFactory implements HardwareFactory {
 
 	/**
 	 * Get a copy of the hardware map that will be returned by createHardwareMap(...)
-	 * @return
+	 * @return a copy of the hardware map
 	 */
 	public HardwareMap getHardwareMap() {
 		return hardwareMap;

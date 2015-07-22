@@ -74,7 +74,7 @@ public interface RobocolParsable {
 		/**
 		 * Create a MsgType from a byte
 		 * 
-		 * @param b
+		 * @param b the byte
 		 * @return MsgType
 		 */
 		public static MsgType fromByte(byte b) {

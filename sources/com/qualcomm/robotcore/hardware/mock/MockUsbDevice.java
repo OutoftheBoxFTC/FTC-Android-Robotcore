@@ -53,9 +53,7 @@ public abstract class MockUsbDevice {
 	 * Blocks until one successful read from device
 	 *
 	 * @param serialNumber USB serial number
-	 * @param device reference to the FT_Device object
-	 * @param maxAddress max memory address used by this device
-	 * @param callback callback, may be null
+	 * @param type reference to the FT_Device object
 	 */
 	protected MockUsbDevice(String serialNumber, DeviceType type) {
 
@@ -132,6 +130,7 @@ public abstract class MockUsbDevice {
 	 * Read a single byte from device
 	 *
 	 * @param address address to read
+	 * @return the byte that was read
 	 * @throws IllegalArgumentException if address is out of range, or if read failed
 	 */
 	public byte read(byte address) {
@@ -143,6 +142,7 @@ public abstract class MockUsbDevice {
 	 *
 	 * @param address address to read
 	 * @param size number of bytes to read
+	 * @return all the bytes from the device
 	 * @throws IllegalArgumentException if address is out of range, or if read failed
 	 */
 	public byte[] read(byte address, int size) {

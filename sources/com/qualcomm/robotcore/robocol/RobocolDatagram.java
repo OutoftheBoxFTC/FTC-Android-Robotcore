@@ -17,7 +17,8 @@ public class RobocolDatagram {
 	/**
 	 * Construct a RobocolDatagram from a RobocolParsable
 	 * 
-	 * @param message
+	 * @param message the RobocolParsable message
+	 * @throws RobotCoreException if the operation fails for an unknown reason
 	 */
 	public RobocolDatagram(RobocolParsable message) throws RobotCoreException {
 		setData(message.toByteArray());
@@ -26,7 +27,7 @@ public class RobocolDatagram {
 	/**
 	 * Construct a RobocolDatagram from a byte array
 	 * 
-	 * @param message
+	 * @param message the byte array
 	 */
 	public RobocolDatagram(byte[] message) {
 		setData(message);

@@ -98,6 +98,7 @@ public interface DcMotorController {
 	 * actually being switched. Both "SWITCHING" modes simply communicate that delay to the user.
 	 * The only modes the user should set are "READ_ONLY" and "WRITE_ONLY."
 	 *
+	 * @return the current device mode
 	 */
 	public abstract DeviceMode getMotorControllerDeviceMode();
 

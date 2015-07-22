@@ -44,7 +44,11 @@ public interface HardwareFactory {
 
 	/**
 	 * Create a hardware map
+	 * 
+	 * @param manager the current EventLoopManager
 	 * @return HardwareMap
+	 * @throws RobotCoreException if the operation fails for an unknown reason
+	 * @throws InterruptedException if the thread is interrupted
 	 */
 	public HardwareMap createHardwareMap(EventLoopManager manager)
 			throws RobotCoreException, InterruptedException;

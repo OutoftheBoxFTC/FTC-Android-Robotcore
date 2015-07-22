@@ -57,6 +57,8 @@ public abstract class CompassSensor {
 
 	/**
 	 * Change to calibration or measurement mode
+	 * 
+	 * @param mode the mode to change to
 	 */
 	public abstract void setMode(CompassMode mode);
 
