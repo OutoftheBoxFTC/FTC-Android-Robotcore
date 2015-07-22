@@ -43,8 +43,8 @@ public class Servo {
 	 */
 	public enum Direction { FORWARD, REVERSE };
 
-	public final static double MIN_POSITION = 0.0;
-	public final static double MAX_POSITION = 1.0;
+	public static final double MIN_POSITION = 0.0;
+	public static final double MAX_POSITION = 1.0;
 
 	protected ServoController controller = null;
 	protected int portNumber = -1;

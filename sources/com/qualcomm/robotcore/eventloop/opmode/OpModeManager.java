@@ -49,6 +49,8 @@ import java.util.Set;
  *
  * Able to switch between op modes
  */
+
+// BE ESPECIALLY CAREFUL WITH DISCREPANCIES IN THIS CLASS
 public class OpModeManager {
 
 	public static final String DEFAULT_OP_MODE_NAME = "Stop Robot";
@@ -232,7 +234,7 @@ public class OpModeManager {
 
 		startActiveOpMode();
 
-		opModeSwapNeeded = false;
+		unknownBooleanI = false;
 	}
 
 	private boolean isOpModeRegistered(String name) {

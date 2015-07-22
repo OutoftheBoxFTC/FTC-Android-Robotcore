@@ -40,12 +40,15 @@ public abstract class AccelerationSensor {
 	 * Acceleration in the x, y, and z axis
 	 */
 	public static class Acceleration {
+		
 		public Acceleration() {
 			this(0.0, 0.0, 0.0);
 		}
 
 		public Acceleration(double x, double y, double z) {
-			this.x = x; this.y = y; this.z = z;
+			this.x = x; 
+			this.y = y;
+			this.z = z;
 		}
 
 		public double x;

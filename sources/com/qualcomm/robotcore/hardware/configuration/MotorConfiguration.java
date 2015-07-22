@@ -50,6 +50,7 @@ public class MotorConfiguration extends DeviceConfiguration {
 		super.setType(ConfigurationType.MOTOR);
 	}
 
+	@Override
 	public void setDisabled(boolean disabled){
 		this.disabled = disabled;
 	}
