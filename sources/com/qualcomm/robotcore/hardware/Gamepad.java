@@ -73,7 +73,7 @@ public class Gamepad implements RobocolParsable {
 
 	/**
 	 * Optional callback interface for monitoring changes due to MotionEvents and KeyEvents.
-	 *
+	 * <p>
 	 * This interface can be used to notify you if the gamepad changes due to either a KeyEvent or a
 	 * MotionEvent. It does not notify you if the gamepad changes for other reasons.
 	 */
@@ -85,6 +85,7 @@ public class Gamepad implements RobocolParsable {
 		 * @param gamepad device which state has changed
 		 */
 		public void gamepadChanged(Gamepad gamepad);
+
 	}
 
 	/**
@@ -232,22 +233,12 @@ public class Gamepad implements RobocolParsable {
 	 * Reusing Map.Entry which provides appropriate .equals/.hashCode
 	 */
 	private static class DeviceId extends AbstractMap.SimpleEntry<Integer, Integer> {
-		
+
 		private static final long serialVersionUID = -6429575391769944899L;
 
 		public DeviceId(int vendorId, int productId) {
 			super(vendorId, productId);
 		}
-
-		/* not present in decompiled version
-		public int getVendorId() {
-			return getKey();
-		}
-
-		public int getProductId() {
-			return getValue();
-		}
-		*/
 
 	}
 
@@ -261,6 +252,7 @@ public class Gamepad implements RobocolParsable {
 
 	/**
 	 * Set the joystick deadzone. Must be between 0 and 1.
+	 * 
 	 * @param deadzone
 	 */
 	public void setJoystickDeadzone(float deadzone) {
@@ -273,6 +265,7 @@ public class Gamepad implements RobocolParsable {
 
 	/**
 	 * Update the gamepad based on a MotionEvent
+	 * 
 	 * @param event
 	 */
 	public void update(MotionEvent event) {
@@ -296,6 +289,7 @@ public class Gamepad implements RobocolParsable {
 
 	/**
 	 * Update the gamepad based on a KeyEvent
+	 * 
 	 * @param event
 	 */
 	public void update(android.view.KeyEvent event) {
@@ -430,6 +424,7 @@ public class Gamepad implements RobocolParsable {
 
 	/**
 	 * Get the type of gamepad as a String. This method defaults to "Standard".
+	 * 
 	 * @return gamepad type
 	 */
 	public String type() {
@@ -438,6 +433,7 @@ public class Gamepad implements RobocolParsable {
 
 	/**
 	 * Display a summary of this gamepad, including the state of all buttons, analog sticks, and triggers
+	 * 
 	 * @return a summary
 	 */
 	@Override
@@ -578,4 +574,5 @@ public class Gamepad implements RobocolParsable {
 		// this is not an event from a game pad
 		return false;
 	}
+
 }

@@ -43,7 +43,9 @@ import java.nio.ByteBuffer;
  */
 public class Heartbeat implements RobocolParsable {
 
-	public enum Token { EMPTY }
+	public enum Token {
+		EMPTY
+	}
 
 	public static final short PAYLOAD_SIZE = 10;
 	public static final short BUFFER_SIZE = PAYLOAD_SIZE + RobocolParsable.HEADER_LENGTH;
@@ -79,6 +81,7 @@ public class Heartbeat implements RobocolParsable {
 	 * Timestamp this Heartbeat was created at
 	 * <p>
 	 * Device dependent, cannot compare across devices
+	 * 
 	 * @return timestamp
 	 */
 	public long getTimestamp() {
@@ -89,6 +92,7 @@ public class Heartbeat implements RobocolParsable {
 	 * Number of seconds since Heartbeat was created
 	 * <p>
 	 * Device dependent, cannot compare across devices
+	 * 
 	 * @return elapsed time
 	 */
 	public double getElapsedTime() {
@@ -97,6 +101,7 @@ public class Heartbeat implements RobocolParsable {
 
 	/**
 	 * Sequence number of this Heartbeat. Sequence numbers wrap at MAX_SEQUENCE_NUMBER.
+	 * 
 	 * @return sequence number
 	 */
 	public short getSequenceNumber() {
@@ -105,6 +110,7 @@ public class Heartbeat implements RobocolParsable {
 
 	/**
 	 * Get Robocol message type
+	 * 
 	 * @return RobocolParsable.MsgType.HEARTBEAT
 	 */
 	@Override
@@ -146,6 +152,7 @@ public class Heartbeat implements RobocolParsable {
 
 	/**
 	 * String containing sequence number and timestamp
+	 * 
 	 * @return String
 	 */
 	@Override
@@ -159,4 +166,5 @@ public class Heartbeat implements RobocolParsable {
 		if (sequenceNumberGen > MAX_SEQUENCE_NUMBER) sequenceNumberGen = 0;
 		return next;
 	}
+
 }

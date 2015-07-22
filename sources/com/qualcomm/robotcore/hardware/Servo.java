@@ -55,6 +55,7 @@ public class Servo {
 
 	/**
 	 * Constructor
+	 * 
 	 * @param controller Servo controller that this servo is attached to
 	 * @param portNumber physical port number on the servo controller
 	 */
@@ -64,6 +65,7 @@ public class Servo {
 
 	/**
 	 * Constructor
+	 * 
 	 * @param controller Servo controller that this servo is attached to
 	 * @param portNumber physical port number on the servo controller
 	 * @param direction FORWARD for normal operation, REVERSE to reverse operation
@@ -76,6 +78,7 @@ public class Servo {
 
 	/**
 	 * Get Servo Controller
+	 * 
 	 * @return servo controller
 	 */
 	public ServoController getController() {
@@ -84,6 +87,7 @@ public class Servo {
 
 	/**
 	 * Set the direction
+	 * 
 	 * @param direction direction
 	 */
 	public void setDirection(Direction direction) {
@@ -92,6 +96,7 @@ public class Servo {
 
 	/**
 	 * Get the direction
+	 * 
 	 * @return direction
 	 */
 	public Direction getDirection() {
@@ -100,6 +105,7 @@ public class Servo {
 
 	/**
 	 * Get Channel
+	 * 
 	 * @return channel
 	 */
 	public int getPortNumber() {
@@ -108,6 +114,7 @@ public class Servo {
 
 	/**
 	 * Set the position of the servo
+	 * 
 	 * @param position from 0.0 to 1.0
 	 */
 	public void setPosition(double position) {
@@ -119,6 +126,7 @@ public class Servo {
 
 	/**
 	 * Get the position of the servo
+	 * 
 	 * @return position, scaled from 0.0 to 1.0
 	 */
 	public double getPosition() {
@@ -152,10 +160,8 @@ public class Servo {
 	 * you need to know the actual position use
 	 * Servo.getController().getServoPosition(Servo.getChannel()).
 	 *
-	 * @param min
-	 *           minimum position of the servo from 0.0 to 1.0
-	 * @param max
-	 *           maximum position of the servo from 0.0 to 1.0
+	 * @param min minimum position of the servo from 0.0 to 1.0
+	 * @param max maximum position of the servo from 0.0 to 1.0
 	 * @throws IllegalArgumentException if out of bounds, or min >= max
 	 */
 	public void scaleRange(double min, double max) throws IllegalArgumentException {
@@ -173,5 +179,5 @@ public class Servo {
 	private double reverse(double position) {
 		return MAX_POSITION - position + MIN_POSITION;
 	}
-	
+
 }

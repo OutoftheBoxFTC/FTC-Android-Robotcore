@@ -28,7 +28,6 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 package com.qualcomm.robotcore.util;
 
 import android.content.Context;
@@ -44,174 +43,174 @@ import java.util.ArrayList;
 
 public class ExtractAssets {
 
-  private static final String TAG = ExtractAssets.class.getSimpleName();
+	private static final String TAG = ExtractAssets.class.getSimpleName();
 
-  public static ArrayList<String> ExtractToStorage(Context context, ArrayList<String> files,
-      boolean useInternalStorage) throws IOException {
+	public static ArrayList<String> ExtractToStorage(Context context, ArrayList<String> files,
+			boolean useInternalStorage) throws IOException {
 
-    // Get state of external storage
+		// Get state of external storage
 
-    if (!useInternalStorage) {
-      String state = Environment.getExternalStorageState();
+		if (!useInternalStorage) {
+			String state = Environment.getExternalStorageState();
 
-      if (!Environment.MEDIA_MOUNTED.equals(state)) {
-        throw new IOException("External Storage not accessible");
-      }
-    }
+			if (!Environment.MEDIA_MOUNTED.equals(state)) {
+				throw new IOException("External Storage not accessible");
+			}
+		}
 
-    ArrayList<String> fileList = new ArrayList<String>();
-    for (String ipFile : files) {
-      ExtractAndCopy(context, ipFile, useInternalStorage, fileList);
+		ArrayList<String> fileList = new ArrayList<String>();
+		for (String ipFile : files) {
+			ExtractAndCopy(context, ipFile, useInternalStorage, fileList);
 
-      if (fileList != null) {
-        Log.d(TAG, "got " + fileList.size() + " elements");
+			if (fileList != null) {
+				Log.d(TAG, "got " + fileList.size() + " elements");
+				/*       
+				for (String name : fileList) {
+		          Log.d(TAG, "Got " + name);
+		        }
+				 */
+			}
+		}
+		return fileList;
+	}
 
-/*        for (String name : fileList) {
-          Log.d(TAG, "Got " + name);
-        }*/
-      }
-    }
-    return fileList;
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  }
+	private static ArrayList<String> ExtractAndCopy(Context context, String file,
+			boolean useInternalStorage, ArrayList<String> retList) {
 
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		Log.d(TAG, "Extracting assests for " + file);
 
-  private static ArrayList<String> ExtractAndCopy(Context context, String file,
-      boolean useInternalStorage, ArrayList<String> retList) {
+		String[] fileList = null;
 
-    Log.d(TAG, "Extracting assests for " + file);
+		AssetManager am = context.getAssets();
 
-    String[] fileList = null;
+		try {
+			fileList = am.list(file);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 
-    AssetManager am = context.getAssets();
+		//Log.d(TAG, "path: " + file + " assets " + Arrays.toString(fileList));
 
-    try {
-      fileList = am.list(file);
-    } catch (IOException e1) {
-      e1.printStackTrace();
-    }
+		InputStream ipStream = null;
+		FileOutputStream outStream = null;
 
-    //Log.d(TAG, "path: " + file + " assets " + Arrays.toString(fileList));
+		if (fileList.length == 0) {
+			// This is the last child, try to access the file
+			try {
+				ipStream = am.open(file);
+				Log.d(TAG, "File: " + file + " opened for streaming");
 
-    InputStream ipStream = null;
-    FileOutputStream outStream = null;
+				// If the name doesn't begin with a file separatorChar, add it
+				if (!file.startsWith(File.separator)) {
+					// Append file separator
+					file = File.separator + file;
+				}
 
-    if (fileList.length == 0) {
-      // This is the last child, try to access the file
-      try {
-        ipStream = am.open(file);
-        Log.d(TAG, "File: " + file + " opened for streaming");
+				// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        // If the name doesn't begin with a file separatorChar, add it
-        if (!file.startsWith(File.separator)) {
-          // Append file separator
-          file = File.separator + file;
-        }
+				File fileSystemPath = null;
+				if(useInternalStorage)
+				{
+					fileSystemPath = context.getFilesDir();
+				}else{
 
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+					fileSystemPath = context.getExternalFilesDir(null);
+				}
 
-        File fileSystemPath = null;
-        if(useInternalStorage)
-        {
-         fileSystemPath = context.getFilesDir();
-        }else{
+				String path = fileSystemPath.getPath();
+				String outFile = path.concat(file);
 
-          fileSystemPath = context.getExternalFilesDir(null);
-        }
+				// If the file was already processed, return
+				// This happens if the user specifies duplicate entries in the input list
 
-        String path = fileSystemPath.getPath();
-        String outFile = path.concat(file);
+				if (retList != null && retList.contains(outFile)) {
+					Log.e(TAG, "Ignoring Duplicate entry for " + outFile);
+					return retList;
+				}
 
-        // If the file was already processed, return
-        // This happens if the user specifies duplicate entries in the input list
+				// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        if (retList != null && retList.contains(outFile)) {
-          Log.e(TAG, "Ignoring Duplicate entry for " + outFile);
-          return retList;
-        }
+				// Get the directory
+				int dirPathEnd = outFile.lastIndexOf(File.separatorChar);
+				String dirName = outFile.substring(0, dirPathEnd);
+				String fileName = outFile.substring(dirPathEnd, outFile.length());
 
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+				File fp = new File(dirName);
 
-        // Get the directory
-        int dirPathEnd = outFile.lastIndexOf(File.separatorChar);
-        String dirName = outFile.substring(0, dirPathEnd);
-        String fileName = outFile.substring(dirPathEnd, outFile.length());
+				if (fp.mkdirs()) {
+					Log.d(TAG, "Dir created " + dirName);
+				} else {
+					//Log.d(TAG, "Dir exists " + dirName);
+				}
 
-        File fp = new File(dirName);
+				// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        if (fp.mkdirs()) {
-          Log.d(TAG, "Dir created " + dirName);
-        } else {
-          //Log.d(TAG, "Dir exists " + dirName);
-        }
+				File outFileHandle = new File(fp, fileName);
+				outStream = new FileOutputStream(outFileHandle);
 
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+				if (outStream != null) {
+					// Read from input stream and write to output stream
+					byte[] readBuf = new byte[1024];
 
-        File outFileHandle = new File(fp, fileName);
-        outStream = new FileOutputStream(outFileHandle);
+					int bytesRead = 0;
 
-        if (outStream != null) {
-          // Read from input stream and write to output stream
-          byte[] readBuf = new byte[1024];
+					while( ( bytesRead = ipStream.read(readBuf)) != -1) {
+						outStream.write(readBuf, 0, bytesRead);
+					}
+				}
+				outStream.close();
 
-          int bytesRead = 0;
+				if (retList != null) {
+					retList.add(outFile);
+				}
 
-          while( ( bytesRead = ipStream.read(readBuf)) != -1) {
-          outStream.write(readBuf, 0, bytesRead);
-          }
-        }
-        outStream.close();
+			} catch (IOException e) {
+				Log.d(TAG, "File: " + file + " doesn't exist");
+			} finally {
+				if (ipStream != null) {
+					try {
+						ipStream.close();
+					} catch (IOException e) {
+						Log.d(TAG, "Unable to close in stream");
+						e.printStackTrace();
+					}
+					if (outStream != null) {
+						try {
+							outStream.close();
+						} catch (IOException e) {
+							Log.d(TAG, "Unable to close out stream");
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+			return retList;
+		}
 
-        if (retList != null) {
-          retList.add(outFile);
-        }
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-      } catch (IOException e) {
-        Log.d(TAG, "File: " + file + " doesn't exist");
-      } finally {
-        if (ipStream != null) {
-          try {
-            ipStream.close();
-          } catch (IOException e) {
-            Log.d(TAG, "Unable to close in stream");
-            e.printStackTrace();
-          }
-          if (outStream != null) {
-            try {
-              outStream.close();
-            } catch (IOException e) {
-              Log.d(TAG, "Unable to close out stream");
-              e.printStackTrace();
-            }
-          }
-        }
-      }
-      return retList;
-    }
+		// Not the last child, recurse
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		String ipFilePath = file;
 
-    // Not the last child, recurse
+		// Check if the file ends with a path separator, if not, append and get the file name
+		// Don't append fileSeparator if it's the top level dir
 
-    String ipFilePath = file;
+		if (!file.equals("") && !file.endsWith(File.separator)) {
+			// Append the path separator
+			ipFilePath = ipFilePath.concat(File.separator);
+		}
 
-    // Check if the file ends with a path separator, if not, append and get the file name
-    // Don't append fileSeparator if it's the top level dir
+		for (String ipFile : fileList) {
+			String ipFileName = ipFilePath.concat(ipFile);
+			ExtractAndCopy(context, ipFileName, useInternalStorage, retList);
+		}
 
-    if (!file.equals("") && !file.endsWith(File.separator)) {
-      // Append the path separator
-      ipFilePath = ipFilePath.concat(File.separator);
-    }
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    for (String ipFile : fileList) {
-      String ipFileName = ipFilePath.concat(ipFile);
-      ExtractAndCopy(context, ipFileName, useInternalStorage, retList);
-    }
+		return retList;
+	}
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    return retList;
-
-  }
 }

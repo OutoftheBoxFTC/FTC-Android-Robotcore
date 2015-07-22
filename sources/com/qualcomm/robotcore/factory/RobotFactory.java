@@ -37,15 +37,16 @@ import com.qualcomm.robotcore.robot.Robot;
 
 public class RobotFactory {
 
-  public static Robot createRobot() throws RobotCoreException {
+	public static Robot createRobot() throws RobotCoreException {
 
-    RobocolDatagramSocket socket = new RobocolDatagramSocket();
-    EventLoopManager eventProcessor = new EventLoopManager(socket);
+		RobocolDatagramSocket socket = new RobocolDatagramSocket();
+		EventLoopManager eventProcessor = new EventLoopManager(socket);
 
-    Robot robot = new Robot();
-    robot.eventLoopManager = eventProcessor;
-    robot.socket = socket;
+		Robot robot = new Robot();
+		robot.eventLoopManager = eventProcessor;
+		robot.socket = socket;
 
-    return robot;
-  }
+		return robot;
+	}
+
 }

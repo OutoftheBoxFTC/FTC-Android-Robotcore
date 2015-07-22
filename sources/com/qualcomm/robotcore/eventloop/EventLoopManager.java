@@ -77,16 +77,12 @@ public class EventLoopManager {
 	/**
 	 * Callback to monitor when event loop changes state
 	 */
-	//verified consistant with decompiled
 	public interface EventLoopMonitor {
 		void onStateChange(State state);
 	}
 
-	/*
+	/**
 	 * Responsible for sending scheduled items via the socket
-	 * 
-	 * appears as 'd' on decompiled version
-	 * verified consistant with decompiled
 	 */
 	private class ScheduledSendRunnable implements Runnable {
 
@@ -96,7 +92,6 @@ public class EventLoopManager {
 		public void run() {
 
 			while (!Thread.interrupted()) {
-
 				for (Command cmd : commandSendCache) {
 					if (cmd.getAttempts() > MAX_COMMAND_ATTEMPTS) {
 						// too many attempts
@@ -133,11 +128,8 @@ public class EventLoopManager {
 		}
 	}
 
-	/*
+	/**
 	 * Responsible for pulling items off the socket and processing them
-	 * 
-	 * appears as 'c' on decompiled
-	 * verified consistant
 	 */
 	private class RecvRunnable implements Runnable {
 
@@ -194,21 +186,18 @@ public class EventLoopManager {
 				} catch (RobotCoreException e) {
 					RobotLog.w("RobotCore event loop cannot process event: " + e);
 				}
-				
+
 				if (DEBUG)
 					timer.log("recv runnable");
 			}
 		}
 	}
 
-	/*
+	/**
 	 * Responsible for calling loop on the assigned event loop
-	 * 
-	 * appears as 'b' on decompiled
-	 * verified consistant
 	 */
 	private class EventLoopRunnable implements Runnable {
-		
+
 		@Override
 		public void run() {
 
@@ -282,7 +271,6 @@ public class EventLoopManager {
 		}
 	}
 
-	// verified consistant
 	public void handleDroppedConnection(){
 		this.clientAddr = null; // assume this client is no longer connected
 		OpModeManager opModeManager = eventLoop.getOpModeManager();
@@ -299,15 +287,12 @@ public class EventLoopManager {
 		RobotLog.i(msg);
 		opModeManager.switchOpModes(OpModeManager.DEFAULT_OP_MODE_NAME);
 	}
-	
-	/*
+
+	/**
 	 * Empty event loop, used as a sane default
-	 * 
-	 * appears as 'a' on decompiled
-	 * verified consistant
 	 */
 	private static class EmptyEventLoop implements EventLoop {
-		
+
 		@Override
 		public void init(EventLoopManager eventProcessor) {} // take no action
 
@@ -326,7 +311,6 @@ public class EventLoopManager {
 		public OpModeManager getOpModeManager(){return null;};
 	}
 
-	//verified consistant
 	public enum State {
 		NOT_STARTED,
 		INIT,
@@ -368,7 +352,6 @@ public class EventLoopManager {
 	 *
 	 * @param socket socket for IO with remote device
 	 */
-	// verified consistant
 	public EventLoopManager(RobocolDatagramSocket socket) {
 		this.socket = socket;
 		this.changeState(State.NOT_STARTED);
@@ -379,7 +362,6 @@ public class EventLoopManager {
 	 *
 	 * @param monitor event loop monitor
 	 */
-	// verified consistant
 	public void setMonitor(EventLoopMonitor monitor) {
 		this.callback = monitor;
 	}
@@ -390,7 +372,6 @@ public class EventLoopManager {
 	 * @param eventLoop set initial event loop
 	 * @throws RobotCoreException if event loop fails to init
 	 */
-	// verified consistant
 	public void start(EventLoop eventLoop) throws RobotCoreException {
 		this.shutdownRecvLoop = false;
 
@@ -404,7 +385,6 @@ public class EventLoopManager {
 	/**
 	 * Shut down the event processor
 	 */
-	// verified consistant
 	public void shutdown() {
 		this.socket.close();
 		this.scheduledSendThread.interrupt();
@@ -417,7 +397,6 @@ public class EventLoopManager {
 	 * 
 	 * @param device sync'd device
 	 */
-	// verified consistant
 	public void registerSyncdDevice(SyncdDevice device) {
 		this.syncdDevices.add(device);
 	}
@@ -427,7 +406,6 @@ public class EventLoopManager {
 	 * 
 	 * @param device sync'd device
 	 */
-	// verified consistant
 	public void unregisterSyncdDevice(SyncdDevice device) {
 		this.syncdDevices.remove(device);
 	}
@@ -438,7 +416,6 @@ public class EventLoopManager {
 	 * @param eventLoop new event loop
 	 * @throws RobotCoreException if event loop fails to init
 	 */
-	// verified consistant
 	public void setEventLoop(EventLoop eventLoop) throws RobotCoreException {
 		if (eventLoop == null) {
 			eventLoop = EMPTY_EVENT_LOOP;
@@ -460,7 +437,6 @@ public class EventLoopManager {
 	 *
 	 * @return current event loop
 	 */
-	// verified consistant
 	public EventLoop getEventLoop() {
 		return this.eventLoop;
 	}
@@ -473,17 +449,16 @@ public class EventLoopManager {
 	 * @see EventLoopManager#getGamepad(int)
 	 * @return gamepad
 	 */
-	// verified consistant
 	public Gamepad getGamepad() {
 		return getGamepad(0);
 	}
 
 	/**
 	 * Get the gamepad connected to a particular user
+	 * 
 	 * @param port user 0 and 1 are valid
 	 * @return gamepad
 	 */
-	// verified consistant
 	public Gamepad getGamepad(int port) {
 		Range.throwIfRangeIsInvalid(port, 0, 1);
 		return gamepad[port];
@@ -493,9 +468,9 @@ public class EventLoopManager {
 	 * Get the gamepads
 	 * <p>
 	 * Array index will match the user number
+	 * 
 	 * @return gamepad
 	 */
-	// verified consistant
 	public Gamepad[] getGamepads() {
 		return gamepad;
 	}
@@ -505,17 +480,14 @@ public class EventLoopManager {
 	 *
 	 * @return heartbeat
 	 */
-	// verified consistant
 	public Heartbeat getHeartbeat() {
 		return heartbeat;
 	}
 
-	// verified consistant
 	private void clearWaitForRestart() {
 		isWaitingForRestart = false;
 	}
 
-	// verified consistant
 	public boolean isWaitingForRestart(){
 		return isWaitingForRestart;
 	}
@@ -524,9 +496,9 @@ public class EventLoopManager {
 	 * Send telemetry data
 	 * <p>
 	 * Send the telemetry data, and then clear the sent data
+	 * 
 	 * @param telemetry telemetry data
 	 */
-	// verified consistant
 	public void sendTelemetryData(Telemetry telemetry) {
 		try {
 			socket.send(new RobocolDatagram(telemetry.toByteArray()));
@@ -539,12 +511,10 @@ public class EventLoopManager {
 		telemetry.clearData();
 	}
 
-	// verified consistant
 	public void sendCommand(Command command) {
 		commandSendCache.add(command);
 	}
 
-	// verified consistant
 	private void startEventLoop() throws RobotCoreException {
 		// call the init method
 		try {
@@ -577,7 +547,6 @@ public class EventLoopManager {
 		this.eventLoopThread.start();
 	}
 
-	// verified consistant
 	private void stopEventLoop() {
 		// cancel the old event loop
 		eventLoopThread.interrupt();
@@ -609,7 +578,6 @@ public class EventLoopManager {
 		syncdDevices.clear();
 	}
 
-	// verified consistant
 	private void changeState(State state) {
 		this.state = state;
 		RobotLog.v("EventLoopManager state is " + state);
@@ -617,8 +585,6 @@ public class EventLoopManager {
 			this.callback.onStateChange(state);
 	}
 
-	// was named 'restartOpMode'
-	// renamed 'noLongerWaitForRestart' in decompiled
 	public void noLongerWaitForRestart(String name) {
 		this.clearWaitForRestart();
 		RobotLog.clearGlobalErrorMsg();
@@ -629,17 +595,16 @@ public class EventLoopManager {
 	/*
 	 * Event processing methods
 	 */
-	// verified consistant
 	private void processGamepadEvent(RobocolDatagram msg) throws RobotCoreException {
 		if (DEBUG)
 			RobotLog.v("processing gamepad event");
-		
+
 		Gamepad incomingGamepad = new Gamepad();
 		incomingGamepad.fromByteArray(msg.getData());
 
 		if (incomingGamepad.user < 1 || incomingGamepad.user > 2) {
 			// this gamepad user is invalid, we cannot use
-			RobotLog.d("Gamepad with user %d received. Only users 1 and 2 are valid"); //TODO: why the unresolved %d? (Thunderbots)
+			RobotLog.d("Gamepad with user %d received. Only users 1 and 2 are valid");
 			return;
 		}
 
@@ -658,7 +623,6 @@ public class EventLoopManager {
 		}
 	}
 
-	// verified consistant
 	private void processHeartbeatEvent(RobocolDatagram msg) throws RobotCoreException {
 		if (DEBUG)
 			RobotLog.v("processing heartbeat event");
@@ -671,11 +635,10 @@ public class EventLoopManager {
 		this.heartbeat = currentHeartbeat;
 	}
 
-	// verified consistant
 	private void processPeerDiscoveryEvent(RobocolDatagram msg) throws RobotCoreException {
 		if (DEBUG)
 			RobotLog.v("processing peer discovery event");
-		
+
 		if (msg.getAddress().equals(clientAddr))
 			return; // no action needed
 
@@ -701,7 +664,6 @@ public class EventLoopManager {
 		socket.send(packet);
 	}
 
-	// verified consistant
 	private void processCommandEvent(RobocolDatagram msg) throws RobotCoreException {
 		if (DEBUG)
 			RobotLog.v("processing command event");
@@ -741,22 +703,19 @@ public class EventLoopManager {
 		}
 	}
 
-	// verified consistant
 	private void processEmptyEvent() {
 		// take no action
 	}
 
-	// verified consistant
 	private void processUnknownEvent(RobocolDatagram msg) {
 		RobotLog.w("RobotCore event loop received unknown event type: " + msg.getMsgType().name());
 	}
 
-	// verified consistant
 	public void buildAndSendTelemetry(String tag, String msg){
 		Telemetry telemetry = new Telemetry();
 		telemetry.setTag(tag);
 		telemetry.addData(tag, msg);
 		sendTelemetryData(telemetry);
 	}
-	
+
 }

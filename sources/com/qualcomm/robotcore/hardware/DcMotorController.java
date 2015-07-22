@@ -75,14 +75,14 @@ public interface DcMotorController {
 
 	/**
 	 * Set the device into read, write, or read/write modes
-	 *
+	 * <p>
 	 * Note: If you are using the NxtDcMotorController, you need to switch the controller into "read" mode
 	 * before doing a read, and into "write" mode before doing a write. This is because
 	 * the NxtDcMotorController is on the I2C interface, and can only do one at a time. If you are
 	 * using the USBDcMotorController, there is no need to switch, because USB can handle reads
 	 * and writes without changing modes. The NxtDcMotorControllers start up in "write" mode.
 	 * This method does nothing on USB devices, but is needed on Nxt devices.
-	 *
+	 * <p>
 	 * The only modes the user should set are "READ_ONLY" and "WRITE_ONLY."
 	 *
 	 * @param mode device mode
@@ -91,7 +91,7 @@ public interface DcMotorController {
 
 	/**
 	 * Get the current device mode (read, write, or read/write)
-	 *
+	 * <p>
 	 * Note: on USB devices, this will always return "READ_WRITE" mode. On Nxt devices, it may
 	 * return "READ_ONLY", "WRITE_ONLY", "SWITCHING_TO_READ_MODE", or "SWITCHING_TO_WRITE_MODE".
 	 * This is because of the delay between asking the hardware to switch modes, and the modes
@@ -150,16 +150,17 @@ public interface DcMotorController {
 
 	/**
 	 * Set the motor target position, where 1.0 is one full rotation
-	 *
+	 * <p>
 	 * Motor power should be positive if using run to position
-	 *  @param motor port of motor
+	 * 
+	 * @param motor port of motor
 	 * @param position range from Integer.MIN_VALUE to Integer.MAX_VALUE
 	 */
 	public abstract void setMotorTargetPosition(int motor, int position);
 
 	/**
 	 * Get the current motor target position
-	 *
+	 * 
 	 * @param motor port of motor
 	 * @return scaled, where 1.0 is one full rotation
 	 */

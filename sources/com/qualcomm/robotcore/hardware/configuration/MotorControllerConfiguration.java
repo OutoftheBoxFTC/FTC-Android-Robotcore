@@ -39,6 +39,8 @@ import java.util.List;
 
 public class MotorControllerConfiguration extends ControllerConfiguration implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	public MotorControllerConfiguration() {
 		super("", new ArrayList<DeviceConfiguration>(), new SerialNumber(
 				ControllerConfiguration.NO_SERIAL_NUMBER.getSerialNumber()),

@@ -40,12 +40,12 @@ import java.util.Set;
 
 /**
  * Hardware Mappings
- *
+ * <p>
  * By default this creates a bunch of empty mappings between a string and an
  * instance of a hardware driver.
  */
 public class HardwareMap {
-	
+
 	public static class DeviceMapping<DEVICE_TYPE> implements Iterable<DEVICE_TYPE> {
 
 		private Map <String, DEVICE_TYPE> map = new HashMap<String, DEVICE_TYPE>();
@@ -91,8 +91,7 @@ public class HardwareMap {
 	public DeviceMapping<LightSensor> lightSensor = new DeviceMapping<LightSensor>();
 	public DeviceMapping<UltrasonicSensor> ultrasonicSensor = new DeviceMapping<UltrasonicSensor>();
 	public DeviceMapping<VoltageSensor> voltageSensor = new DeviceMapping<VoltageSensor>();
-	
-	//added from decompiled
+
 	public Context appContext;
-	
+
 }

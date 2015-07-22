@@ -136,7 +136,6 @@ public class MockDeviceManager extends DeviceManager {
 	 */
 	@Override
 	public CompassSensor createNxtCompassSensor(LegacyModule legacyModule, int physicalPort) {
-
 		return mock_compass;
 	}
 
@@ -163,7 +162,6 @@ public class MockDeviceManager extends DeviceManager {
 	 */
 	@Override
 	public IrSeekerSensor createNxtIrSeekerSensor(LegacyModule legacyModule, int physicalPort) {
-
 		return mock_ir;
 	}
 
@@ -177,7 +175,7 @@ public class MockDeviceManager extends DeviceManager {
 	 */
 	@Override
 	public GyroSensor createNxtGyroSensor(LegacyModule legacyModule, int physicalPort) {
-
 		return null;
 	}
+
 }

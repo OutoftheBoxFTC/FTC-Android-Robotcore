@@ -31,7 +31,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.robotcore.util;
 
-
 /**
  * Measure elapsed time
  * <p>
@@ -39,64 +38,68 @@ package com.qualcomm.robotcore.util;
  */
 public class ElapsedTime {
 
-  private static final double SECOND_IN_NANO = 1000000000;
+	private static final double SECOND_IN_NANO = 1000000000;
 
-  private long startTime = 0;
+	private long startTime = 0;
 
-  /**
-   * Constructor
-   * <p>
-   * Starts the timer
-   */
-  public ElapsedTime() {
-    reset();
-  }
+	/**
+	 * Constructor
+	 * <p>
+	 * Starts the timer
+	 */
+	public ElapsedTime() {
+		reset();
+	}
 
-  /**
-   * Constructor
-   * <p>
-   * Starts timer with a pre-set time
-   * @param startTime pre set time
-   */
-  public ElapsedTime(long startTime) {
-    this.startTime = startTime;
-  }
+	/**
+	 * Constructor
+	 * <p>
+	 * Starts timer with a pre-set time
+	 * 
+	 * @param startTime pre set time
+	 */
+	public ElapsedTime(long startTime) {
+		this.startTime = startTime;
+	}
 
-  /**
-   * Reset the start time to now
-   */
-  public void reset() {
-    startTime = System.nanoTime();
-  }
+	/**
+	 * Reset the start time to now
+	 */
+	public void reset() {
+		startTime = System.nanoTime();
+	}
 
-  /**
-   * Get the relative start time
-   * @return relative start time
-   */
-  public double startTime() {
-    return startTime / SECOND_IN_NANO;
-  }
+	/**
+	 * Get the relative start time
+	 * 
+	 * @return relative start time
+	 */
+	public double startTime() {
+		return startTime / SECOND_IN_NANO;
+	}
 
-  /**
-   * How many seconds since the start time. Nanosecond accuracy.
-   * @return time
-   */
-  public double time() {
-    return (System.nanoTime() - startTime) / SECOND_IN_NANO;
-  }
+	/**
+	 * How many seconds since the start time. Nanosecond accuracy.
+	 * 
+	 * @return time
+	 */
+	public double time() {
+		return (System.nanoTime() - startTime) / SECOND_IN_NANO;
+	}
 
-  /**
-   * Log a message stating how long the timer has been running
-   */
-  public void log(String label) {
-    RobotLog.v(String.format("TIMER: %20s - %1.3f", label, time()));
-  }
+	/**
+	 * Log a message stating how long the timer has been running
+	 */
+	public void log(String label) {
+		RobotLog.v(String.format("TIMER: %20s - %1.3f", label, time()));
+	}
 
-  /**
-   * Return a string stating the number of seconds that have passed
-   */
-  @Override
-  public String toString() {
-    return String.format("%1.4f seconds", time());
-  }
+	/**
+	 * Return a string stating the number of seconds that have passed
+	 */
+	@Override
+	public String toString() {
+		return String.format("%1.4f seconds", time());
+	}
+
 }

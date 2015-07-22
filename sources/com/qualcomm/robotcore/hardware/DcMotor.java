@@ -88,6 +88,7 @@ public class DcMotor {
 
 	/**
 	 * Set the direction
+	 * 
 	 * @param direction direction
 	 */
 	public void setDirection(Direction direction) {
@@ -96,6 +97,7 @@ public class DcMotor {
 
 	/**
 	 * Get the direction
+	 * 
 	 * @return direction
 	 */
 	public Direction getDirection() {
@@ -154,7 +156,8 @@ public class DcMotor {
 	/**
 	 * Set the motor target position, where 1.0 is one full rotation
 	 * Motor power should be positive if using run to position
-	 *  @param position range from Integer.MIN_VALUE to Integer.MAX_VALUE
+	 * 
+	 * @param position range from Integer.MIN_VALUE to Integer.MAX_VALUE
 	 */
 	public void setTargetPosition(int position) {
 		controller.setMotorTargetPosition(portNumber, position);
@@ -211,4 +214,5 @@ public class DcMotor {
 	public void getEncoders(MotorCallback calllback) {
 
 	}
+
 }

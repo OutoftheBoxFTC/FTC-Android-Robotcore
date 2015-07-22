@@ -30,209 +30,203 @@
 
 package com.qualcomm.robotcore.util;
 
-
 /**
  * Defines the pose of a target
  */
-
 public class Pose {
 
-  // Position in mm
-  public double transX;
-  public double transY;
-  public double transZ;
+	// Position in mm
+	public double transX;
+	public double transY;
+	public double transZ;
 
-  public MatrixD poseMatrix;
+	public MatrixD poseMatrix;
 
-  // Angles in degrees
-//  public double angleX;
-//  public double angleY;
-//  public double angleZ;
+	// Angles in degrees
+	//  public double angleX;
+	//  public double angleY;
+	//  public double angleZ;
 
-  /**
-   * Construct a pose from a pose matrix
-   * @param poseMatrix Matrix from which to construct the pose
-   */
-  public Pose(MatrixD poseMatrix) {
-    if (poseMatrix == null) {
-      throw new IllegalArgumentException("Attempted to construct Pose from null matrix");
-    }
+	/**
+	 * Construct a pose from a pose matrix
+	 * @param poseMatrix Matrix from which to construct the pose
+	 */
+	public Pose(MatrixD poseMatrix) {
+		if (poseMatrix == null) {
+			throw new IllegalArgumentException("Attempted to construct Pose from null matrix");
+		}
 
-    //Check the matrix dimension
+		//Check the matrix dimension
 
-    if( poseMatrix.numRows() != 3 || poseMatrix.numCols() !=4){
-      throw new IllegalArgumentException("Invalid matrix size ( " +
-                      poseMatrix.numRows() + ", " + poseMatrix.numCols() + " )");
-    }
+		if( poseMatrix.numRows() != 3 || poseMatrix.numCols() !=4){
+			throw new IllegalArgumentException("Invalid matrix size ( " +
+					poseMatrix.numRows() + ", " + poseMatrix.numCols() + " )");
+		}
 
-    this.poseMatrix = poseMatrix;
+		this.poseMatrix = poseMatrix;
 
-    transX = poseMatrix.data()[0][3];
-    transY = poseMatrix.data()[1][3];
-    transZ = poseMatrix.data()[2][3];
+		transX = poseMatrix.data()[0][3];
+		transY = poseMatrix.data()[1][3];
+		transZ = poseMatrix.data()[2][3];
 
-  }
+	}
 
+	public Pose(double transX, double transY, double transZ) {
+		this.transX = transX;
+		this.transY = transY;
+		this.transZ = transZ;
 
-  public Pose( double transX, double transY, double transZ) {
-     this.transX = transX;
-     this.transY = transY;
-     this.transZ = transZ;
+		//Create an identity matrix
 
-     //Create an identity matrix
+		poseMatrix = new MatrixD(3,4);
+		poseMatrix.data()[0][0] = poseMatrix.data()[1][1] = poseMatrix.data()[2][2] = 1;
+		poseMatrix.data()[0][3] = transX;
+		poseMatrix.data()[1][3] = transY;
+		poseMatrix.data()[2][3] = transZ;
+	}
 
-     poseMatrix = new MatrixD(3,4);
-     poseMatrix.data()[0][0] = poseMatrix.data()[1][1] = poseMatrix.data()[2][2] = 1;
-     poseMatrix.data()[0][3] = transX;
-     poseMatrix.data()[1][3] = transY;
-     poseMatrix.data()[2][3] = transZ;
+	/**
+	 * Default constructor
+	 */
+	public Pose() {
+		transX = 0;
+		transY = 0;
+		transZ = 0;
+	}
 
-    }
+	//  /**
+	//   * create and return the pose matrix
+	//   * @return pose matrix
+	//   */
+	//  public MatrixD getPoseMatrix() {
+	//    final MatrixD targetRotationMatrix = getRotationMatrix();
+	//    final float[][] t = { {(float) transX}, {(float) transY}, {(float) transZ}};
+	//    final MatrixD targetTranslationMatrix = new MatrixD(t);
+	//    final MatrixD targetPoseMatrix =
+	//        PoseUtils.poseMatrix(targetRotationMatrix, targetTranslationMatrix);
+	//    return targetPoseMatrix;
+	//
+	//  }
 
-  /**
-   * Default constructor
-   */
-  public Pose() {
-    transX = 0;
-    transY = 0;
-    transZ = 0;
-    }
+	/**
+	 * Create and return the translation matrix
+	 * @return translation matrix
+	 */
+	public MatrixD getTranslationMatrix() {
+		final double[][] t = { {transX}, {transY}, {transZ}};
+		final MatrixD targetTranslationMatrix = new MatrixD(t);
+		return targetTranslationMatrix;
+	}
 
-//  /**
-//   * create and return the pose matrix
-//   * @return pose matrix
-//   */
-//  public MatrixD getPoseMatrix() {
-//    final MatrixD targetRotationMatrix = getRotationMatrix();
-//    final float[][] t = { {(float) transX}, {(float) transY}, {(float) transZ}};
-//    final MatrixD targetTranslationMatrix = new MatrixD(t);
-//    final MatrixD targetPoseMatrix =
-//        PoseUtils.poseMatrix(targetRotationMatrix, targetTranslationMatrix);
-//    return targetPoseMatrix;
-//
-//  }
+	//  /**
+	//   * Create and return the rotation matrix
+	//   * @return Rotation matrix
+	//   */
+	//  public MatrixD getRotationMatrix() {
+	//    return getRotationMatrix((int) angleX, (int) angleY, (int) angleZ);
+	//  }
 
-  /**
-   * Create and return the translation matrix
-   * @return translation matrix
-   */
-  public MatrixD getTranslationMatrix() {
-    final double[][] t = { {transX}, {transY}, {transZ}};
-    final MatrixD targetTranslationMatrix = new MatrixD(t);
-    return targetTranslationMatrix;
+	/**
+	 * Create and return a rotation matrix for a right handed coordinate sytem
+	 * @param angle Angle around x-axis
+	 * @return Rotation matrix
+	 */
+	static public MatrixD makeRotationX(double angle){
 
-  }
+		//Create the 2D matrix
 
-//  /**
-//   * Create and return the rotation matrix
-//   * @return Rotation matrix
-//   */
-//  public MatrixD getRotationMatrix() {
-//    return getRotationMatrix((int) angleX, (int) angleY, (int) angleZ);
-//  }
+		double[][] data = new double[3][3];
+		double cosA = Math.cos(angle);
+		double sinA = Math.sin(angle);
 
-  /**
-   * Create and return a rotation matrix for a right handed coordinate sytem
-   * @param angle Angle around x-axis
-   * @return Rotation matrix
-   */
-  static public MatrixD makeRotationX(double angle){
+		data[0][0] = 1;
+		data[0][1] = data[0][2] = data[1][0] = data[2][0] =  0;
 
-    //Create the 2D matrix
+		data[1][1] = data[2][2] = cosA;
+		data[1][2] = -sinA;
+		data[2][1] = sinA;
 
-    double[][] data = new double[3][3];
-    double cosA = Math.cos(angle);
-    double sinA = Math.sin(angle);
+		return (new MatrixD(data));
+	}
 
-    data[0][0] = 1;
-    data[0][1] = data[0][2] = data[1][0] = data[2][0] =  0;
+	/**
+	 * Create and return a rotation matrix for a right handed coordinate sytem
+	 * @param angle Angle around y-axis
+	 * @return Rotation matrix
+	 */
+	static public MatrixD makeRotationY(double angle){
 
-    data[1][1] = data[2][2] = cosA;
-    data[1][2] = -sinA;
-    data[2][1] = sinA;
+		//Create the 2D matrix
 
-    return (new MatrixD(data));
-  }
+		double[][] data = new double[3][3];
+		double cosA = Math.cos(angle);
+		double sinA = Math.sin(angle);
 
-  /**
-   * Create and return a rotation matrix for a right handed coordinate sytem
-   * @param angle Angle around y-axis
-   * @return Rotation matrix
-   */
-  static public MatrixD makeRotationY(double angle){
+		//Set the
+		data[0][1] = data[1][0] = data[1][2] = data[2][1] =  0;
+		data[1][1] = 1;
 
-    //Create the 2D matrix
+		data[0][0] = data[2][2] = cosA;
+		data[0][2] = sinA;
+		data[2][0] = -sinA;
 
-    double[][] data = new double[3][3];
-    double cosA = Math.cos(angle);
-    double sinA = Math.sin(angle);
+		return (new MatrixD(data));
+	}
 
-    //Set the
-    data[0][1] = data[1][0] = data[1][2] = data[2][1] =  0;
-    data[1][1] = 1;
+	/**
+	 * Create and return a rotation matrix for a right handed coordinate sytem
+	 * @param angle Angle around z-axis
+	 * @return Rotation matrix
+	 */
+	static public MatrixD makeRotationZ(double angle){
 
-    data[0][0] = data[2][2] = cosA;
-    data[0][2] = sinA;
-    data[2][0] = -sinA;
+		//Create the 2D matrix
 
-    return (new MatrixD(data));
-  }
+		double[][] data = new double[3][3];
+		double cosA = Math.cos(angle);
+		double sinA = Math.sin(angle);
 
-  /**
-   * Create and return a rotation matrix for a right handed coordinate sytem
-   * @param angle Angle around z-axis
-   * @return Rotation matrix
-   */
-  static public MatrixD makeRotationZ(double angle){
+		data[2][2] = 1;
+		data[2][0] = data[2][1] = data[0][2] = data[1][2] =  0;
 
-    //Create the 2D matrix
+		data[0][0] = data[1][1] = cosA;
+		data[0][1] = -sinA;
+		data[1][0] = sinA;
 
-    double[][] data = new double[3][3];
-    double cosA = Math.cos(angle);
-    double sinA = Math.sin(angle);
+		return (new MatrixD(data));
+	}
 
-    data[2][2] = 1;
-    data[2][0] = data[2][1] = data[0][2] = data[1][2] =  0;
+	/** Returns a string representation for the pose
+	 * @return string representation for the pose
+	 */
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder();
 
-    data[0][0] = data[1][1] = cosA;
-    data[0][1] = -sinA;
-    data[1][0] = sinA;
+		//Get the angles
 
-    return (new MatrixD(data));
-  }
+		double[] angles = PoseUtils.getAnglesAroundZ(this);
 
-/** Returns a string representation for the pose
-   * @return string representation for the pose
-   */
-  @Override
-  public String toString() {
-    final StringBuilder sb = new StringBuilder();
+		sb.append(String.format("(XYZ %1$,.2f ", transX));
+		sb.append(String.format(" %1$,.2f ", transY));
+		sb.append(String.format(" %1$,.2f mm)", transZ));
 
-    //Get the angles
+		sb.append(String.format("(Angles %1$,.2f, ", angles[0]));
+		sb.append(String.format(" %1$,.2f, ", angles[1]));
+		sb.append(String.format(" %1$,.2f ", angles[2]));
+		sb.append((char) 0x00B0);
+		sb.append(")");
 
-    double[] angles = PoseUtils.getAnglesAroundZ(this);
+		return sb.toString();
+	}
 
-    sb.append(String.format("(XYZ %1$,.2f ", transX));
-    sb.append(String.format(" %1$,.2f ", transY));
-    sb.append(String.format(" %1$,.2f mm)", transZ));
-
-    sb.append(String.format("(Angles %1$,.2f, ", angles[0]));
-    sb.append(String.format(" %1$,.2f, ", angles[1]));
-    sb.append(String.format(" %1$,.2f ", angles[2]));
-    sb.append((char) 0x00B0);
-    sb.append(")");
-
-    return sb.toString();
-  }
-
-  /**
-   * Calculates the distance
-   * @return distance
-   */
-  public double getDistanceInMm() {
-    return Math.sqrt(Math.pow(transX, 2) + Math.pow(transY, 2) + Math.pow(transZ, 2));
-  }
-
+	/**
+	 * Calculates the distance
+	 * @return distance
+	 */
+	public double getDistanceInMm() {
+		return Math.sqrt(Math.pow(transX, 2) + Math.pow(transY, 2) + Math.pow(transZ, 2));
+	}
 
 }
 

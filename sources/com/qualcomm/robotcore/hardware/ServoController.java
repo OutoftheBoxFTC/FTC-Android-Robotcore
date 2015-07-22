@@ -48,12 +48,14 @@ public interface ServoController {
 
 	/**
 	 * Device Name
+	 * 
 	 * @return device manufacturer and name
 	 */
 	public abstract String getDeviceName();
 
 	/**
 	 * Version
+	 * 
 	 * @return get the version of this device
 	 */
 	public abstract int getVersion();
@@ -75,12 +77,14 @@ public interface ServoController {
 
 	/**
 	 * Get the PWM status
+	 * 
 	 * @return status
 	 */
 	public abstract PwmStatus getPwmStatus();
 
 	/**
 	 * Set the position of a servo at the given channel
+	 * 
 	 * @param channel channel of servo
 	 * @param position from 0.0 to 1.0
 	 */
@@ -88,9 +92,10 @@ public interface ServoController {
 
 	/**
 	 * Get the position of a servo at a given channel
+	 * 
 	 * @param channel channel of servo
 	 * @return position, scaled from 0.0 to 1.0
 	 */
 	public abstract double getServoPosition(int channel);
-	
+
 }

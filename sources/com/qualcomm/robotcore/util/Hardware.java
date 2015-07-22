@@ -66,7 +66,6 @@ public class Hardware {
 	 * board.
 	 * 
 	 * @return true if IFC board, false if not
-	 * 
 	 */
 	public static boolean IsIFC()
 	{
@@ -77,7 +76,6 @@ public class Hardware {
 	 * Function that actually checks whether or not the platform is an IFC board.
 	 * 
 	 * @return true if IFC board, false if not (could be a different board or smartphone.
-	 * 
 	 */
 	public static boolean CheckIfIFC() {
 		boolean ifcBoard = false;
@@ -109,4 +107,5 @@ public class Hardware {
 
 		return ifcBoard;
 	}
+
 }

@@ -48,13 +48,15 @@ import java.util.List;
 public class ReadXMLFileHandler {
 
 	List<ControllerConfiguration> deviceControllers;
-	private Context context;
+
+	// Commented because unused:
+	//private Context context;
 
 	private XmlPullParser parser;
 
 	public ReadXMLFileHandler(Context context) {
 		deviceControllers = new ArrayList<ControllerConfiguration>();
-		this.context = context;
+		//this.context = context;
 	}
 
 	public List<ControllerConfiguration> getDeviceControllers() {
@@ -72,7 +74,7 @@ public class ReadXMLFileHandler {
 			parser.setInput(is, null);
 
 			int eventType = parser.getEventType();
-			
+
 			while (eventType != XmlPullParser.END_DOCUMENT) {
 				String tagname = deform(parser.getName());
 				if (eventType == XmlPullParser.START_TAG){
@@ -235,7 +237,7 @@ public class ReadXMLFileHandler {
 		//RobotLog.e("string: " + standardized);
 		if (standardized == null) {
 			return null;
-		 }
+		}
 		if (standardized.equalsIgnoreCase("MotorController")){
 			return DeviceConfiguration.ConfigurationType.MOTOR_CONTROLLER.toString();
 		}

@@ -32,17 +32,21 @@ package com.qualcomm.robotcore.sensor;
 
 import com.qualcomm.robotcore.util.Pose;
 
-// / Target information class
+/**
+ * Target information class
+ */
 public class TargetInfo {
-  public String mTargetName;
-  public Pose mTargetPose;
-  public TargetSize mTargetSize;
 
-  public TargetInfo() {}
+	public String mTargetName;
+	public Pose mTargetPose;
+	public TargetSize mTargetSize;
 
-  public TargetInfo(String targetName, Pose targetPose, TargetSize targetSize) {
-    mTargetName = targetName;
-    mTargetPose = targetPose;
-    mTargetSize = targetSize;
-  }
+	public TargetInfo() {}
+
+	public TargetInfo(String targetName, Pose targetPose, TargetSize targetSize) {
+		mTargetName = targetName;
+		mTargetPose = targetPose;
+		mTargetSize = targetSize;
+	}
+
 }

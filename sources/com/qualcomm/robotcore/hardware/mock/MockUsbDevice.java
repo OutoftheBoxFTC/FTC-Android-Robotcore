@@ -44,7 +44,6 @@ public abstract class MockUsbDevice {
 	public String serialNumber;
 	public DeviceType type;
 
-
 	/**
 	 * Constructor - this class in extended by the actual device type
 	 * <p>
@@ -158,5 +157,5 @@ public abstract class MockUsbDevice {
 	public static boolean checkReadHeaderForSuccess(byte[] header, int expectedSize) {
 		return true;
 	}
-	
+
 }

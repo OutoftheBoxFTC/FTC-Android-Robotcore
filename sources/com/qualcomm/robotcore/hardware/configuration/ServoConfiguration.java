@@ -34,6 +34,8 @@ package com.qualcomm.robotcore.hardware.configuration;
 
 public class ServoConfiguration extends DeviceConfiguration {
 
+	private static final long serialVersionUID = 1L;
+
 	protected boolean disabled = false;
 
 	public ServoConfiguration(int port){

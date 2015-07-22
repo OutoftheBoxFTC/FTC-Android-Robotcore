@@ -63,5 +63,5 @@ public class MockNxtCompassSensor extends CompassSensor {
 	public void setMode(CompassMode mode) {
 
 	}
-	
+
 }

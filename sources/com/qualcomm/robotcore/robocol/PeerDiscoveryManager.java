@@ -45,70 +45,72 @@ import java.util.concurrent.TimeUnit;
  */
 public class PeerDiscoveryManager {
 
-   private class PeerDiscoveryRunnable implements Runnable {
+	private class PeerDiscoveryRunnable implements Runnable {
 
-      @Override
-      public void run() {
-         try {
-            RobotLog.v("Sending peer discovery packet");
-            RobocolDatagram packet = new RobocolDatagram(message);
-            if (socket.getInetAddress() == null) packet.setAddress(peerDiscoveryDevice);
-            socket.send(packet);
-         } catch (RobotCoreException e) {
-            RobotLog.d("Unable to send peer discovery packet: " + e.toString());
-         }
-      }
-   }
+		@Override
+		public void run() {
+			try {
+				RobotLog.v("Sending peer discovery packet");
+				RobocolDatagram packet = new RobocolDatagram(message);
+				if (socket.getInetAddress() == null) packet.setAddress(peerDiscoveryDevice);
+				socket.send(packet);
+			} catch (RobotCoreException e) {
+				RobotLog.d("Unable to send peer discovery packet: " + e.toString());
+			}
+		}
+	}
 
-   private InetAddress peerDiscoveryDevice;
-   private final RobocolDatagramSocket socket;
-   private ScheduledExecutorService discoveryLoopService;
-   private ScheduledFuture<?> discoveryLoopFuture;
-   private final PeerDiscovery message = new PeerDiscovery(PeerDiscovery.PeerType.PEER);
+	private InetAddress peerDiscoveryDevice;
+	private final RobocolDatagramSocket socket;
+	private ScheduledExecutorService discoveryLoopService;
+	private ScheduledFuture<?> discoveryLoopFuture;
+	private final PeerDiscovery message = new PeerDiscovery(PeerDiscovery.PeerType.PEER);
 
-   /**
-    * Constructor
-    * @param socket socket to send packets from
-    */
-   public PeerDiscoveryManager(RobocolDatagramSocket socket) {
-      this.socket = socket;
-   }
+	/**
+	 * Constructor
+	 * 
+	 * @param socket socket to send packets from
+	 */
+	public PeerDiscoveryManager(RobocolDatagramSocket socket) {
+		this.socket = socket;
+	}
 
-   /**
-    * Get the IP address of the peer discovery device
-    * @return InetAddress of peer discovery device
-    */
-   public InetAddress getPeerDiscoveryDevice() {
-      return peerDiscoveryDevice;
-   }
+	/**
+	 * Get the IP address of the peer discovery device
+	 * 
+	 * @return InetAddress of peer discovery device
+	 */
+	public InetAddress getPeerDiscoveryDevice() {
+		return peerDiscoveryDevice;
+	}
 
-   /**
-    * Start peer discovery
-    */
-   public void start(InetAddress peerDiscoveryDevice) {
-      RobotLog.v("Starting peer discovery");
+	/**
+	 * Start peer discovery
+	 */
+	public void start(InetAddress peerDiscoveryDevice) {
+		RobotLog.v("Starting peer discovery");
 
-     if (peerDiscoveryDevice == socket.getLocalAddress()) {
-       // we already know about our self
-       RobotLog.v("No need for peer discovery, we are the peer discovery device");
-       return;
-     }
+		if (peerDiscoveryDevice == socket.getLocalAddress()) {
+			// we already know about our self
+			RobotLog.v("No need for peer discovery, we are the peer discovery device");
+			return;
+		}
 
-      // stop and old peer discovery service
-      if (discoveryLoopFuture != null) discoveryLoopFuture.cancel(true);
+		// stop and old peer discovery service
+		if (discoveryLoopFuture != null) discoveryLoopFuture.cancel(true);
 
-      // start the peer discovery service
-      this.peerDiscoveryDevice = peerDiscoveryDevice;
-      discoveryLoopService = Executors.newSingleThreadScheduledExecutor();
-      discoveryLoopFuture = discoveryLoopService.scheduleAtFixedRate(new PeerDiscoveryRunnable(), 1, 1, TimeUnit.SECONDS);
-   }
+		// start the peer discovery service
+		this.peerDiscoveryDevice = peerDiscoveryDevice;
+		discoveryLoopService = Executors.newSingleThreadScheduledExecutor();
+		discoveryLoopFuture = discoveryLoopService.scheduleAtFixedRate(new PeerDiscoveryRunnable(), 1, 1, TimeUnit.SECONDS);
+	}
 
-   /**
-    * Stop peer discovery
-    */
-   public void stop() {
-      RobotLog.v("Stopping peer discovery");
-      if (discoveryLoopFuture != null) discoveryLoopFuture.cancel(true);
-   }
+	/**
+	 * Stop peer discovery
+	 */
+	public void stop() {
+		RobotLog.v("Stopping peer discovery");
+		if (discoveryLoopFuture != null) discoveryLoopFuture.cancel(true);
+	}
 
 }

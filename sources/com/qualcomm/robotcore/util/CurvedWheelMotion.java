@@ -30,109 +30,111 @@
 
 package com.qualcomm.robotcore.util;
 
-
 /**
  * This class consists of static utility functions that calculate robot motions for different drive
  * mechanisms.
  */
 public class CurvedWheelMotion {
 
-  /**
-   * Given rotational velocity where (+) is CCW, calculate linear wheel velocity where (+) is
-   * robot forward.
-   */
-  public static int velocityForRotationMmPerSec(int rotateAroundXInMM, int rotateAroundYInMM,
-      double rotationalVelocityInDegPerSec, int wheelOffsetXInMm, int wheelOffsetYInMm) {
+	/**
+	 * Given rotational velocity where (+) is CCW, calculate linear wheel velocity where (+) is
+	 * robot forward.
+	 */
+	public static int velocityForRotationMmPerSec(int rotateAroundXInMM, int rotateAroundYInMM,
+			double rotationalVelocityInDegPerSec, int wheelOffsetXInMm, int wheelOffsetYInMm) {
 
-    int radius = (int) Math.sqrt(
-        Math.pow((wheelOffsetXInMm - rotateAroundXInMM), 2) +
-        Math.pow((wheelOffsetYInMm - rotateAroundYInMM), 2)
-        );
+		int radius = (int) Math.sqrt(
+				Math.pow((wheelOffsetXInMm - rotateAroundXInMM), 2) +
+				Math.pow((wheelOffsetYInMm - rotateAroundYInMM), 2)
+				);
 
-    int wheelVelocityInMmPerSec = (int) (rotationalVelocityInDegPerSec *
-        ((2 * Math.PI * radius) / 360));
-    RobotLog.d("CurvedWheelMotion rX " + rotateAroundXInMM + ", theta " +
-        rotationalVelocityInDegPerSec + ", velocity " +
-        wheelVelocityInMmPerSec);
+		int wheelVelocityInMmPerSec = (int) (rotationalVelocityInDegPerSec *
+				((2 * Math.PI * radius) / 360));
+		RobotLog.d("CurvedWheelMotion rX " + rotateAroundXInMM + ", theta " +
+				rotationalVelocityInDegPerSec + ", velocity " +
+				wheelVelocityInMmPerSec);
 
-    return wheelVelocityInMmPerSec;
-  }
+		return wheelVelocityInMmPerSec;
+	}
 
+	/**
+	 * Calculate the left or right wheel velocity for a differential drive robot given its
+	 * translational velocity and rotational velocities.
+	 * 
+	 * @param linearVelocityInMmPerSec robot linear velocity in mm per sec (+ve = forward, -ve = reverse)
+	 * @param rotationalVelocityInDegPerSec robot rotational velocity in degrees per sec (+ve = CCW, -ve = CW)
+	 * @param wheelRadiusInMm radius of each wheel in mm
+	 * @param axleLengthInMm axle length in mm
+	 * @param leftWheel boolean indicating this is for the left wheel (true) or right wheel (false)
+	 * @return translational left wheel velocity (along the ground)
+	 * @note for a skid-steering (4-wheel) robot, this calculation is approximate.
+	 */
+	public static int getDiffDriveRobotWheelVelocity(final int linearVelocityInMmPerSec,
+			final double rotationalVelocityInDegPerSec, final int wheelRadiusInMm,
+			final int axleLengthInMm, boolean leftWheel) {
+		// We need to implement the following equation
+		// vleft = (2v – ωL) / 2R
 
-  /**
-   * Calculate the left or right wheel velocity for a differential drive robot given its
-   * translational velocity and rotational velocities.
-   * @param linearVelocityInMmPerSec robot linear velocity in mm per sec (+ve = forward, -ve = reverse)
-   * @param rotationalVelocityInDegPerSec robot rotational velocity in degrees per sec (+ve = CCW, -ve = CW)
-   * @param wheelRadiusInMm radius of each wheel in mm
-   * @param axleLengthInMm axle length in mm
-   * @param leftWheel boolean indicating this is for the left wheel (true) or right wheel (false)
-   * @return translational left wheel velocity (along the ground)
-   * @note for a skid-steering (4-wheel) robot, this calculation is approximate.
-   */
-  public static int getDiffDriveRobotWheelVelocity(final int linearVelocityInMmPerSec,
-      final double rotationalVelocityInDegPerSec, final int wheelRadiusInMm,
-      final int axleLengthInMm, boolean leftWheel) {
-    // We need to implement the following equation
-    // vleft = (2v – ωL) / 2R
+		// convert robot velocity to radians per second
+		final double rotationalVelocityInRadsPerSec = Math.toRadians(rotationalVelocityInDegPerSec);
 
-    // convert robot velocity to radians per second
-    final double rotationalVelocityInRadsPerSec = Math.toRadians(rotationalVelocityInDegPerSec);
+		// calculate the left wheel rotational velocity
+		final double wheelVelocityInRadsPerSec;
+		if(leftWheel == true)
+		{
+			wheelVelocityInRadsPerSec =
+					((2 * linearVelocityInMmPerSec) - (rotationalVelocityInRadsPerSec * axleLengthInMm))
+					/ (2 * wheelRadiusInMm);
+		}
+		else
+		{
+			wheelVelocityInRadsPerSec =
+					((2 * linearVelocityInMmPerSec) + (rotationalVelocityInRadsPerSec * axleLengthInMm))
+					/ (2 * wheelRadiusInMm);
+		}
 
-    // calculate the left wheel rotational velocity
-    final double wheelVelocityInRadsPerSec;
-    if(leftWheel == true)
-    {
-      wheelVelocityInRadsPerSec =
-          ((2 * linearVelocityInMmPerSec) - (rotationalVelocityInRadsPerSec * axleLengthInMm))
-              / (2 * wheelRadiusInMm);
-    }
-    else
-    {
-      wheelVelocityInRadsPerSec =
-          ((2 * linearVelocityInMmPerSec) + (rotationalVelocityInRadsPerSec * axleLengthInMm))
-              / (2 * wheelRadiusInMm);
-    }
+		// calculate translational velocities (* R)
+		final int wheelVelocityInMMPerSec = (int) (wheelVelocityInRadsPerSec * wheelRadiusInMm);
 
-    // calculate translational velocities (* R)
-    final int wheelVelocityInMMPerSec = (int) (wheelVelocityInRadsPerSec * wheelRadiusInMm);
-
-    return wheelVelocityInMMPerSec;
-  }
-
-
-  /**
-   * Calculate the translational velocity for a differential drive robot given its left and right
-   * wheel velocities.
-   * @param leftVelocityInMmPerSec left wheel velocity in mm per sec (+ve = forward, -ve = reverse)
-   * @param rightVelocityInMmPerSec right wheel velocity in mm per sec (+ve = forward, -ve = reverse)
-   * @return robot translational (linear) velocity in mm per sec (+ve = forward, -ve = reverse)
-   */
-  public static int getDiffDriveRobotTransVelocity(final int leftVelocityInMmPerSec,
-      final int rightVelocityInMmPerSec) {
-    // V = (vleft + vright) / 2
-    final int transVelInMMPerSec = (leftVelocityInMmPerSec + rightVelocityInMmPerSec) / 2;
-
-    return transVelInMMPerSec;
-  }
+		return wheelVelocityInMMPerSec;
+	}
 
 
-  /**
-   * Calculate the rotational velocity for a differential drive robot given its left and right
-   * wheel velocities.
-   * @param leftVelocityInMmPerSec left wheel velocity in mm per sec (+ve = forward, -ve = reverse)
-   * @param rightVelocityInMmPerSec right wheel velocity in mm per sec (+ve = forward, -ve = reverse)
-   * @param axleLengthInMm length of axle (distance between the wheels) in mm
-   * @return robot rotational velocity in degrees per second (+ve = CCW, -ve = CW)
-   */
-  public static double getDiffDriveRobotRotVelocity(final int leftVelocityInMmPerSec,
-      final int rightVelocityInMmPerSec, final int axleLengthInMm) {
-    // ω = (vright + vleft) / L
-    final double rotVelocityInRadiansPerSec =
-        (rightVelocityInMmPerSec - leftVelocityInMmPerSec) / axleLengthInMm;
+	/**
+	 * Calculate the translational velocity for a differential drive robot given its left and right
+	 * wheel velocities.
+	 * 
+	 * @param leftVelocityInMmPerSec left wheel velocity in mm per sec (+ve = forward, -ve = reverse)
+	 * @param rightVelocityInMmPerSec right wheel velocity in mm per sec (+ve = forward, -ve = reverse)
+	 * @return robot translational (linear) velocity in mm per sec (+ve = forward, -ve = reverse)
+	 */
+	public static int getDiffDriveRobotTransVelocity(final int leftVelocityInMmPerSec,
+			final int rightVelocityInMmPerSec) {
+		// V = (vleft + vright) / 2
+		final int transVelInMMPerSec = (leftVelocityInMmPerSec + rightVelocityInMmPerSec) / 2;
 
-    final double rotVelocityInDegreesPerSec = Math.toDegrees(rotVelocityInRadiansPerSec);
+		return transVelInMMPerSec;
+	}
 
-    return rotVelocityInDegreesPerSec;
-  }
+
+	/**
+	 * Calculate the rotational velocity for a differential drive robot given its left and right
+	 * wheel velocities.
+	 * 
+	 * @param leftVelocityInMmPerSec left wheel velocity in mm per sec (+ve = forward, -ve = reverse)
+	 * @param rightVelocityInMmPerSec right wheel velocity in mm per sec (+ve = forward, -ve = reverse)
+	 * @param axleLengthInMm length of axle (distance between the wheels) in mm
+	 * @return robot rotational velocity in degrees per second (+ve = CCW, -ve = CW)
+	 */
+	public static double getDiffDriveRobotRotVelocity(final int leftVelocityInMmPerSec,
+			final int rightVelocityInMmPerSec, final int axleLengthInMm) {
+		// ω = (vright + vleft) / L
+		final double rotVelocityInRadiansPerSec =
+				(rightVelocityInMmPerSec - leftVelocityInMmPerSec) / axleLengthInMm;
+
+		final double rotVelocityInDegreesPerSec = Math.toDegrees(rotVelocityInRadiansPerSec);
+
+		return rotVelocityInDegreesPerSec;
+	}
+
 }

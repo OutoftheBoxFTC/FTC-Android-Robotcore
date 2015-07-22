@@ -73,7 +73,6 @@ public class DeviceInfoAdapter extends BaseAdapter implements ListAdapter {
 		return deviceControllers.get(serialNums[arg0]);
 	}
 
-	// consistant with decompiled
 	@Override
 	public long getItemId(int arg0) {
 		// TODO auto-generated method stub
@@ -92,7 +91,6 @@ public class DeviceInfoAdapter extends BaseAdapter implements ListAdapter {
 		TextView text = (TextView)row.findViewById(text_id);
 		text.setText(name);
 		return row;
-
 	}
 
 }

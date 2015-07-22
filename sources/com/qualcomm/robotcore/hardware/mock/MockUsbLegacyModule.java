@@ -92,5 +92,5 @@ public class MockUsbLegacyModule extends MockUsbDevice implements LegacyModule {
 	public String getDeviceName() {
 		return new String("Mock Legacy Module");
 	}
-	
+
 }

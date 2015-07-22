@@ -35,6 +35,8 @@ import java.io.Serializable;
 
 public class DeviceConfiguration implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	public enum ConfigurationType {
 		MOTOR,
 		SERVO,

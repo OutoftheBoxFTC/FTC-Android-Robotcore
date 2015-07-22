@@ -37,7 +37,6 @@ import java.util.Map;
 
 public abstract class DeviceManager {
 
-
 	/**
 	 * Enum of Device Types
 	 */
@@ -122,6 +121,7 @@ public abstract class DeviceManager {
 
 	/**
 	 * Create an instance of an NXT DcMotorController
+	 * 
 	 * @param legacyModule Legacy Module this device is connected to
 	 * @param physicalPort port number on the Legacy Module this device is connected to
 	 * @return a DcMotorController
@@ -130,6 +130,7 @@ public abstract class DeviceManager {
 
 	/**
 	 * Create an instance of an NXT ServoController
+	 * 
 	 * @param legacyModule Legacy Module this device is connected to
 	 * @param physicalPort port number on the Legacy Module this device is connected to
 	 * @return a ServoController
@@ -138,6 +139,7 @@ public abstract class DeviceManager {
 
 	/**
 	 * Create an instance of a NxtCompassSensor
+	 * 
 	 * @param legacyModule Legacy Module this device is connected to
 	 * @param physicalPort port number on the Legacy Module this device is connected to
 	 * @return a CompassSensor
@@ -146,6 +148,7 @@ public abstract class DeviceManager {
 
 	/**
 	 * Create an instance of a AccelerationSensor
+	 * 
 	 * @param legacyModule Legacy Module this device is connected to
 	 * @param physicalPort port number on the Legacy Module this device is connected to
 	 * @return an AccelerationSensor
@@ -154,6 +157,7 @@ public abstract class DeviceManager {
 
 	/**
 	 * Create an instance of a LightSensor
+	 * 
 	 * @param legacyModule Legacy Module this device is connected to
 	 * @param physicalPort port number on the Legacy Module this device is connected to
 	 * @return a LightSensor
@@ -162,6 +166,7 @@ public abstract class DeviceManager {
 
 	/**
 	 * Create an instance of a IrSeekerSensor
+	 * 
 	 * @param legacyModule Legacy Module this device is connected to
 	 * @param physicalPort port number on the Legacy Module this device is connected to
 	 * @return a IrSeekerSensor
@@ -170,6 +175,7 @@ public abstract class DeviceManager {
 
 	/**
 	 * Create an instance of an UltrasonicSensor
+	 * 
 	 * @param legacyModule Legacy Module this device is connected to
 	 * @param physicalPort port number on the Legacy Module this device is connected to
 	 * @return a UltrasonicSensor
@@ -178,10 +184,11 @@ public abstract class DeviceManager {
 
 	/**
 	 * Create an instance of a GyroSensor
+	 * 
 	 * @param legacyModule Legacy Module this device is connected to
 	 * @param physicalPort port number on the Legacy Module this device is connected to
 	 * @return a GyroSensor
 	 */
 	public abstract GyroSensor createNxtGyroSensor(LegacyModule legacyModule, int physicalPort);
-	
+
 }

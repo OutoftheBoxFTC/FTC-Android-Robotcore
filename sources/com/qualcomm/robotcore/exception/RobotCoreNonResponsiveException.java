@@ -35,6 +35,8 @@ package com.qualcomm.robotcore.exception;
  */
 public class RobotCoreNonResponsiveException extends RobotCoreException {
 
+	private static final long serialVersionUID = 1L;
+
 	public RobotCoreNonResponsiveException(String message) {
 		super(message);
 	}

@@ -37,6 +37,8 @@ import java.util.List;
 
 public class LegacyModuleControllerConfiguration extends ControllerConfiguration {
 
+	private static final long serialVersionUID = 1L;
+
 	public LegacyModuleControllerConfiguration(String name, List<DeviceConfiguration> modules, SerialNumber serialNumber) {
 		super(name, modules, serialNumber, ConfigurationType.LEGACY_MODULE_CONTROLLER);
 	}

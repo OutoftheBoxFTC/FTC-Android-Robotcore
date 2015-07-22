@@ -32,84 +32,79 @@ package com.qualcomm.robotcore.util;
 
 import android.util.Log;
 
-
 /**
  * Utility functions for pose operations
  */
 public class PoseUtils {
 
-  // Given a pose, extract angles around Z axes, the angles are X,Y and Up
+	// Given a pose, extract angles around Z axes, the angles are X,Y and Up
 
+	static public double[] getAnglesAroundZ(Pose inputPose) {
+		double[] retVal = null;
 
-  static public double[] getAnglesAroundZ(Pose inputPose) {
-    double[] retVal = null;
+		if (inputPose != null && inputPose.poseMatrix != null) {
+			MatrixD rotMat = inputPose.poseMatrix.submatrix(3, 3, 0, 0);
+			retVal = getAnglesAroundZ(rotMat);
+		} else {
+			Log.e("PoseUtils", "null input");
+		}
 
-    if (inputPose != null && inputPose.poseMatrix != null) {
-      MatrixD rotMat = inputPose.poseMatrix.submatrix(3, 3, 0, 0);
-      retVal = getAnglesAroundZ(rotMat);
-    } else {
-      Log.e("PoseUtils", "null input");
-    }
+		return retVal;
+	}
 
-    return retVal;
-  }
+	static public double[] getAnglesAroundZ(MatrixD rotMat) {
 
+		// Check the dimension
 
+		if (rotMat.numRows() != 3 || rotMat.numCols() != 3) {
+			throw new IllegalArgumentException("Invalid Matrix Dimension: Expected (3,3) got ("
+					+ rotMat.numRows() + "," + rotMat.numCols() + ")");
+		}
+		// Extract the unit vector along the Z axis
 
-  static public double[] getAnglesAroundZ(MatrixD rotMat) {
+		// This will be the last column of the rotation matrix in the pose matrix
 
-    // Check the dimension
+		// For sake of completeness, multiply the rot matrix with a unit vector along the z axis
 
-    if (rotMat.numRows() != 3 || rotMat.numCols() != 3) {
-      throw new IllegalArgumentException("Invalid Matrix Dimension: Expected (3,3) got ("
-          + rotMat.numRows() + "," + rotMat.numCols() + ")");
-    }
-    // Extract the unit vector along the Z axis
+		double[][] unitVec = new double[][] { {0}, {0}, {1}};
 
-    // This will be the last column of the rotation matrix in the pose matrix
+		MatrixD rotComponentZ = new MatrixD(unitVec);
+		rotComponentZ = rotMat.times(rotComponentZ);
 
-    // For sake of completeness, multiply the rot matrix with a unit vector along the z axis
+		// Extract the angles
 
-    double[][] unitVec = new double[][] { {0}, {0}, {1}};
+		double headingX = Math.atan2(rotComponentZ.data()[1][0], rotComponentZ.data()[0][0]);
+		headingX = Math.toDegrees(headingX);
 
-    MatrixD rotComponentZ = new MatrixD(unitVec);
-    rotComponentZ = rotMat.times(rotComponentZ);
+		double headingY = Math.atan2(rotComponentZ.data()[0][0], rotComponentZ.data()[1][0]);
+		headingY = Math.toDegrees(headingY);
 
-    // Extract the angles
+		double length = rotComponentZ.length();
 
-    double headingX = Math.atan2(rotComponentZ.data()[1][0], rotComponentZ.data()[0][0]);
-    headingX = Math.toDegrees(headingX);
+		double headingUp = Math.asin(rotComponentZ.data()[2][0] / length);
+		headingUp = Math.toDegrees(headingUp);
 
-    double headingY = Math.atan2(rotComponentZ.data()[0][0], rotComponentZ.data()[1][0]);
-    headingY = Math.toDegrees(headingY);
+		double[] retVal = {headingX, headingY, headingUp};
+		return (retVal);
+	}
 
-    double length = rotComponentZ.length();
+	/**
+	 * Given two angles in degrees, determine the smallest angle between them.
+	 *
+	 * For example, given angles 90 and 170, the smallest angle difference would be 80
+	 * and the larger angle difference would be 280.
+	 *
+	 * @param firstAngleDeg
+	 * @param secondAngleDeg
+	 * @return smallest angle
+	 */
+	public static double smallestAngularDifferenceDegrees(double firstAngleDeg, double secondAngleDeg) {
+		double rawDiffDeg = firstAngleDeg - secondAngleDeg;
+		double rawDiffRad = rawDiffDeg * Math.PI / 180;
+		double wrappedDiffRad = Math.atan2(Math.sin(rawDiffRad), Math.cos(rawDiffRad));
+		double wrappedDiffDeg = wrappedDiffRad * 180 / Math.PI;
 
-    double headingUp = Math.asin(rotComponentZ.data()[2][0] / length);
-    headingUp = Math.toDegrees(headingUp);
-
-    double[] retVal = {headingX, headingY, headingUp};
-    return (retVal);
-  }
-
-  /**
-   * Given two angles in degrees, determine the smallest angle between them.
-   *
-   * For example, given angles 90 and 170, the smallest angle difference would be 80
-   * and the larger angle difference would be 280.
-   *
-   * @param firstAngleDeg
-   * @param secondAngleDeg
-   * @return smallest angle
-   */
-  public static double smallestAngularDifferenceDegrees(double firstAngleDeg, double secondAngleDeg) {
-    double rawDiffDeg = firstAngleDeg - secondAngleDeg;
-    double rawDiffRad = rawDiffDeg * Math.PI / 180;
-    double wrappedDiffRad = Math.atan2(Math.sin(rawDiffRad), Math.cos(rawDiffRad));
-    double wrappedDiffDeg = wrappedDiffRad * 180 / Math.PI;
-
-    return wrappedDiffDeg;
-  }
-
+		return wrappedDiffDeg;
+	}
 
 }

@@ -1,10 +1,5 @@
 # TO-DO List
 
-#####eventloop.EventLoop:
-
-* remove `abstract` label from interface methods
-* change doc formatting ?
-
 #####eventloop.EventLoopManager
 
 * reorder all members

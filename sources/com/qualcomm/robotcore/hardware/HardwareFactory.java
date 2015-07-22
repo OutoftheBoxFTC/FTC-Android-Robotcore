@@ -48,4 +48,5 @@ public interface HardwareFactory {
 	 */
 	public HardwareMap createHardwareMap(EventLoopManager manager)
 			throws RobotCoreException, InterruptedException;
+
 }

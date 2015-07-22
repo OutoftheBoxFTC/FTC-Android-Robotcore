@@ -85,6 +85,7 @@ public class Telemetry implements RobocolParsable {
 
 	/**
 	 * Get the optional tag value
+	 * 
 	 * @return tag
 	 */
 	public synchronized String getTag() {
@@ -97,6 +98,7 @@ public class Telemetry implements RobocolParsable {
 	 * Add a data point
 	 * <p>
 	 * All messages will be assumed to be in UTF-8.
+	 * 
 	 * @param key message key
 	 * @param msg message
 	 */
@@ -108,6 +110,7 @@ public class Telemetry implements RobocolParsable {
 	 * Add a data point
 	 * <p>
 	 * Msg will be down cast to a float.
+	 * 
 	 * @param key message key
 	 * @param msg message
 	 */
@@ -119,6 +122,7 @@ public class Telemetry implements RobocolParsable {
 	 * Add a data point
 	 * <p>
 	 * msg will automatically be downcast to a float.
+	 * 
 	 * @param key message key
 	 * @param msg message
 	 */
@@ -128,6 +132,7 @@ public class Telemetry implements RobocolParsable {
 
 	/**
 	 * Get a reference to the map of messages
+	 * 
 	 * @return reference to the messages
 	 */
 	public synchronized Map<String, String> getDataStrings() {
@@ -140,6 +145,7 @@ public class Telemetry implements RobocolParsable {
 
 	/**
 	 * Return true if this telemetry object has data added to it
+	 * 
 	 * @return true if this object has data, otherwise false
 	 */
 	public synchronized boolean hasData() {

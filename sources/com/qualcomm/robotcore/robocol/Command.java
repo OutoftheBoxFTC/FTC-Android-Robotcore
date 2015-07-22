@@ -53,7 +53,7 @@ public class Command implements RobocolParsable, Comparable<Command>, Comparator
 	private static final short BASE_PAYLOAD_SIZE = 11;
 
 	// commented because unused
-//	private static final Charset CHARSET = Charset.forName("UTF-8");
+	//	private static final Charset CHARSET = Charset.forName("UTF-8");
 
 	String mName;
 	String mExtra;
@@ -65,6 +65,7 @@ public class Command implements RobocolParsable, Comparable<Command>, Comparator
 
 	/**
 	 * Constructor
+	 * 
 	 * @param name name as string
 	 */
 	public Command(String name) {
@@ -73,6 +74,7 @@ public class Command implements RobocolParsable, Comparable<Command>, Comparator
 
 	/**
 	 * Constructor
+	 * 
 	 * @param name name as string
 	 * @param extra extra data as string
 	 */
@@ -105,6 +107,7 @@ public class Command implements RobocolParsable, Comparable<Command>, Comparator
 
 	/**
 	 * Check if this command has been acknowledged
+	 * 
 	 * @return true if acknowledged, otherwise false
 	 */
 	public boolean isAcknowledged() {
@@ -113,6 +116,7 @@ public class Command implements RobocolParsable, Comparable<Command>, Comparator
 
 	/**
 	 * Get the command name as a string
+	 * 
 	 * @return command name
 	 */
 	public String getName() {
@@ -121,6 +125,7 @@ public class Command implements RobocolParsable, Comparable<Command>, Comparator
 
 	/**
 	 * Get the extra data as a string
+	 * 
 	 * @return extra string
 	 */
 	public String getExtra() { return mExtra; }
@@ -138,6 +143,7 @@ public class Command implements RobocolParsable, Comparable<Command>, Comparator
 
 	/**
 	 * Get the timestamp that this command was created
+	 * 
 	 * @return timestamp
 	 */
 	public long getTimestamp() {
@@ -251,4 +257,5 @@ public class Command implements RobocolParsable, Comparable<Command>, Comparator
 	public static long generateTimestamp() {
 		return System.nanoTime();
 	}
+
 }

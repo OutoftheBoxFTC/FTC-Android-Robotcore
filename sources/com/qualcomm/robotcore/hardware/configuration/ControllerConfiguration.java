@@ -39,11 +39,15 @@ import java.util.List;
 
 public class ControllerConfiguration extends DeviceConfiguration implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final SerialNumber NO_SERIAL_NUMBER = new SerialNumber("-1");
 
 	private List<DeviceConfiguration> devices;
 	private SerialNumber serialNumber;
-	private ConfigurationType type = ConfigurationType.NOTHING;
+
+	// Commented because unused
+	// private ConfigurationType type = ConfigurationType.NOTHING;
 
 	public ControllerConfiguration(String name, List<DeviceConfiguration> devices,
 			SerialNumber serialNumber, ConfigurationType type) {

@@ -150,5 +150,5 @@ public class LogitechGamepadF310 extends Gamepad {
 	public String type() {
 		return "F310";
 	}
-	
+
 }

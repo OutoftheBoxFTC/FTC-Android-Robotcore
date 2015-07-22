@@ -86,4 +86,5 @@ public class DigitalChannel {
 	public void setState(boolean state) {
 		controller.setDigitalChannelState(channel, state);
 	}
+
 }

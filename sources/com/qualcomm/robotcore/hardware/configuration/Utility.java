@@ -179,7 +179,7 @@ public class Utility {
 	 */
 	public void createLists(Set<Map.Entry<SerialNumber, DeviceManager.DeviceType>> entries,
 			Map<SerialNumber, ControllerConfiguration> deviceControllers) {
-		
+
 		for(Map.Entry<SerialNumber, DeviceManager.DeviceType> entry : entries){
 			DeviceManager.DeviceType enumVal = entry.getValue();
 			switch(enumVal) {
@@ -328,7 +328,7 @@ public class Utility {
 		return currentFile;
 	}
 
-	/************************* TEST CODE ***************************
+	/* ************************ TEST CODE ***************************
 	 * 
 	 * all commented to better fit decompiled version
 
@@ -366,6 +366,6 @@ public class Utility {
 
 		return modules;
 	}
-	
-	*/
+	 */
+
 }

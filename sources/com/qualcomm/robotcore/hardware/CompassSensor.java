@@ -36,41 +36,44 @@ package com.qualcomm.robotcore.hardware;
  */
 public abstract class CompassSensor {
 
-  public enum CompassMode {
-    MEASUREMENT_MODE,
-    CALIBRATION_MODE
-  }
+	public enum CompassMode {
+		MEASUREMENT_MODE,
+		CALIBRATION_MODE
+	}
 
-  /**
-   * Get the current direction, in degrees
-   * @return current direction, in degrees
-   */
-  public abstract double getDirection();
+	/**
+	 * Get the current direction, in degrees
+	 * 
+	 * @return current direction, in degrees
+	 */
+	public abstract double getDirection();
 
-  /**
-   * Status of this sensor, in string form
-   * @return status
-   */
-  public abstract String status();
+	/**
+	 * Status of this sensor, in string form
+	 * 
+	 * @return status
+	 */
+	public abstract String status();
 
-  /**
-   * Change to calibration or measurement mode
-   */
-  public abstract void setMode(CompassMode mode);
+	/**
+	 * Change to calibration or measurement mode
+	 */
+	public abstract void setMode(CompassMode mode);
 
-  /**
-   * Check to see whether calibration was successful.
-   * After attempting a calibration, the hardware will (eventually) indicate whether or
-   * not it was unsuccessful. The default is "success", even when the calibration is not
-   * guaranteed to have completed successfully.
-   *
-   * A user should monitor this field for (at least) several seconds to determine success.
-   * @return failure
-   */
-  public abstract boolean calibrationFailed();
+	/**
+	 * Check to see whether calibration was successful.
+	 * After attempting a calibration, the hardware will (eventually) indicate whether or
+	 * not it was unsuccessful. The default is "success", even when the calibration is not
+	 * guaranteed to have completed successfully.
+	 *
+	 * A user should monitor this field for (at least) several seconds to determine success.
+	 * @return failure
+	 */
+	public abstract boolean calibrationFailed();
 
-  @Override
-  public String toString() {
-    return String.format("Compass: %3.1f", getDirection());
-  }
+	@Override
+	public String toString() {
+		return String.format("Compass: %3.1f", getDirection());
+	}
+
 }

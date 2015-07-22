@@ -47,7 +47,8 @@ import java.util.HashSet;
 
 public class WriteXMLFileHandler {
 
-	private Context context;
+	// Commented because unused
+	//private Context context;
 	private XmlSerializer serializer;
 	private HashSet<String> names = new HashSet<String>();
 	private ArrayList<String> duplicates = new ArrayList<String>();
@@ -55,12 +56,12 @@ public class WriteXMLFileHandler {
 	private int indent = 0;
 
 	public WriteXMLFileHandler(Context context) {
-		this.context = context;
+		//this.context = context;
 		serializer = Xml.newSerializer();
 	}
 
 	public String writeXml(ArrayList<ControllerConfiguration> deviceControllerConfigurations) {
-		
+
 		duplicates = new ArrayList<String>();
 		names = new HashSet<String>();
 
@@ -166,7 +167,6 @@ public class WriteXMLFileHandler {
 		}
 	}
 
-	// TODO: check for verification against JAD decompiled
 	public void writeToFile(String data, String folderName, String filename) throws RobotCoreException, IOException {
 		if (duplicates.size() > 0) {
 			throw new IOException("Duplicate names: " + duplicates);
@@ -218,4 +218,5 @@ public class WriteXMLFileHandler {
 
 		return standardized;
 	}
+
 }

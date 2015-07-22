@@ -53,7 +53,7 @@ public abstract class IrSeekerSensor {
 	 * Get the angle of this sensor, along with signal strength
 	 */
 	public static class IrSensor {
-		
+
 		private double angle = 0;
 		private double strength = 0;
 
@@ -98,18 +98,21 @@ public abstract class IrSeekerSensor {
 
 	/**
 	 * Set the device mode
+	 * 
 	 * @param mode
 	 */
 	public abstract void setMode(Mode mode);
 
 	/**
 	 * Get the device mode
+	 * 
 	 * @return device mode
 	 */
 	public abstract Mode getMode();
 
 	/**
 	 * Returns true if an IR signal is detected
+	 * 
 	 * @return true if signal is detected; otherwise false
 	 */
 	public abstract boolean signalDetected();
@@ -120,6 +123,7 @@ public abstract class IrSeekerSensor {
 	 * If the signal is estimated to be directly ahead, 0 will be returned. If the signal is to the
 	 * left a negative angle will be returned. If the signal is to the right a positive angle will be
 	 * returned. If no signal is detected, a 0 will be returned.
+	 * 
 	 * @return angle to IR signal
 	 */
 	public abstract double getAngle();
@@ -129,6 +133,7 @@ public abstract class IrSeekerSensor {
 	 * <p>
 	 * Detected IR signal strength, on a scale of 0.0 to 1.0, where 0 is no signal detected and 1 is
 	 * max IR signal detected.
+	 * 
 	 * @return signal strength, scaled from 0 to 1
 	 */
 	public abstract double getStrength();
@@ -136,6 +141,7 @@ public abstract class IrSeekerSensor {
 	/**
 	 * Get a list of all IR sensors attached to this seeker. The list will include the angle at which
 	 * the sensor is mounted, and the signal strength.
+	 * 
 	 * @return array of IrSensors
 	 */
 	public abstract IrSensor[] getSensors();
@@ -148,4 +154,5 @@ public abstract class IrSeekerSensor {
 			return new String("IR Seeker:  --% signal at  ---.- degrees");
 		}
 	}
+
 }

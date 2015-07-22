@@ -60,6 +60,7 @@ public class WifiAssistant {
 		 * @param event WifiEvent
 		 */
 		public void wifiEventCallback(WifiState event);
+
 	}
 
 	private static class WifiStateBroadcastReceiver extends BroadcastReceiver {
@@ -86,7 +87,7 @@ public class WifiAssistant {
 		private void notify(WifiState newState) {
 			if (state == newState) return; // nothing to do
 
-				state = newState;
+			state = newState;
 			if (callback != null) callback.wifiEventCallback(state);
 		}
 	}
@@ -97,6 +98,7 @@ public class WifiAssistant {
 
 	/**
 	 * Constructor
+	 * 
 	 * @param context needed to register BroadcastRecivers
 	 * @param callback will be used for callbacks
 	 */
@@ -127,6 +129,5 @@ public class WifiAssistant {
 	public void disable() {
 		context.unregisterReceiver(receiver);
 	}
-
 
 }

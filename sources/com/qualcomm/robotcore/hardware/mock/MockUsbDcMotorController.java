@@ -44,7 +44,7 @@ import com.qualcomm.robotcore.util.DifferentialControlLoopCoefficients;
 public class MockUsbDcMotorController extends MockUsbDevice implements DcMotorController {
 
 	public static final byte MAX_ADDRESS = 0x21;
-	
+
 	/**
 	 * Use MockDeviceManager to create an instance of this class
 	 *

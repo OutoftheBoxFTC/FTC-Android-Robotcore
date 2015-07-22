@@ -30,18 +30,17 @@
 
 package com.qualcomm.robotcore.util;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-
 /** 
  * This dialog fragment supports a custom error message with just an OK button to dismiss it. 
  */
 public class GenericDialogFragment extends DialogFragment {
+
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		// This is the default error message to display

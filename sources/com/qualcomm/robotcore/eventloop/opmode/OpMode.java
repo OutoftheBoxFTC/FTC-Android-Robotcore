@@ -42,74 +42,75 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class OpMode {
 
-  /**
-   * Gamepad 1
-   */
-  public Gamepad gamepad1 = new Gamepad();
+	/**
+	 * Gamepad 1
+	 */
+	public Gamepad gamepad1 = new Gamepad();
 
-  /**
-   * Gamepad 2
-   */
-  public Gamepad gamepad2 = new Gamepad();
+	/**
+	 * Gamepad 2
+	 */
+	public Gamepad gamepad2 = new Gamepad();
 
-  /**
-   * Telemetry Data
-   */
-  public Telemetry telemetry = new Telemetry();
+	/**
+	 * Telemetry Data
+	 */
+	public Telemetry telemetry = new Telemetry();
 
-  /**
-   * Hardware Mappings
-   */
-  public HardwareMap hardwareMap = new HardwareMap();
+	/**
+	 * Hardware Mappings
+	 */
+	public HardwareMap hardwareMap = new HardwareMap();
 
-  /**
-   * number of seconds this op mode has been running, this is
-   * updated before every call to loop.
-   */
-  public double time = 0.0;
+	/**
+	 * number of seconds this op mode has been running, this is
+	 * updated before every call to loop.
+	 */
+	public double time = 0.0;
 
-  // internal time tracking
-  private long startTime = 0; // in nanoseconds
+	// internal time tracking
+	private long startTime = 0; // in nanoseconds
 
-  /**
-   * OpMode constructor
-   * <p>
-   * The op mode name should be unique. It will be the name displayed on the driver station. If
-   * multiple op modes have the same name, only one will be available.
-   */
-  public OpMode() {
-    startTime = System.nanoTime();
-  }
+	/**
+	 * OpMode constructor
+	 * <p>
+	 * The op mode name should be unique. It will be the name displayed on the driver station. If
+	 * multiple op modes have the same name, only one will be available.
+	 */
+	public OpMode() {
+		startTime = System.nanoTime();
+	}
 
-  /**
-   * User defined start method
-   * <p>
-   * This method will be called when this op mode is first enabled
-   */
-  abstract public void start();
+	/**
+	 * User defined start method
+	 * <p>
+	 * This method will be called when this op mode is first enabled
+	 */
+	abstract public void start();
 
-  /**
-   * User defined loop method
-   * <p>
-   * This method will be called repeatedly in a loop while this op mode is running
-   */
-  abstract public void loop();
+	/**
+	 * User defined loop method
+	 * <p>
+	 * This method will be called repeatedly in a loop while this op mode is running
+	 */
+	abstract public void loop();
 
-  /**
-   * User defined stop method
-   * <p>
-   * This method will be called when this op mode is first disabled
-   */
-  abstract public void stop();
+	/**
+	 * User defined stop method
+	 * <p>
+	 * This method will be called when this op mode is first disabled
+	 */
+	abstract public void stop();
 
-  /**
-   * Get the number of seconds this op mode has been running
-   * <p>
-   * This method has sub millisecond accuracy.
-   * @return number of seconds this op mode has been running
-   */
-  public double getRuntime() {
-    final double NANOSECONDS_PER_SECOND = TimeUnit.SECONDS.toNanos(1);
-    return (System.nanoTime() - startTime) / NANOSECONDS_PER_SECOND;
-  }
+	/**
+	 * Get the number of seconds this op mode has been running
+	 * <p>
+	 * This method has sub millisecond accuracy.
+	 * @return number of seconds this op mode has been running
+	 */
+	public double getRuntime() {
+		final double NANOSECONDS_PER_SECOND = TimeUnit.SECONDS.toNanos(1);
+		return (System.nanoTime() - startTime) / NANOSECONDS_PER_SECOND;
+	}
+
 }

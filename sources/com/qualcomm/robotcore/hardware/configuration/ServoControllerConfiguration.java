@@ -38,6 +38,8 @@ import java.util.List;
 
 public class ServoControllerConfiguration extends ControllerConfiguration {
 
+	private static final long serialVersionUID = 1L;
+
 	public ServoControllerConfiguration() {
 		super("", new ArrayList<DeviceConfiguration>(), new SerialNumber(
 				ControllerConfiguration.NO_SERIAL_NUMBER.getSerialNumber()),

@@ -37,6 +37,8 @@ package com.qualcomm.robotcore.exception;
  */
 public class RobotCoreException extends Exception {
 
+	private static final long serialVersionUID = 1L;
+
 	private Exception chainedException = null;
 
 	public RobotCoreException(String message) {

@@ -40,89 +40,92 @@ import com.qualcomm.robotcore.util.RobotLog;
  */
 public interface RobocolParsable {
 
-  /*
-   * When implementing this class, you must make sure you populate the header
-   * at the beginning of your buffer.
-   *
-   * Robocol Packet Format
-   *
-   *   Byte | Field
-   * -------|-------------------------
-   *    00  | Message type
-   * 01-02  | Payload length, in bytes
-   *    03+ | Payload
-   */
+	/*
+	 * When implementing this class, you must make sure you populate the header
+	 * at the beginning of your buffer.
+	 *
+	 * Robocol Packet Format
+	 *
+	 *   Byte | Field
+	 * -------|-------------------------
+	 *    00  | Message type
+	 * 01-02  | Payload length, in bytes
+	 *    03+ | Payload
+	 */
 
-  /**
-   * Message Type
-   */
-  public enum MsgType {
-    /*
-     * NOTE: when adding new message types, do not change existing message
-     * type values or you will break backwards capability.
-     */
-    EMPTY(0),
-    HEARTBEAT(1),
-    GAMEPAD(2),
-    PEER_DISCOVERY(3),
-    COMMAND(4),
-    TELEMETRY(5);
+	/**
+	 * Message Type
+	 */
+	public enum MsgType {
+		/*
+		 * NOTE: when adding new message types, do not change existing message
+		 * type values or you will break backwards capability.
+		 */
+		EMPTY(0),
+		HEARTBEAT(1),
+		GAMEPAD(2),
+		PEER_DISCOVERY(3),
+		COMMAND(4),
+		TELEMETRY(5);
 
-    private static final MsgType[] VALUES_CACHE = MsgType.values();
-    private final int type;
+		private static final MsgType[] VALUES_CACHE = MsgType.values();
+		private final int type;
 
-    /**
-     * Create a MsgType from a byte
-     * @param b
-     * @return MsgType
-     */
-    public static MsgType fromByte(byte b) {
-      MsgType t = EMPTY;
-      try {
-        t = VALUES_CACHE[b];
-      } catch (ArrayIndexOutOfBoundsException e) {
-        RobotLog.w(String.format("Cannot convert %d to MsgType: %s", b, e.toString()));
-      }
-      return t;
-    }
+		/**
+		 * Create a MsgType from a byte
+		 * 
+		 * @param b
+		 * @return MsgType
+		 */
+		public static MsgType fromByte(byte b) {
+			MsgType t = EMPTY;
+			try {
+				t = VALUES_CACHE[b];
+			} catch (ArrayIndexOutOfBoundsException e) {
+				RobotLog.w(String.format("Cannot convert %d to MsgType: %s", b, e.toString()));
+			}
+			return t;
+		}
 
-    private MsgType(int type) {
-      this.type = type;
-    }
+		private MsgType(int type) {
+			this.type = type;
+		}
 
-    /**
-     * Return this message type as a byte
-     * @return message type as byte
-     */
-    public byte asByte() {
-      return (byte)(type);
-    }
-  }
+		/**
+		 * Return this message type as a byte
+		 * 
+		 * @return message type as byte
+		 */
+		public byte asByte() {
+			return (byte)(type);
+		}
+	}
 
-  public static final int HEADER_LENGTH = 0x03;
-  public static final byte[] EMPTY_HEADER_BUFFER = new byte[RobocolParsable.HEADER_LENGTH];
+	public static final int HEADER_LENGTH = 0x03;
+	public static final byte[] EMPTY_HEADER_BUFFER = new byte[RobocolParsable.HEADER_LENGTH];
 
-  /**
-   * Get the Robocol MsgType of this RobocolParsable
-   * @return message type
-   */
-  public abstract MsgType getRobocolMsgType();
+	/**
+	 * Get the Robocol MsgType of this RobocolParsable
+	 * 
+	 * @return message type
+	 */
+	public abstract MsgType getRobocolMsgType();
 
-  /**
-   * Convert this object into a byte array. This method will be called when the
-   * object is packaged into a RobocolDatagram.
-   *
-   * @throws RobotCoreException if error
-   *
-   * @return byte array representing the current object, or null if error
-   */
-  public abstract byte[] toByteArray() throws RobotCoreException;
+	/**
+	 * Convert this object into a byte array. This method will be called when the
+	 * object is packaged into a RobocolDatagram.
+	 *
+	 * @throws RobotCoreException if error
+	 * @return byte array representing the current object, or null if error
+	 */
+	public abstract byte[] toByteArray() throws RobotCoreException;
 
-  /**
-   * Populate the fields of this object based on values of this byte array.
-   * @param byteArray byte array from which to populate this object
-   *
-   * @throws RobotCoreException if unable to parse the byte array.
-   */
-  public abstract void fromByteArray(byte[] byteArray) throws RobotCoreException;
+	/**
+	 * Populate the fields of this object based on values of this byte array.
+	 * 
+	 * @param byteArray byte array from which to populate this object
+	 * @throws RobotCoreException if unable to parse the byte array.
+	 */
+	public abstract void fromByteArray(byte[] byteArray) throws RobotCoreException;
+
 }

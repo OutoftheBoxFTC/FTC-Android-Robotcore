@@ -38,62 +38,67 @@ import java.io.Serializable;
  */
 public class SerialNumber implements Serializable {
 
-  private String serialNumber;
+	private static final long serialVersionUID = 1L;
+	private String serialNumber;
 
-  /**
-   * Constructor - use default serial number
-   */
-  public SerialNumber() {
-    serialNumber = "N/A";
-  }
+	/**
+	 * Constructor - use default serial number
+	 */
+	public SerialNumber() {
+		serialNumber = "N/A";
+	}
 
-  /**
-   * Constructor - use supplied serial number
-   * @param serialNumber
-   */
-  public SerialNumber(String serialNumber) {
-    this.serialNumber = serialNumber;
-  }
+	/**
+	 * Constructor - use supplied serial number
+	 * 
+	 * @param serialNumber
+	 */
+	public SerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
 
-  /**
-   * Get the serial number
-   * @return serial number
-   */
-  public String getSerialNumber() {
-    return serialNumber;
-  }
+	/**
+	 * Get the serial number
+	 * 
+	 * @return serial number
+	 */
+	public String getSerialNumber() {
+		return serialNumber;
+	}
 
-  /**
-   * Set the serial number
-   * @param serialNumber
-   */
-  public void setSerialNumber(String serialNumber) {
-    this.serialNumber = serialNumber;
-  }
+	/**
+	 * Set the serial number
+	 * 
+	 * @param serialNumber
+	 */
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
 
-  @Override
-  public boolean equals(Object object) {
-    if (object == null) return false;
-    if (object == this) return true;
+	@Override
+	public boolean equals(Object object) {
+		if (object == null) return false;
+		if (object == this) return true;
 
-    if (object instanceof SerialNumber) {
-      return serialNumber.equals(((SerialNumber) object).getSerialNumber());
-    }
+		if (object instanceof SerialNumber) {
+			return serialNumber.equals(((SerialNumber) object).getSerialNumber());
+		}
 
-    if (object instanceof String) {
-      return serialNumber.equals(object);
-    }
+		if (object instanceof String) {
+			return serialNumber.equals(object);
+		}
 
-    return false;
-  }
+		return false;
+	}
 
-  @Override
-  public int hashCode() {
-    return serialNumber.hashCode();
-  }
+	@Override
+	public int hashCode() {
+		return serialNumber.hashCode();
+	}
 
-  @Override
-  public String toString() {
-    return serialNumber;
-  }
+	@Override
+	public String toString() {
+		return serialNumber;
+	}
+
 }

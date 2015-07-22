@@ -291,7 +291,6 @@ public class MapView extends View {
 		canvas.drawBitmap(b, px, py, new Paint());
 	}
 
-	@SuppressWarnings("deprecation")
 	public void redraw() {
 		if (isSetup && isVisible) {
 			drawGrid();
@@ -321,4 +320,5 @@ public class MapView extends View {
 			this.circle = circle;
 		}
 	}
+
 }

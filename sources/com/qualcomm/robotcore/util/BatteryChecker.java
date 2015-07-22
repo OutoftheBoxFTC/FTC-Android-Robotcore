@@ -38,54 +38,54 @@ import android.os.Handler;
 
 public class BatteryChecker {
 
-  public interface BatteryWatcher{
-    // called whenever the battery watcher should receive the latest
-    // battery level, reported as a percent.
-    public abstract void updateBatteryLevel(float percent);
-  }
-  private Context context;
-  private long delay;
-  private BatteryWatcher watcher;
-  protected Handler batteryHandler;
+	public interface BatteryWatcher{
+		// called whenever the battery watcher should receive the latest
+		// battery level, reported as a percent.
+		public void updateBatteryLevel(float percent);
+	}
 
-  public BatteryChecker(Context context, BatteryWatcher watcher, long delay){
-    this.context = context;
-    this.watcher = watcher;
-    this.delay = delay;
-    batteryHandler = new Handler();
-  }
+	private Context context;
+	private long delay;
+	private BatteryWatcher watcher;
+	protected Handler batteryHandler;
 
+	public BatteryChecker(Context context, BatteryWatcher watcher, long delay){
+		this.context = context;
+		this.watcher = watcher;
+		this.delay = delay;
+		batteryHandler = new Handler();
+	}
 
-  // There are no guarantees about how frequently the hardware will broadcast the battery level
-  // so it's more reliable to do our own polling. I register the receiver with a null receiver
-  // since I don't care about actually receiving the broadcast. registerReceiver() gives me
-  // the intent with all the info I want. Then I do some processing, and I'm done.
+	// There are no guarantees about how frequently the hardware will broadcast the battery level
+	// so it's more reliable to do our own polling. I register the receiver with a null receiver
+	// since I don't care about actually receiving the broadcast. registerReceiver() gives me
+	// the intent with all the info I want. Then I do some processing, and I'm done.
+	Runnable batteryLevelChecker = new Runnable() {
+		@Override
+		public void run() {
+			IntentFilter batteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+			Intent intent = context.registerReceiver(null, batteryLevelFilter);
 
-  Runnable batteryLevelChecker = new Runnable() {
-    @Override
-    public void run() {
-      IntentFilter batteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-      Intent intent = context.registerReceiver(null, batteryLevelFilter);
+			int currentLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+			int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+			int percent = -1;
+			if (currentLevel >= 0 && scale > 0) {
+				percent = (currentLevel * 100) / scale;
+			}
 
-      int currentLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-      int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-      int percent = -1;
-      if (currentLevel >= 0 && scale > 0) {
-        percent = (currentLevel * 100) / scale;
-      }
+			watcher.updateBatteryLevel(percent);
+			RobotLog.i("Battery Level Remaining: " + percent);
 
-      watcher.updateBatteryLevel(percent);
-      RobotLog.i("Battery Level Remaining: " + percent);
+			batteryHandler.postDelayed(batteryLevelChecker, delay);
+		}
+	};
 
-      batteryHandler.postDelayed(batteryLevelChecker, delay);
-    }
-  };
+	public void startBatteryMonitoring(){
+		batteryHandler.postDelayed(batteryLevelChecker, 0);
+	}
 
-  public void startBatteryMonitoring(){
-    batteryHandler.postDelayed(batteryLevelChecker, 0);
-  }
+	public void endBatteryMonitoring(){
+		batteryHandler.removeCallbacks(batteryLevelChecker);
+	}
 
-  public void endBatteryMonitoring(){
-    batteryHandler.removeCallbacks(batteryLevelChecker);
-  }
 }

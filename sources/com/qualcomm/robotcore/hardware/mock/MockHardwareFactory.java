@@ -40,35 +40,36 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 public class MockHardwareFactory implements HardwareFactory {
 
-    private HardwareMap hardwareMap;
+	private HardwareMap hardwareMap;
 
-    /**
-     * Create a MockHardwareFactory
-     *
-     * @param hardwareMap this is the hardware map that will be returned by createHardwareMap(...)
-     */
-    public MockHardwareFactory(HardwareMap hardwareMap) {
-        this.hardwareMap = hardwareMap;
-    }
+	/**
+	 * Create a MockHardwareFactory
+	 *
+	 * @param hardwareMap this is the hardware map that will be returned by createHardwareMap(...)
+	 */
+	public MockHardwareFactory(HardwareMap hardwareMap) {
+		this.hardwareMap = hardwareMap;
+	}
 
-    /**
-     * Set the hardware map that will be returned by createHardwareMap(...)
-     * @param hardwareMap this is the hardware map that will be returned by createHardwareMap(...)
-     */
-    public void setHardwareMap(HardwareMap hardwareMap) {
-        this.hardwareMap = hardwareMap;
-    }
+	/**
+	 * Set the hardware map that will be returned by createHardwareMap(...)
+	 * @param hardwareMap this is the hardware map that will be returned by createHardwareMap(...)
+	 */
+	public void setHardwareMap(HardwareMap hardwareMap) {
+		this.hardwareMap = hardwareMap;
+	}
 
-    /**
-     * Get a copy of the hardware map that will be returned by createHardwareMap(...)
-     * @return
-     */
-    public HardwareMap getHardwareMap() {
-        return hardwareMap;
-    }
+	/**
+	 * Get a copy of the hardware map that will be returned by createHardwareMap(...)
+	 * @return
+	 */
+	public HardwareMap getHardwareMap() {
+		return hardwareMap;
+	}
 
-    @Override
-    public HardwareMap createHardwareMap(EventLoopManager manager) throws RobotCoreException, InterruptedException {
-        return hardwareMap;
-    }
+	@Override
+	public HardwareMap createHardwareMap(EventLoopManager manager) throws RobotCoreException, InterruptedException {
+		return hardwareMap;
+	}
+
 }

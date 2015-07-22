@@ -45,22 +45,23 @@ import com.qualcomm.robotcore.exception.RobotCoreException;
  */
 public interface SyncdDevice {
 
-  /**
-   * This method should block until it is ready for the event loop to run, Once this method has
-   * returned, subsequent calls should return immediately until startBlockingWork() has been called.
-   * @throws InterruptedException
-   */
-  public void blockUntilReady() throws RobotCoreException, InterruptedException;
+	/**
+	 * This method should block until it is ready for the event loop to run, Once this method has
+	 * returned, subsequent calls should return immediately until startBlockingWork() has been called.
+	 * 
+	 * @throws InterruptedException
+	 */
+	public void blockUntilReady() throws RobotCoreException, InterruptedException;
 
-  /**
-   * This method will be called to let the sync'd device know that it's ok to enter a blocking
-   * state.
-   * <p>
-   * Before this method returns, the sync'd device should put blockUntilReady() into a blocking
-   * state. blockUntilReady() should remain in a blocking state until the device is ready for the
-   * event loop to run. Once blockUntilReady() returns, it should not block again until
-   * startBlockingWork() has been called.
-   */
-  public void startBlockingWork();
-  
+	/**
+	 * This method will be called to let the sync'd device know that it's ok to enter a blocking
+	 * state.
+	 * <p>
+	 * Before this method returns, the sync'd device should put blockUntilReady() into a blocking
+	 * state. blockUntilReady() should remain in a blocking state until the device is ready for the
+	 * event loop to run. Once blockUntilReady() returns, it should not block again until
+	 * startBlockingWork() has been called.
+	 */
+	public void startBlockingWork();
+
 }

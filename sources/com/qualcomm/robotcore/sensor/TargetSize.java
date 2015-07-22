@@ -30,20 +30,20 @@
 
 package com.qualcomm.robotcore.sensor;
 
-
 public class TargetSize {
 
-  public String mTargetName;
-  public double mLongSide;
-  public double mShortSide;
+	public String mTargetName;
+	public double mLongSide;
+	public double mShortSide;
 
-  public TargetSize() {
-    this("", 0, 0);
-  }
+	public TargetSize() {
+		this("", 0, 0);
+	}
 
-  public TargetSize(String targetName, double longSide, double shortSide) {
-    mTargetName = targetName;
-    mLongSide = longSide;
-    mShortSide = shortSide;
-  }
+	public TargetSize(String targetName, double longSide, double shortSide) {
+		mTargetName = targetName;
+		mLongSide = longSide;
+		mShortSide = shortSide;
+	}
+
 }

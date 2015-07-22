@@ -40,7 +40,7 @@ public abstract class AccelerationSensor {
 	 * Acceleration in the x, y, and z axis
 	 */
 	public static class Acceleration {
-		
+
 		public Acceleration() {
 			this(0.0, 0.0, 0.0);
 		}
@@ -63,12 +63,14 @@ public abstract class AccelerationSensor {
 
 	/**
 	 * Acceleration, measured in g's
+	 * 
 	 * @return acceleration in g's
 	 */
 	public abstract Acceleration getAcceleration();
 
 	/**
 	 * Status of this sensor, in string form
+	 * 
 	 * @return status
 	 */
 	public abstract String status();
@@ -77,5 +79,5 @@ public abstract class AccelerationSensor {
 	public String toString() {
 		return getAcceleration().toString();
 	}
-	
+
 }

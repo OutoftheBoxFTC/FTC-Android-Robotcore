@@ -51,4 +51,5 @@ public class MockNxtUltrasonicSensor extends UltrasonicSensor {
 	public String status() {
 		return "Mock NXT Ultrasonic Sensor";
 	}
+
 }

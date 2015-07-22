@@ -106,5 +106,5 @@ public interface DigitalChannelController {
 	 * @param state true to set; false to unset
 	 */
 	public void setDigitalChannelState(int channel, boolean state);
-	
+
 }

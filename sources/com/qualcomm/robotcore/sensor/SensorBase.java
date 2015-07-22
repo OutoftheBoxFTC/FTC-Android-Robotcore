@@ -33,49 +33,56 @@ package com.qualcomm.robotcore.sensor;
 import java.util.List;
 
 abstract public class SensorBase<T> {
-  protected List<SensorListener<T>> mListeners;
 
-  public SensorBase(List<SensorListener<T>> listeners) {
-    mListeners = listeners;
-  }
+	protected List<SensorListener<T>> mListeners;
 
-  // -------------------------------------------------------------------------\-
-  ///Performs Sensor initialization.
-  /// @return true on success, false on failure
-  // -------------------------------------------------------------------------\-
-  abstract public boolean initialize();
+	public SensorBase(List<SensorListener<T>> listeners) {
+		mListeners = listeners;
+	}
 
-  // -------------------------------------------------------------------------\-
-  /// Performs Sensor termination and cleanup.
-  /// @return true on success, false on failure
-  // -------------------------------------------------------------------------\-
-  abstract public boolean shutdown();
+	/**
+	 * Performs sensor initialization
+	 * 
+	 * @return true on success, false on failure
+	 */
+	abstract public boolean initialize();
 
-  // -------------------------------------------------------------------------\-
-  /// Resume Sensor operation.
-  /// @return true on success, false on failure
-  // -------------------------------------------------------------------------\-
-  abstract public boolean resume();
+	/**
+	 * Performs sensor termination and cleanup
+	 * 
+	 * @return true on success, false on failure
+	 */
+	abstract public boolean shutdown();
 
-  // -------------------------------------------------------------------------\-
-  /// Pause Sensor.
-  /// @return true on success, false on failure
-  // -------------------------------------------------------------------------\-
-  abstract public boolean pause();
+	/**
+	 * Resume sensor operation
+	 * 
+	 * @return true on success, false on failure
+	 */
+	abstract public boolean resume();
 
-  // -------------------------------------------------------------------------\-
-  /// Update SensorListeners with new sensor data.
-  /// @return none
-  // -------------------------------------------------------------------------\-
-  final public void update(T data) {
-    synchronized (mListeners) {
-      if (mListeners == null) {
-        return;
-      }
+	/**
+	 * Pause sensor
+	 *
+	 * @return true on success, false on failure
+	 */
+	abstract public boolean pause();
 
-      for (SensorListener<T> l : mListeners) {
-        l.onUpdate(data);
-      }
-    }
-  }
+	/**
+	 * Update SensorListeners with new sensor data.
+	 * 
+	 * @param data the new sensor data
+	 */
+	final public void update(T data) {
+		synchronized (mListeners) {
+			if (mListeners == null) {
+				return;
+			}
+
+			for (SensorListener<T> l : mListeners) {
+				l.onUpdate(data);
+			}
+		}
+	}
+
 }

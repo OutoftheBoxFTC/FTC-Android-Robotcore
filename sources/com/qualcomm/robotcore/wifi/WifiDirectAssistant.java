@@ -131,6 +131,7 @@ public class WifiDirectAssistant {
 
 			sendEvent(Event.PEERS_AVAILABLE);
 		}
+
 	}
 
 	/*
@@ -160,6 +161,7 @@ public class WifiDirectAssistant {
 				sendEvent(Event.ERROR);
 			}
 		}
+
 	}
 
 	private class WifiDirectGroupInfoListener implements WifiP2pManager.GroupInfoListener {
@@ -185,6 +187,7 @@ public class WifiDirectAssistant {
 			RobotLog.v("Wifi Direct connection information available");
 			sendEvent(Event.CONNECTION_INFO_AVAILABLE);
 		}
+
 	}
 
 	private class WifiP2pBroadcastReceiver extends BroadcastReceiver {
@@ -222,6 +225,7 @@ public class WifiDirectAssistant {
 				onWifiP2pThisDeviceChanged((WifiP2pDevice) intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE));
 			}
 		}
+
 	}
 
 	public synchronized static WifiDirectAssistant getWifiDirectAssistant(Context context) {
@@ -299,6 +303,7 @@ public class WifiDirectAssistant {
 
 	/**
 	 * Get the device mac address
+	 * 
 	 * @return mac address
 	 */
 	public String getDeviceMacAddress() {
@@ -307,6 +312,7 @@ public class WifiDirectAssistant {
 
 	/**
 	 * Get the device name
+	 * 
 	 * @return device name
 	 */
 	public String getDeviceName() {
@@ -315,6 +321,7 @@ public class WifiDirectAssistant {
 
 	/**
 	 * Get the IP address of the group owner
+	 * 
 	 * @return ip address
 	 */
 	public InetAddress getGroupOwnerAddress() {
@@ -323,6 +330,7 @@ public class WifiDirectAssistant {
 
 	/**
 	 * Get the group owners mac address
+	 * 
 	 * @return mac address
 	 */
 	public String getGroupOwnerMacAddress() {
@@ -331,6 +339,7 @@ public class WifiDirectAssistant {
 
 	/**
 	 * Get the group owners device name
+	 * 
 	 * @return device name
 	 */
 	public String getGroupOwnerName() {
@@ -339,6 +348,7 @@ public class WifiDirectAssistant {
 
 	/**
 	 * Return the passphrase for this network; only valid if this device is the group owner
+	 * 
 	 * @return the passphrase to this device
 	 */
 	public String getPassphrase() {
@@ -351,6 +361,7 @@ public class WifiDirectAssistant {
 
 	/**
 	 * Returns true if connected, or group owner
+	 * 
 	 * @return true if connected, otherwise false
 	 */
 	public boolean isConnected() {
@@ -360,6 +371,7 @@ public class WifiDirectAssistant {
 
 	/**
 	 * Returns true if this device is the group owner
+	 * 
 	 * @return true if group owner, otherwise false
 	 */
 	public boolean isGroupOwner() {
@@ -499,4 +511,5 @@ public class WifiDirectAssistant {
 
 		if (callback != null) callback.onWifiDirectEvent(event);
 	}
+
 }

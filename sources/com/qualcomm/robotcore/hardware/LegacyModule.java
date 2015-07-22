@@ -35,77 +35,87 @@ package com.qualcomm.robotcore.hardware;
  */
 public interface LegacyModule {
 
-  /**
-   * Enable a physical port in NXT I2C read mode
-   * @param physicalPort physical port number on the device
-   * @param i2cAddress I2C address
-   * @param memAddress memory address on the device
-   * @param memLength length of memory to read
-   */
-  public void enableNxtI2cReadMode(int physicalPort, int i2cAddress, int memAddress, int memLength);
+	/**
+	 * Enable a physical port in NXT I2C read mode
+	 * 
+	 * @param physicalPort physical port number on the device
+	 * @param i2cAddress I2C address
+	 * @param memAddress memory address on the device
+	 * @param memLength length of memory to read
+	 */
+	public void enableNxtI2cReadMode(int physicalPort, int i2cAddress, int memAddress, int memLength);
 
-  /**
-   * Enable a physical port in NXT I2C write mode
-   * @param physicalPort physical port number on the device
-   * @param i2cAddress I2C address
-   * @param memAddress memory address on the device
-   * @param initialValues initial values to write
-   */
-  public void enableNxtI2cWriteMode(int physicalPort, int i2cAddress, int memAddress, byte[] initialValues);
+	/**
+	 * Enable a physical port in NXT I2C write mode
+	 * 
+	 * @param physicalPort physical port number on the device
+	 * @param i2cAddress I2C address
+	 * @param memAddress memory address on the device
+	 * @param initialValues initial values to write
+	 */
+	public void enableNxtI2cWriteMode(int physicalPort, int i2cAddress, int memAddress, byte[] initialValues);
 
-  /**
-   * Enable a physical port in analog read mode
-   * @param physicalPort physical port number on the device
-   */
-  public void enableAnalogReadMode(int physicalPort, int i2cAddress);
+	/**
+	 * Enable a physical port in analog read mode
+	 * 
+	 * @param physicalPort physical port number on the device
+	 */
+	public void enableAnalogReadMode(int physicalPort, int i2cAddress);
 
-  /**
-   * Enable or disable 9V power on a port
-   * @param physicalPort physical port number on the device
-   * @param enable true to enable; false to disable
-   */
-  public void enable9v(int physicalPort, boolean enable);
+	/**
+	 * Enable or disable 9V power on a port
+	 * 
+	 * @param physicalPort physical port number on the device
+	 * @param enable true to enable; false to disable
+	 */
+	public void enable9v(int physicalPort, boolean enable);
 
-  /**
-   * Set the value of digital line 0 or 1 while in analog mode.
-   * <p>
-   * These are port pins 5 and 6.
-   * @param physicalPort physical port number on the device
-   * @param line line 0 or 1
-   * @param set true to set; otherwise false
-   */
-  public void setDigitalLine(int physicalPort, int line, boolean set);
+	/**
+	 * Set the value of digital line 0 or 1 while in analog mode.
+	 * <p>
+	 * These are port pins 5 and 6.
+	 * 
+	 * @param physicalPort physical port number on the device
+	 * @param line line 0 or 1
+	 * @param set true to set; otherwise false
+	 */
+	public void setDigitalLine(int physicalPort, int line, boolean set);
 
-  /**
-   * Read the device memory map; only works in NXT I2C read mode
-   * @param physicalPort physical port number on the device
-   * @return byte array
-   */
-  public byte[] readLegacyModuleCache(int physicalPort);
+	/**
+	 * Read the device memory map; only works in NXT I2C read mode
+	 * 
+	 * @param physicalPort physical port number on the device
+	 * @return byte array
+	 */
+	public byte[] readLegacyModuleCache(int physicalPort);
 
-  /**
-   * Write to the device memory map; only works in NXT I2C write mode
-   * @param physicalPort physical port number on the device
-   * @param data byte array to write
-   */
-  public void writeLegacyModuleCache(int physicalPort, byte[] data);
+	/**
+	 * Write to the device memory map; only works in NXT I2C write mode
+	 * 
+	 * @param physicalPort physical port number on the device
+	 * @param data byte array to write
+	 */
+	public void writeLegacyModuleCache(int physicalPort, byte[] data);
 
-  /**
-   * Read an analog value from a device; only works in analog read mode
-   * @param physicalPort physical port number on the device
-   * @return byte[] containing the two analog values; low byte first, high byte second
-   */
-  public byte[] readAnalog(int physicalPort);
+	/**
+	 * Read an analog value from a device; only works in analog read mode
+	 * 
+	 * @param physicalPort physical port number on the device
+	 * @return byte[] containing the two analog values; low byte first, high byte second
+	 */
+	public byte[] readAnalog(int physicalPort);
 
-  /**
-   * Determine if a physical port is ready
-   * @param physicalPort physical port number on the device
-   * @return true if ready for command; false otherwise
-   */
-  public boolean isPortReady(int physicalPort);
+	/**
+	 * Determine if a physical port is ready
+	 * 
+	 * @param physicalPort physical port number on the device
+	 * @return true if ready for command; false otherwise
+	 */
+	public boolean isPortReady(int physicalPort);
 
-  /**
-   * Close the device
-   */
-  public void close();
+	/**
+	 * Close the device
+	 */
+	public void close();
+
 }

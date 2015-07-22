@@ -38,6 +38,7 @@ public interface VoltageSensor {
 
 	/**
 	 * Get the current voltage
+	 * 
 	 * @return voltage
 	 */
 	public double getVoltage();

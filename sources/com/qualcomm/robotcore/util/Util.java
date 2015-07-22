@@ -43,60 +43,61 @@ import java.util.Random;
  */
 public class Util {
 
-  public static String ASCII_RECORD_SEPARATOR = "\u001e";
+	public static String ASCII_RECORD_SEPARATOR = "\u001e";
 
-  public static final String LOWERCASE_ALPHA_NUM_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
-  /**
-   * Get a random string of characters of specified length from a specified character set.
-   * @param stringLength how many characters to randomly choose
-   * @param charSet which characters to choose from, given as a string
-   * @return a string
-   */
-  public static String getRandomString(final int stringLength, final String charSet)
-  {
-    final Random random=new Random();
-    final StringBuilder sb=new StringBuilder();
-    for(int i=0;i<stringLength;++i)
-    {
-      sb.append(charSet.charAt(random.nextInt(charSet.length())));
-    }
-    return sb.toString();
-  }
+	public static final String LOWERCASE_ALPHA_NUM_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
+	/**
+	 * Get a random string of characters of specified length from a specified character set.
+	 * @param stringLength how many characters to randomly choose
+	 * @param charSet which characters to choose from, given as a string
+	 * @return a string
+	 */
+	public static String getRandomString(final int stringLength, final String charSet)
+	{
+		final Random random=new Random();
+		final StringBuilder sb=new StringBuilder();
+		for(int i=0;i<stringLength;++i)
+		{
+			sb.append(charSet.charAt(random.nextInt(charSet.length())));
+		}
+		return sb.toString();
+	}
 
-  /**
-   * Sort an array of File objects, by filename
-   * @param files array of File objects
-   */
-  public static void sortFilesByName(File[] files){
-    Arrays.sort(files, new Comparator<File>(){
-      @Override
-      public int compare(File f1, File f2){
-        return f1.getName().compareTo(f2.getName());
-      }
-    });
-  }
+	/**
+	 * Sort an array of File objects, by filename
+	 * @param files array of File objects
+	 */
+	public static void sortFilesByName(File[] files){
+		Arrays.sort(files, new Comparator<File>(){
+			@Override
+			public int compare(File f1, File f2){
+				return f1.getName().compareTo(f2.getName());
+			}
+		});
+	}
 
-  public static void updateTextView(final TextView textView, final String msg) {
-    if (textView != null) {
-      textView.post(new Runnable() {
-        public void run() {
-          textView.setText(msg);
-        }
-      });
-    }
-  }
+	public static void updateTextView(final TextView textView, final String msg) {
+		if (textView != null) {
+			textView.post(new Runnable() {
+				public void run() {
+					textView.setText(msg);
+				}
+			});
+		}
+	}
 
-  /**
-   * Creates a new byte array long enough to hold both byte arrays, then fills
-   * them.
-   * @param first byte array
-   * @param second byte array
-   * @return new byte array, which contains a concatenation of both byte arrays
-   */
-  public static byte[] concatenateByteArrays(byte[] first, byte[] second) {
-    byte[] concatenated = new byte[first.length + second.length];
-    System.arraycopy(first, 0, concatenated, 0, first.length);
-    System.arraycopy(second, 0, concatenated, first.length, second.length);
-    return concatenated;
-  }
+	/**
+	 * Creates a new byte array long enough to hold both byte arrays, then fills
+	 * them.
+	 * @param first byte array
+	 * @param second byte array
+	 * @return new byte array, which contains a concatenation of both byte arrays
+	 */
+	public static byte[] concatenateByteArrays(byte[] first, byte[] second) {
+		byte[] concatenated = new byte[first.length + second.length];
+		System.arraycopy(first, 0, concatenated, 0, first.length);
+		System.arraycopy(second, 0, concatenated, first.length, second.length);
+		return concatenated;
+	}
+
 }
