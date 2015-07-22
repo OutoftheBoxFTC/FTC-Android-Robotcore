@@ -38,17 +38,17 @@ import com.qualcomm.robotcore.hardware.UltrasonicSensor;
  */
 public class MockNxtUltrasonicSensor extends UltrasonicSensor {
 
-  MockNxtUltrasonicSensor(LegacyModule legacyModule, int physicalPort) {
-    // take no action
-  }
+	MockNxtUltrasonicSensor(LegacyModule legacyModule, int physicalPort) {
+		// take no action
+	}
 
-  @Override
-  public double getUltrasonicLevel() {
-    return 0;
-  }
+	@Override
+	public double getUltrasonicLevel() {
+		return 0.0;
+	}
 
-  @Override
-  public String status() {
-    return "Mock NXT Ultrasonic Sensor";
-  }
+	@Override
+	public String status() {
+		return "Mock NXT Ultrasonic Sensor";
+	}
 }

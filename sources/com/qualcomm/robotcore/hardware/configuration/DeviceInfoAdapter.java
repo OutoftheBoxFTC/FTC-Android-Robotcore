@@ -48,50 +48,51 @@ import java.util.Map;
 
 public class DeviceInfoAdapter extends BaseAdapter implements ListAdapter {
 
-  private Map<SerialNumber, ControllerConfiguration> deviceControllers = new HashMap<SerialNumber, ControllerConfiguration>();
-  private SerialNumber[] serialNums;
-  private Context context;
-  private int list_id;
-  private int text_id;
+	private Map<SerialNumber, ControllerConfiguration> deviceControllers = new HashMap<SerialNumber, ControllerConfiguration>();
+	private SerialNumber[] serialNums;
+	private Context context;
+	private int list_id;
+	private int text_id;
 
-  public DeviceInfoAdapter(Activity context, int list_id, int text_id, Map<SerialNumber, ControllerConfiguration> deviceControllers) {
-    super();
-    this.context = context;
-    this.deviceControllers = deviceControllers;
-    this.serialNums = deviceControllers.keySet().toArray(new SerialNumber[deviceControllers.size()]);
-    this.list_id = list_id;
-    this.text_id = text_id;
-  }
+	public DeviceInfoAdapter(Activity context, int list_id, int text_id, Map<SerialNumber, ControllerConfiguration> deviceControllers) {
+		super();
+		this.context = context;
+		this.deviceControllers = deviceControllers;
+		this.serialNums = deviceControllers.keySet().toArray(new SerialNumber[deviceControllers.size()]);
+		this.list_id = list_id;
+		this.text_id = text_id;
+	}
 
-  @Override
-  public int getCount() {
-    return deviceControllers.size();
-  }
+	@Override
+	public int getCount() {
+		return deviceControllers.size();
+	}
 
-  @Override
-  public Object getItem(int arg0) {
-    return deviceControllers.get(serialNums[arg0]);
-  }
+	@Override
+	public Object getItem(int arg0) {
+		return deviceControllers.get(serialNums[arg0]);
+	}
 
-  @Override
-  public long getItemId(int arg0) {
-    // TODO Auto-generated method stub
-    return 0;
-  }
+	// consistant with decompiled
+	@Override
+	public long getItemId(int arg0) {
+		// TODO auto-generated method stub
+		return 0;
+	}
 
-  @Override
-  public View getView(int pos, View convertView, ViewGroup parent){
-    View row = convertView;
-    if (row == null){
-      LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-      row = inflater.inflate(list_id, parent, false);
-    }
+	@Override
+	public View getView(int pos, View convertView, ViewGroup parent){
+		View row = convertView;
+		if (row == null){
+			LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+			row = inflater.inflate(list_id, parent, false);
+		}
 
-    String name = deviceControllers.get(serialNums[pos]).getName();
-    TextView text = (TextView)row.findViewById(text_id);
-    text.setText(name);
-    return row;
+		String name = deviceControllers.get(serialNums[pos]).getName();
+		TextView text = (TextView)row.findViewById(text_id);
+		text.setText(name);
+		return row;
 
-  }
+	}
 
 }

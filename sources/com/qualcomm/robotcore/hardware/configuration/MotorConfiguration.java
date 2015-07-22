@@ -33,25 +33,26 @@ package com.qualcomm.robotcore.hardware.configuration;
 
 public class MotorConfiguration extends DeviceConfiguration {
 
-  protected boolean disabled = false;
+	protected boolean disabled = false;
 
-  public MotorConfiguration(int port){
-    super(ConfigurationType.MOTOR);
-    super.setName(DISABLED_DEVICE_NAME);
-    this.disabled = true;
-    super.setPort(port);
+	public MotorConfiguration(int port){
+		super(ConfigurationType.MOTOR);
+		super.setName(DISABLED_DEVICE_NAME);
+		this.disabled = true;
+		super.setPort(port);
 
-  }
+	}
 
-  public MotorConfiguration(String name){
-    super(ConfigurationType.MOTOR);
+	public MotorConfiguration(String name){
+		super(ConfigurationType.MOTOR);
 
-    super.setName(name);
-    super.setType(ConfigurationType.MOTOR);
-  }
+		super.setName(name);
+		super.setType(ConfigurationType.MOTOR);
+	}
 
-  public void setDisabled(boolean disabled){
-    this.disabled = disabled;
-  }
+	@Override
+	public void setDisabled(boolean disabled){
+		this.disabled = disabled;
+	}
 
 }

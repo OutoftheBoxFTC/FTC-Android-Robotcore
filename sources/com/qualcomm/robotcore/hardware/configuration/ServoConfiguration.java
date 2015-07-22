@@ -34,29 +34,29 @@ package com.qualcomm.robotcore.hardware.configuration;
 
 public class ServoConfiguration extends DeviceConfiguration {
 
-  protected boolean disabled = false;
+	protected boolean disabled = false;
 
-  public ServoConfiguration(int port){
-    super(ConfigurationType.SERVO);
-    super.setName(DISABLED_DEVICE_NAME);
-    this.disabled = true;
-    super.setPort(port);
-  }
+	public ServoConfiguration(int port){
+		super(ConfigurationType.SERVO);
+		super.setName(DISABLED_DEVICE_NAME);
+		this.disabled = true;
+		super.setPort(port);
+	}
 
-  public ServoConfiguration(String name) {
-    super(ConfigurationType.SERVO);
-    super.setName(name);
+	public ServoConfiguration(String name) {
+		super(ConfigurationType.SERVO);
+		super.setName(name);
 
-    super.setType(ConfigurationType.SERVO);
+		super.setType(ConfigurationType.SERVO);
 
-  }
+	}
 
-  public boolean isDisabled() {
-    return disabled;
-  }
+	public boolean isDisabled() {
+		return disabled;
+	}
 
-  public void setDisabled(boolean disabled) {
-    this.disabled = disabled;
-  }
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
 
 }

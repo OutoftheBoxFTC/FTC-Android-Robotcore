@@ -42,46 +42,46 @@ import com.qualcomm.robotcore.hardware.ServoController;
  */
 public class MockUsbServoController extends MockUsbDevice implements ServoController {
 
-  /**
-   * Use MockDeviceManager to create an instance of this class
-   *
-   * @see MockDeviceManager
-   * @param serialNumber
-   */
-  protected MockUsbServoController(
-      String serialNumber, DeviceType type) {
+	/**
+	 * Use MockDeviceManager to create an instance of this class
+	 *
+	 * @see MockDeviceManager
+	 * @param serialNumber
+	 */
+	protected MockUsbServoController(
+			String serialNumber, DeviceType type) {
 
-    super(serialNumber, type);
-  }
+		super(serialNumber, type);
+	}
 
-  @Override
-  public String getDeviceName() {
-    return "Mock USB Servo Controller";
-  }
+	@Override
+	public String getDeviceName() {
+		return "Mock USB Servo Controller";
+	}
 
-  @Override
-  public void pwmEnable() {
+	@Override
+	public void pwmEnable() {
 
-  }
+	}
 
-  @Override
-  public void pwmDisable() {
+	@Override
+	public void pwmDisable() {
 
-  }
+	}
 
-  @Override
-  public PwmStatus getPwmStatus() {
-	  return PwmStatus.ENABLED;
-  }
+	@Override
+	public PwmStatus getPwmStatus() {
+		return PwmStatus.ENABLED;
+	}
 
-  @Override
-  public void setServoPosition(int channel, double position) {
+	@Override
+	public void setServoPosition(int channel, double position) {
 
-  }
+	}
 
-  @Override
-  public double getServoPosition(int channel) {
-    return 0.0;
-  }
+	@Override
+	public double getServoPosition(int channel) {
+		return 0.0;
+	}
 
 }

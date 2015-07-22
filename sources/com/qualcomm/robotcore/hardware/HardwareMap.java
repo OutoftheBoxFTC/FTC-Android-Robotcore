@@ -31,6 +31,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.robotcore.hardware;
 
+import android.content.Context;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -43,48 +45,54 @@ import java.util.Set;
  * instance of a hardware driver.
  */
 public class HardwareMap {
-  public static class DeviceMapping<DEVICE_TYPE> implements Iterable<DEVICE_TYPE> {
-    private Map <String, DEVICE_TYPE> map = new HashMap<String, DEVICE_TYPE>();
+	
+	public static class DeviceMapping<DEVICE_TYPE> implements Iterable<DEVICE_TYPE> {
 
-    public DEVICE_TYPE get(String deviceName) {
-      DEVICE_TYPE device = map.get(deviceName);
-      if (device == null) {
-        String msg = String.format("Unable to find a hardware device with the name \"%s\"", deviceName);
-        throw new IllegalArgumentException(msg);
-      }
-      return device;
-    }
+		private Map <String, DEVICE_TYPE> map = new HashMap<String, DEVICE_TYPE>();
 
-    public void put(String deviceName, DEVICE_TYPE device) {
-      map.put(deviceName, device);
-    }
+		public DEVICE_TYPE get(String deviceName) {
+			DEVICE_TYPE device = map.get(deviceName);
+			if (device == null) {
+				String msg = String.format("Unable to find a hardware device with the name \"%s\"", deviceName);
+				throw new IllegalArgumentException(msg);
+			}
+			return device;
+		}
 
-    public Iterator<DEVICE_TYPE> iterator() {
-      return map.values().iterator();
-    }
+		public void put(String deviceName, DEVICE_TYPE device) {
+			map.put(deviceName, device);
+		}
 
-    public Set<Map.Entry<String, DEVICE_TYPE>> entrySet() {
-      return map.entrySet();
-    }
+		public Iterator<DEVICE_TYPE> iterator() {
+			return map.values().iterator();
+		}
 
-    public int size() {
-      return map.size();
-    }
-  }
+		public Set<Map.Entry<String, DEVICE_TYPE>> entrySet() {
+			return map.entrySet();
+		}
 
-  public DeviceMapping<DcMotorController> dcMotorController = new DeviceMapping<DcMotorController>();
-  public DeviceMapping<DcMotor> dcMotor = new DeviceMapping<DcMotor>();
+		public int size() {
+			return map.size();
+		}
+	}
 
-  public DeviceMapping<ServoController> servoController = new DeviceMapping<ServoController>();
-  public DeviceMapping<Servo> servo = new DeviceMapping<Servo>();
+	public DeviceMapping<DcMotorController> dcMotorController = new DeviceMapping<DcMotorController>();
+	public DeviceMapping<DcMotor> dcMotor = new DeviceMapping<DcMotor>();
 
-  public DeviceMapping<LegacyModule> legacyModule = new DeviceMapping<LegacyModule>();
+	public DeviceMapping<ServoController> servoController = new DeviceMapping<ServoController>();
+	public DeviceMapping<Servo> servo = new DeviceMapping<Servo>();
 
-  public DeviceMapping<AccelerationSensor> accelerationSensor = new DeviceMapping<AccelerationSensor>();
-  public DeviceMapping<CompassSensor> compassSensor = new DeviceMapping<CompassSensor>();
-  public DeviceMapping<GyroSensor> gyroSensor = new DeviceMapping<GyroSensor>();
-  public DeviceMapping<IrSeekerSensor> irSeekerSensor = new DeviceMapping<IrSeekerSensor>();
-  public DeviceMapping<LightSensor> lightSensor = new DeviceMapping<LightSensor>();
-  public DeviceMapping<UltrasonicSensor> ultrasonicSensor = new DeviceMapping<UltrasonicSensor>();
-  public DeviceMapping<VoltageSensor> voltageSensor = new DeviceMapping<VoltageSensor>();
+	public DeviceMapping<LegacyModule> legacyModule = new DeviceMapping<LegacyModule>();
+
+	public DeviceMapping<AccelerationSensor> accelerationSensor = new DeviceMapping<AccelerationSensor>();
+	public DeviceMapping<CompassSensor> compassSensor = new DeviceMapping<CompassSensor>();
+	public DeviceMapping<GyroSensor> gyroSensor = new DeviceMapping<GyroSensor>();
+	public DeviceMapping<IrSeekerSensor> irSeekerSensor = new DeviceMapping<IrSeekerSensor>();
+	public DeviceMapping<LightSensor> lightSensor = new DeviceMapping<LightSensor>();
+	public DeviceMapping<UltrasonicSensor> ultrasonicSensor = new DeviceMapping<UltrasonicSensor>();
+	public DeviceMapping<VoltageSensor> voltageSensor = new DeviceMapping<VoltageSensor>();
+	
+	//added from decompiled
+	public Context appContext;
+	
 }

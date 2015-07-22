@@ -38,55 +38,59 @@ package com.qualcomm.robotcore.hardware;
  */
 public interface ServoController {
 
-  /**
-   * PWM Status - is pwm enabled?
-   */
-  public enum PwmStatus { ENABLED, DISABLED };
+	/**
+	 * PWM Status - is pwm enabled?
+	 */
+	public enum PwmStatus {
+		ENABLED,
+		DISABLED
+	};
 
-  /**
-   * Device Name
-   * @return device manufacturer and name
-   */
-  public abstract String getDeviceName();
+	/**
+	 * Device Name
+	 * @return device manufacturer and name
+	 */
+	public abstract String getDeviceName();
 
-  /**
-   * Version
-   * @return get the version of this device
-   */
-  public abstract int getVersion();
+	/**
+	 * Version
+	 * @return get the version of this device
+	 */
+	public abstract int getVersion();
 
-  /**
-   * Close this device
-   */
-  public abstract void close();
+	/**
+	 * Close this device
+	 */
+	public abstract void close();
 
-  /**
-   * PWM enable
-   */
-  public abstract void pwmEnable();
+	/**
+	 * PWM enable
+	 */
+	public abstract void pwmEnable();
 
-  /**
-   * PWM disable
-   */
-  public abstract void pwmDisable();
+	/**
+	 * PWM disable
+	 */
+	public abstract void pwmDisable();
 
-  /**
-   * Get the PWM status
-   * @return status
-   */
-  public abstract PwmStatus getPwmStatus();
+	/**
+	 * Get the PWM status
+	 * @return status
+	 */
+	public abstract PwmStatus getPwmStatus();
 
-  /**
-   * Set the position of a servo at the given channel
-   * @param channel channel of servo
-   * @param position from 0.0 to 1.0
-   */
-  public abstract void setServoPosition(int channel, double position);
+	/**
+	 * Set the position of a servo at the given channel
+	 * @param channel channel of servo
+	 * @param position from 0.0 to 1.0
+	 */
+	public abstract void setServoPosition(int channel, double position);
 
-  /**
-   * Get the position of a servo at a given channel
-   * @param channel channel of servo
-   * @return position, scaled from 0.0 to 1.0
-   */
-  public abstract double getServoPosition(int channel);
+	/**
+	 * Get the position of a servo at a given channel
+	 * @param channel channel of servo
+	 * @return position, scaled from 0.0 to 1.0
+	 */
+	public abstract double getServoPosition(int channel);
+	
 }

@@ -36,42 +36,46 @@ package com.qualcomm.robotcore.hardware;
  */
 public abstract class AccelerationSensor {
 
-  /**
-   * Acceleration in the x, y, and z axis
-   */
-  public static class Acceleration {
-    public Acceleration() {
-      this(0.0, 0.0, 0.0);
-    }
+	/**
+	 * Acceleration in the x, y, and z axis
+	 */
+	public static class Acceleration {
+		
+		public Acceleration() {
+			this(0.0, 0.0, 0.0);
+		}
 
-    public Acceleration(double x, double y, double z) {
-      this.x = x; this.y = y; this.z = z;
-    }
+		public Acceleration(double x, double y, double z) {
+			this.x = x; 
+			this.y = y;
+			this.z = z;
+		}
 
-    public double x;
-    public double y;
-    public double z;
+		public double x;
+		public double y;
+		public double z;
 
-    @Override
-    public String toString() {
-      return String.format("Acceleration - x: %5.2f, y: %5.2f, z: %5.2f", x, y, z);
-    }
-  }
+		@Override
+		public String toString() {
+			return String.format("Acceleration - x: %5.2f, y: %5.2f, z: %5.2f", x, y, z);
+		}
+	}
 
-  /**
-   * Acceleration, measured in g's
-   * @return acceleration in g's
-   */
-  public abstract Acceleration getAcceleration();
+	/**
+	 * Acceleration, measured in g's
+	 * @return acceleration in g's
+	 */
+	public abstract Acceleration getAcceleration();
 
-  /**
-   * Status of this sensor, in string form
-   * @return status
-   */
-  public abstract String status();
+	/**
+	 * Status of this sensor, in string form
+	 * @return status
+	 */
+	public abstract String status();
 
-  @Override
-  public String toString() {
-    return getAcceleration().toString();
-  }
+	@Override
+	public String toString() {
+		return getAcceleration().toString();
+	}
+	
 }

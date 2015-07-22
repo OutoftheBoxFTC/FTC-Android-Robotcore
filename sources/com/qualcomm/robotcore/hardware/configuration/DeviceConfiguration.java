@@ -35,76 +35,77 @@ import java.io.Serializable;
 
 public class DeviceConfiguration implements Serializable {
 
-  public enum ConfigurationType {
-                        MOTOR,
-                        SERVO,
-                        GYRO,
-                        COMPASS,
-                        IR_SEEKER,
-                        LIGHT_SENSOR,
-                        ACCELEROMETER,
-                        MOTOR_CONTROLLER,
-                        SERVO_CONTROLLER,
-                        LEGACY_MODULE_CONTROLLER,
-                        NOTHING};
+	public enum ConfigurationType {
+		MOTOR,
+		SERVO,
+		GYRO,
+		COMPASS,
+		IR_SEEKER,
+		LIGHT_SENSOR,
+		ACCELEROMETER,
+		MOTOR_CONTROLLER,
+		SERVO_CONTROLLER,
+		LEGACY_MODULE_CONTROLLER,
+		NOTHING
+	};
 
-  public static final String DISABLED_DEVICE_NAME = "NO DEVICE ATTACHED";
-  protected String name;
-  private ConfigurationType type = ConfigurationType.NOTHING;
-  private int port;
+	public static final String DISABLED_DEVICE_NAME = "NO DEVICE ATTACHED";
+	protected String name;
+	private ConfigurationType type = ConfigurationType.NOTHING;
+	private int port;
 
-  private boolean disabled = false;
+	private boolean isDisabled = false;
 
-  public DeviceConfiguration(int port){
-    this.name = DISABLED_DEVICE_NAME;
-    this.type = ConfigurationType.NOTHING;
-    this.port = port;
-  }
+	public DeviceConfiguration(int port){
+		this.name = DISABLED_DEVICE_NAME;
+		this.type = ConfigurationType.NOTHING;
+		this.port = port;
+	}
 
-  public DeviceConfiguration(ConfigurationType type){
+	public DeviceConfiguration(ConfigurationType type){
+		this.name = "";
+		this.type = type;
+	}
 
-    this.name = "";
-    this.type = type;
-  }
+	public boolean isDisabled() {
+		return isDisabled;
+	}
 
-  public boolean isDisabled() {
-    return disabled;
-  }
+	public void setDisabled(boolean disabled) {
+		this.isDisabled = disabled;
+	}
 
-  public void setDisabled(boolean disabled) {
-    this.disabled = disabled;
-  }
+	public String getName() {
+		return this.name;
+	}
 
-  public String getName(){
-    return this.name;
-  }
+	public void setName(String newName){
+		this.name = newName;
+	}
 
-  public void setName(String newName){
-    this.name = newName;
-  }
+	public void setType(ConfigurationType type){
+		this.type = type;
+	}
 
-  public void setType(ConfigurationType type){
-    this.type = type;
-  }
+	public ConfigurationType getType(){
+		return this.type;
+	}
 
-  public ConfigurationType getType(){
-    return this.type;
-  }
+	public int getPort() {
+		return port;
+	}
 
+	public void setPort(int port) {
+		this.port = port;
+	}
 
-  public int getPort(){
-    return port;
-  }
-
-  public void setPort(int port) { this.port = port; }
-
-  public ConfigurationType typeFromString(String type){
-    for (ConfigurationType configType : ConfigurationType.values()){
-      if (type.equalsIgnoreCase(configType.toString())){
-        return configType;
-      }
-    }
-    return ConfigurationType.NOTHING;
-  }
+	public ConfigurationType typeFromString(String type){
+		for (ConfigurationType configType : ConfigurationType.values()){
+			if (type.equalsIgnoreCase(configType.toString())){
+				return configType;
+			}
+		}
+		return ConfigurationType.NOTHING;
+	}
 
 }

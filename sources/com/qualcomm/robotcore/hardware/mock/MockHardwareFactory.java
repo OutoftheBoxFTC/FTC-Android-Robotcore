@@ -38,7 +38,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 /**
  * Mock Hardware Factory
  */
-@SuppressWarnings("unused")
 public class MockHardwareFactory implements HardwareFactory {
 
     private HardwareMap hardwareMap;
